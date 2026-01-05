@@ -23,6 +23,7 @@
       --accent: #e05a3a;
       --accent-hover: #c94a2c;
       --accent-muted: rgba(224, 90, 58, 0.1);
+      --accent-dim: #b34a30;
       --canvas-bg: #1a1a18;
       --technical-line: rgba(26, 26, 24, 0.06);
     }
@@ -42,6 +43,7 @@
       --accent: #e86a4a;
       --accent-hover: #f07a5a;
       --accent-muted: rgba(232, 106, 74, 0.15);
+      --accent-dim: #ba553c;
       --canvas-bg: #faf8f4;
       --technical-line: rgba(240, 240, 236, 0.04);
     }
@@ -175,16 +177,52 @@
 
     .section:last-child { margin-bottom: 0; }
 
-    /* Section corner marks */
-    .section::before {
+    /* Section corner marks - all 4 corners */
+    .section::before,
+    .section::after {
       content: '';
       position: absolute;
-      top: -1px;
-      right: -1px;
       width: 6px;
       height: 6px;
-      border-top: 1px solid var(--accent);
-      border-right: 1px solid var(--accent);
+      border-color: var(--accent-dim);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    .section::before {
+      top: -1px;
+      left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .section::after {
+      top: -1px;
+      right: -1px;
+      border-width: 1px 1px 0 0;
+    }
+
+    /* Additional corner marks via inner element */
+    .section-corners::before,
+    .section-corners::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-color: var(--accent-dim);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    .section-corners::before {
+      bottom: -1px;
+      left: -1px;
+      border-width: 0 0 1px 1px;
+    }
+
+    .section-corners::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 1px 1px 0;
     }
 
     .section-title {
@@ -441,7 +479,7 @@
       position: absolute;
       width: 12px;
       height: 12px;
-      border-color: var(--accent);
+      border-color: var(--accent-dim);
       border-style: solid;
       z-index: 10;
       pointer-events: none;
@@ -457,6 +495,38 @@
       bottom: -6px;
       right: -6px;
       border-width: 0 1px 1px 0;
+    }
+
+    /* Additional canvas corners via inner wrapper */
+    .canvas-corners {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+    }
+
+    .canvas-corners::before,
+    .canvas-corners::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: var(--accent-dim);
+      border-style: solid;
+    }
+
+    .canvas-corners::before {
+      top: -6px;
+      right: -6px;
+      border-width: 1px 1px 0 0;
+    }
+
+    .canvas-corners::after {
+      bottom: -6px;
+      left: -6px;
+      border-width: 0 0 1px 1px;
     }
 
     /* Export Button */
@@ -483,6 +553,13 @@
 
     .export-btn-fixed:hover { background: var(--accent-hover); }
     .export-btn-fixed svg { width: 14px; height: 14px; }
+
+    .export-btn-fixed .shortcut-hint {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      margin-left: 4px;
+    }
 
     /* Theme Toggle */
     .theme-toggle {
@@ -663,15 +740,50 @@
       position: relative;
     }
 
-    .wallet-card::before {
+    .wallet-card .section-corners::before,
+    .wallet-card .section-corners::after {
       content: '';
       position: absolute;
-      top: -1px;
-      right: -1px;
       width: 6px;
       height: 6px;
-      border-top: 1px solid var(--accent);
-      border-right: 1px solid var(--accent);
+      border-color: var(--accent-dim);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    .wallet-card .section-corners::before {
+      bottom: -1px;
+      left: -1px;
+      border-width: 0 0 1px 1px;
+    }
+
+    .wallet-card .section-corners::after {
+      bottom: -1px;
+      right: -1px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .wallet-card::before,
+    .wallet-card::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-color: var(--accent-dim);
+      border-style: solid;
+      pointer-events: none;
+    }
+
+    .wallet-card::before {
+      top: -1px;
+      left: -1px;
+      border-width: 1px 0 0 1px;
+    }
+
+    .wallet-card::after {
+      top: -1px;
+      right: -1px;
+      border-width: 1px 1px 0 0;
     }
 
     .wallet-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
@@ -682,15 +794,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      color: white;
+      border-radius: 50%;
+    }
+
+    .wallet-icon svg {
+      width: 28px;
+      height: 28px;
     }
 
     .wallet-icon.sol { background: linear-gradient(135deg, #9945FF, #14F195); }
-    .wallet-icon.eth { background: linear-gradient(135deg, #627EEA, #C99BFA); }
-    .wallet-icon.btc { background: linear-gradient(135deg, #F7931A, #FFAB40); }
+    .wallet-icon.eth { background: #627EEA; }
+    .wallet-icon.btc { background: #F7931A; }
 
     .wallet-name { 
       font-family: 'JetBrains Mono', monospace;
@@ -768,8 +882,8 @@
       right: -1px;
       width: 8px;
       height: 8px;
-      border-top: 1px solid var(--accent);
-      border-right: 1px solid var(--accent);
+      border-top: 1px solid var(--accent-dim);
+      border-right: 1px solid var(--accent-dim);
     }
 
     .qr-modal-content h3 {
@@ -829,7 +943,6 @@
     .export-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.9);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -842,42 +955,28 @@
 
     .export-overlay.open { opacity: 1; visibility: visible; }
 
+    .export-overlay.light-bg {
+      background: #1a1a18;
+    }
+
+    .export-overlay.dark-bg {
+      background: #f0f0ec;
+    }
+
     .export-preview {
       max-width: 70vw;
-      max-height: 60vh;
-      border: 1px solid var(--border-secondary);
+      max-height: 55vh;
       margin-bottom: 32px;
       position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
 
-    .export-preview::before,
-    .export-preview::after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--accent);
-      border-style: solid;
-    }
-
-    .export-preview::before {
-      top: -6px;
-      left: -6px;
-      border-width: 1px 0 0 1px;
-    }
-
-    .export-preview::after {
-      bottom: -6px;
-      right: -6px;
-      border-width: 0 1px 1px 0;
-    }
-
-    .export-preview img { max-width: 100%; max-height: 60vh; display: block; }
+    .export-preview img { max-width: 100%; max-height: 55vh; display: block; }
 
     .export-options {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -894,10 +993,61 @@
       cursor: pointer;
     }
 
+    .export-overlay.light-bg .export-options label {
+      color: #a0a09a;
+    }
+
+    .export-overlay.dark-bg .export-options label {
+      color: #4a4a46;
+    }
+
     .export-options input[type="checkbox"] {
       width: 14px;
       height: 14px;
       accent-color: var(--accent);
+    }
+
+    .format-selector {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border-secondary);
+    }
+
+    .format-btn {
+      padding: 10px 20px;
+      background: transparent;
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      color: var(--fg-muted);
+    }
+
+    .export-overlay.light-bg .format-btn {
+      color: #606060;
+      border-right: 1px solid #333;
+    }
+
+    .export-overlay.dark-bg .format-btn {
+      color: #8a8a84;
+      border-right: 1px solid #c4c1b9;
+    }
+
+    .format-btn:last-child {
+      border-right: none;
+    }
+
+    .format-btn.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .format-btn:hover:not(.active) {
+      background: var(--accent-muted);
     }
 
     .export-actions { display: flex; gap: 12px; margin-top: 24px; }
@@ -923,8 +1073,17 @@
 
     .export-btn.secondary {
       background: transparent;
-      color: var(--fg-secondary);
       border: 1px solid var(--border-secondary);
+    }
+
+    .export-overlay.light-bg .export-btn.secondary {
+      color: #a0a09a;
+      border-color: #333;
+    }
+
+    .export-overlay.dark-bg .export-btn.secondary {
+      color: #4a4a46;
+      border-color: #c4c1b9;
     }
 
     .export-btn.secondary:hover { 
@@ -1112,6 +1271,7 @@
       <div class="sidebar-content">
         <!-- Canvas Size -->
         <div class="section">
+          <div class="section-corners"></div>
           <div class="section-title">Canvas Size</div>
           <div class="form-group">
             <div class="label-row"><label>Preset</label></div>
@@ -1160,6 +1320,7 @@
 
         <!-- Grid Layout -->
         <div class="section">
+          <div class="section-corners"></div>
           <div class="section-title">
             Grid Layout
             <div class="section-actions">
@@ -1175,6 +1336,7 @@
 
         <!-- Spacing -->
         <div class="section">
+          <div class="section-corners"></div>
           <div class="section-title">Spacing</div>
           <div class="input-row">
             <div class="form-group">
@@ -1212,6 +1374,7 @@
 
         <!-- Line Style -->
         <div class="section">
+          <div class="section-corners"></div>
           <div class="section-title">Line Style</div>
           <div class="input-row">
             <div class="form-group">
@@ -1269,6 +1432,7 @@
 
         <!-- Preview Background -->
         <div class="section">
+          <div class="section-corners"></div>
           <div class="section-title">Preview Background</div>
           <div class="bg-preview-section">
             <div class="bg-swatches">
@@ -1288,6 +1452,7 @@
 
         <!-- Randomize -->
         <div class="section">
+          <div class="section-corners"></div>
           <button class="btn btn-secondary" id="randomizeBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
             Randomize
@@ -1300,13 +1465,15 @@
     <main class="canvas-area" id="canvasArea">
       <div class="canvas-wrapper" id="canvasWrapper">
         <canvas id="gridCanvas"></canvas>
+        <div class="canvas-corners"></div>
       </div>
     </main>
 
     <!-- Export Button -->
     <button class="export-btn-fixed" id="exportBtn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-      Export PNG
+      Export
+      <span class="shortcut-hint">E</span>
     </button>
 
     <!-- Theme Toggle -->
@@ -1339,7 +1506,19 @@
         </div>
 
         <div class="wallet-card">
-          <div class="wallet-header"><div class="wallet-icon sol">SOL</div><div class="wallet-name">Solana</div></div>
+          <div class="section-corners"></div>
+          <div class="wallet-header">
+            <div class="wallet-icon sol">
+              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="64" cy="64" r="64" fill="url(#solGrad)"/>
+                <path d="M35.5 80.5L47.3 68.7C48.1 67.9 49.2 67.5 50.3 67.5H92.5C93.4 67.5 93.8 68.6 93.2 69.2L81.4 81C80.6 81.8 79.5 82.2 78.4 82.2H36.2C35.3 82.2 34.9 81.1 35.5 80.5Z" fill="white"/>
+                <path d="M35.5 47.5L47.3 59.3C48.1 60.1 49.2 60.5 50.3 60.5H92.5C93.4 60.5 93.8 59.4 93.2 58.8L81.4 47C80.6 46.2 79.5 45.8 78.4 45.8H36.2C35.3 45.8 34.9 46.9 35.5 47.5Z" fill="white"/>
+                <path d="M92.5 53.5H50.3C49.2 53.5 48.1 53.9 47.3 54.7L35.5 66.5C34.9 67.1 35.3 68.2 36.2 68.2H78.4C79.5 68.2 80.6 67.8 81.4 67L93.2 55.2C93.8 54.6 93.4 53.5 92.5 53.5Z" fill="white"/>
+                <defs><linearGradient id="solGrad" x1="0" y1="0" x2="128" y2="128"><stop stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs>
+              </svg>
+            </div>
+            <div class="wallet-name">Solana</div>
+          </div>
           <div class="wallet-address">HCvLdXCkmN4CFMwjPYAuvdLduNJYP53ziiQuCYiKdzkJ</div>
           <div class="wallet-actions">
             <button class="wallet-btn copy" data-address="HCvLdXCkmN4CFMwjPYAuvdLduNJYP53ziiQuCYiKdzkJ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
@@ -1347,7 +1526,21 @@
           </div>
         </div>
         <div class="wallet-card">
-          <div class="wallet-header"><div class="wallet-icon eth">ETH</div><div class="wallet-name">Ethereum</div></div>
+          <div class="section-corners"></div>
+          <div class="wallet-header">
+            <div class="wallet-icon eth">
+              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="64" cy="64" r="64" fill="#627EEA"/>
+                <path d="M64 16V52.66L93.86 65.06L64 16Z" fill="white" fill-opacity="0.6"/>
+                <path d="M64 16L34.14 65.06L64 52.66V16Z" fill="white"/>
+                <path d="M64 87.46V112L93.88 71.16L64 87.46Z" fill="white" fill-opacity="0.6"/>
+                <path d="M64 112V87.46L34.14 71.16L64 112Z" fill="white"/>
+                <path d="M64 81.36L93.86 65.06L64 52.68V81.36Z" fill="white" fill-opacity="0.2"/>
+                <path d="M34.14 65.06L64 81.36V52.68L34.14 65.06Z" fill="white" fill-opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="wallet-name">Ethereum</div>
+          </div>
           <div class="wallet-address">0x35ccffF3e9bA23EA6FD6030aE24C4fc7032E23d1</div>
           <div class="wallet-actions">
             <button class="wallet-btn copy" data-address="0x35ccffF3e9bA23EA6FD6030aE24C4fc7032E23d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
@@ -1355,7 +1548,16 @@
           </div>
         </div>
         <div class="wallet-card">
-          <div class="wallet-header"><div class="wallet-icon btc">BTC</div><div class="wallet-name">Bitcoin</div></div>
+          <div class="section-corners"></div>
+          <div class="wallet-header">
+            <div class="wallet-icon btc">
+              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="64" cy="64" r="64" fill="#F7931A"/>
+                <path d="M89.5 55.5C90.6 47.3 84.5 42.9 76 40L78.6 29.5L72.1 27.9L69.6 38.1C67.9 37.7 66.1 37.3 64.4 36.9L66.9 26.6L60.4 25L57.8 35.5C56.4 35.2 55 34.9 53.7 34.5L46.1 32.6L44.4 39.5C44.4 39.5 49.2 40.6 49.1 40.7C51.8 41.4 52.3 43.1 52.2 44.5L49.1 57C49.3 57 49.5 57.1 49.8 57.2L49.1 57L44.7 75.4C44.4 76.2 43.5 77.4 41.6 76.9C41.7 77 36.9 75.8 36.9 75.8L33.5 83.2L40.6 85C42.2 85.4 43.7 85.8 45.2 86.2L42.6 96.9L49.1 98.5L51.7 87.9C53.5 88.4 55.2 88.8 56.9 89.2L54.3 99.7L60.8 101.3L63.4 90.6C74.4 92.7 82.7 91.8 86.1 81.9C88.8 73.9 85.8 69.3 80 66.4C84.3 65.4 87.5 62.5 88.4 57.1L89.5 55.5ZM73.6 77.5C71.7 85.5 58 81.1 53.6 80L57.1 65.8C61.5 66.9 75.6 69 73.6 77.5ZM75.5 55.4C73.8 62.7 62.5 59 58.8 58L62 45.1C65.7 46.1 77.3 47.7 75.5 55.4Z" fill="white"/>
+              </svg>
+            </div>
+            <div class="wallet-name">Bitcoin</div>
+          </div>
           <div class="wallet-address">bc1qwsr58r24ckt2dc0p2aa2qc8gp6punt7t4tdsea</div>
           <div class="wallet-actions">
             <button class="wallet-btn copy" data-address="bc1qwsr58r24ckt2dc0p2aa2qc8gp6punt7t4tdsea"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Copy</button>
@@ -1389,11 +1591,15 @@
       <img id="exportPreviewImg" src="" alt="Preview">
     </div>
     <div class="export-options">
-      <label><input type="checkbox" id="transparentBg"> Transparent Background</label>
+      <div class="format-selector">
+        <button class="format-btn active" data-format="png">PNG</button>
+        <button class="format-btn" data-format="svg">SVG</button>
+      </div>
+      <label><input type="checkbox" id="transparentBg" checked> Transparent Background</label>
     </div>
     <div class="export-actions">
       <button class="export-btn secondary" id="exportCancel">Cancel</button>
-      <button class="export-btn primary" id="exportDownload">Download PNG</button>
+      <button class="export-btn primary" id="exportDownload">Download</button>
     </div>
   </div>
 
@@ -1643,34 +1849,374 @@
     });
 
     // Export
-    function showExport() {
-      const dataUrl = canvas.toDataURL('image/png');
-      document.getElementById('exportPreviewImg').src = dataUrl;
-      document.getElementById('exportOverlay').classList.add('open');
+    let exportFormat = 'png';
+
+    function getContrastBg(bgColor) {
+      // Calculate luminance
+      const hex = bgColor.replace('#', '');
+      const r = parseInt(hex.substr(0, 2), 16);
+      const g = parseInt(hex.substr(2, 2), 16);
+      const b = parseInt(hex.substr(4, 2), 16);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      return luminance > 0.5 ? 'dark-bg' : 'light-bg';
     }
+
+    function showExport() {
+      const overlay = document.getElementById('exportOverlay');
+      const transparent = document.getElementById('transparentBg').checked;
+      
+      // Set adaptive background
+      overlay.classList.remove('light-bg', 'dark-bg');
+      overlay.classList.add(getContrastBg(state.bgColor));
+      
+      // Generate preview (always with current bg for preview)
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = state.width;
+      tempCanvas.height = state.height;
+      const tempCtx = tempCanvas.getContext('2d');
+      renderGrids(tempCtx, transparent);
+      
+      document.getElementById('exportPreviewImg').src = tempCanvas.toDataURL('image/png');
+      overlay.classList.add('open');
+    }
+
+    // Format selection
+    document.querySelectorAll('.format-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        exportFormat = btn.dataset.format;
+      });
+    });
+
+    // Update preview when transparent checkbox changes
+    document.getElementById('transparentBg').addEventListener('change', () => {
+      const transparent = document.getElementById('transparentBg').checked;
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = state.width;
+      tempCanvas.height = state.height;
+      const tempCtx = tempCanvas.getContext('2d');
+      renderGrids(tempCtx, transparent);
+      document.getElementById('exportPreviewImg').src = tempCanvas.toDataURL('image/png');
+    });
 
     document.getElementById('exportBtn').addEventListener('click', showExport);
     document.getElementById('exportCancel').addEventListener('click', () => document.getElementById('exportOverlay').classList.remove('open'));
 
     document.getElementById('exportDownload').addEventListener('click', () => {
       const transparent = document.getElementById('transparentBg').checked;
-      let dataUrl;
-      if (transparent) {
+      
+      if (exportFormat === 'svg') {
+        // Generate SVG
+        const svg = generateSVG(transparent);
+        const blob = new Blob([svg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `baseline-grid-${state.width}x${state.height}.svg`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } else {
+        // Generate PNG
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = state.width;
         tempCanvas.height = state.height;
         const tempCtx = tempCanvas.getContext('2d');
-        renderGrids(tempCtx, true);
-        dataUrl = tempCanvas.toDataURL('image/png');
-      } else {
-        dataUrl = canvas.toDataURL('image/png');
+        renderGrids(tempCtx, transparent);
+        const dataUrl = tempCanvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = `baseline-grid-${state.width}x${state.height}.png`;
+        a.click();
       }
-      const a = document.createElement('a');
-      a.href = dataUrl;
-      a.download = `baseline-grid-${state.width}x${state.height}.png`;
-      a.click();
       document.getElementById('exportOverlay').classList.remove('open');
     });
+
+    // SVG Generation
+    function generateSVG(transparent) {
+      const m = state.margin;
+      const p = state.padding;
+      const g = state.gutter;
+      const x = m + p, y = m + p;
+      const w = state.width - 2*(m+p), h = state.height - 2*(m+p);
+      const s = Math.max(state.width, state.height) / 1000;
+      
+      let paths = '';
+      state.selectedGrids.forEach(id => {
+        paths += generateGridSVG(id, x, y, w, h, g, s);
+      });
+      
+      const strokeColor = state.lineColor;
+      const strokeOpacity = state.lineOpacity / 100;
+      let dashArray = '';
+      if (state.lineStyle === 'dashed') dashArray = `stroke-dasharray="${8*s},${4*s}"`;
+      else if (state.lineStyle === 'dotted') dashArray = `stroke-dasharray="${2*s},${4*s}"`;
+      
+      const bgRect = transparent ? '' : `<rect width="${state.width}" height="${state.height}" fill="${state.bgColor}"/>`;
+      
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${state.width}" height="${state.height}" viewBox="0 0 ${state.width} ${state.height}">
+  ${bgRect}
+  <g stroke="${strokeColor}" stroke-opacity="${strokeOpacity}" stroke-width="${state.lineWeight}" fill="none" ${dashArray}>
+    ${paths}
+  </g>
+</svg>`;
+    }
+
+    function generateGridSVG(id, x, y, w, h, g, s) {
+      const phi = 1.618;
+      const cx = x + w/2, cy = y + h/2;
+      const r = Math.min(w, h) * 0.4;
+      let paths = '';
+      
+      function line(x1, y1, x2, y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
+      function rect(rx, ry, rw, rh) { return `<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}"/>`; }
+      function circle(ccx, ccy, cr) { return `<circle cx="${ccx}" cy="${ccy}" r="${cr}"/>`; }
+      
+      switch(id) {
+        case 'rule-of-thirds':
+          paths += line(x+w/3,y,x+w/3,y+h) + line(x+2*w/3,y,x+2*w/3,y+h);
+          paths += line(x,y+h/3,x+w,y+h/3) + line(x,y+2*h/3,x+w,y+2*h/3);
+          break;
+        case 'fibonacci':
+          paths += generateGoldenSpiralSVG(x,y,w,h);
+          break;
+        case 'diagonal':
+          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
+          break;
+        case 'diagonal-triangles':
+          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
+          paths += line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h);
+          paths += line(x,y,x+w/2,y+h) + line(x+w,y,x+w/2,y+h);
+          break;
+        case 'center-lines':
+          paths += line(x+w/2,y,x+w/2,y+h) + line(x,y+h/2,x+w,y+h/2);
+          break;
+        case 'dynamic-symmetry':
+          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
+          paths += line(x,y,x+w,y+h*0.618) + line(x+w,y,x,y+h*0.618);
+          paths += line(x,y+h,x+w,y+h*0.382) + line(x+w,y+h,x,y+h*0.382);
+          break;
+        case 'harmonic-armature':
+          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
+          paths += line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h);
+          paths += line(x,y+h/2,x+w,y) + line(x,y+h/2,x+w,y+h);
+          paths += line(x+w,y+h/2,x,y) + line(x+w,y+h/2,x,y+h);
+          break;
+        case 'manuscript':
+          paths += rect(x+w*0.1,y,w*0.8,h);
+          break;
+        case 'ratio-2-1': { const a21=(w-g)/3; paths += rect(x,y,a21*2,h) + rect(x+a21*2+g,y,a21,h); break; }
+        case 'ratio-1-2': { const a12=(w-g)/3; paths += rect(x,y,a12,h) + rect(x+a12+g,y,a12*2,h); break; }
+        case 'feature': { const fw=w*0.6; paths += rect(x,y,fw,h*0.65) + rect(x,y+h*0.65+g,fw,h*0.35-g) + rect(x+fw+g,y,w-fw-g,h); break; }
+        case 'pull-quote': paths += rect(x,y,w,h) + rect(x+w*0.15,y+h*0.35,w*0.7,h*0.3); break;
+        case 'modular-2x2': paths += generateModSVG(x,y,w,h,2,2,g); break;
+        case 'modular-3x3': paths += generateModSVG(x,y,w,h,3,3,g); break;
+        case 'modular-4x4': paths += generateModSVG(x,y,w,h,4,4,g); break;
+        case 'modular-4x6': paths += generateModSVG(x,y,w,h,4,6,g); break;
+        case 'modular-5x5': paths += generateModSVG(x,y,w,h,5,5,g); break;
+        case 'modular-6x6': paths += generateModSVG(x,y,w,h,6,6,g); break;
+        case 'isometric': paths += generateIsoSVG(x,y,w,h,s); break;
+        case 'perspective-1pt': paths += generate1PSVG(x,y,w,h); break;
+        case 'perspective-2pt': paths += generate2PSVG(x,y,w,h); break;
+        case 'perspective-3pt': paths += generate3PSVG(x,y,w,h); break;
+        case 'vanishing-center':
+          for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2; paths += line(cx,cy,cx+Math.cos(a)*w,cy+Math.sin(a)*h);}
+          break;
+        case 'radial':
+          const rr=Math.min(w,h)/2;
+          for(let i=1;i<=5;i++) paths += circle(cx,cy,rr*i/5);
+          for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2; paths += line(cx,cy,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}
+          break;
+        case 'field-grid':
+          const fc=4,fgr=6,fgw=w/fc,fgh=h/fgr;
+          for(let i=0;i<=fc;i++) paths += line(x+i*fgw,y,x+i*fgw,y+h);
+          for(let i=0;i<=fgr;i++) paths += line(x,y+i*fgh,x+w,y+i*fgh);
+          break;
+        case 'musical':
+          [0,0.125,0.25,0.333,0.5,0.667,0.75,0.875,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
+          break;
+        case 'progressive':
+          [0,0.08,0.18,0.3,0.45,0.62,0.8,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
+          break;
+        case 'fibonacci-rhythm': {
+          let fibAcc = 0;
+          [0,1,1,2,3,5,8,13,21].forEach((v,i)=>{ if(i>0){ const p=fibAcc/34; paths += line(x,y+h*p,x+w,y+h*p); } fibAcc+=v; });
+          break;
+        }
+        case 'phi-sections':
+          [0,1-1/phi,1/phi,1-(1/phi/phi),1/phi/phi,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
+          break;
+        case 'fifths':
+          [0,0.2,0.4,0.6,0.8,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
+          break;
+        case 'standard-4': paths += generateStdSVG(x,y,w,h,4*s); break;
+        case 'standard-8': paths += generateStdSVG(x,y,w,h,8*s); break;
+        case 'standard-12': paths += generateStdSVG(x,y,w,h,12*s); break;
+        case 'standard-24': paths += generateStdSVG(x,y,w,h,24*s); break;
+        case 'standard-48': paths += generateStdSVG(x,y,w,h,48*s); break;
+        case 'baseline-4': paths += generateBaseSVG(x,y,w,h,4*s); break;
+        case 'baseline-8': paths += generateBaseSVG(x,y,w,h,8*s); break;
+        case 'baseline-12': paths += generateBaseSVG(x,y,w,h,12*s); break;
+        case 'baseline-24': paths += generateBaseSVG(x,y,w,h,24*s); break;
+        case 'baseline-48': paths += generateBaseSVG(x,y,w,h,48*s); break;
+        case 'columns-2':case 'columns-3':case 'columns-4':case 'columns-5':case 'columns-6':case 'columns-8':case 'columns-12':
+          paths += generateColsSVG(x,y,w,h,+id.split('-')[1],g); break;
+        case 'rows-2':case 'rows-3':case 'rows-4':case 'rows-6':case 'rows-8':case 'rows-12':
+          paths += generateRowsSVG(x,y,w,h,+id.split('-')[1],g); break;
+        case 'compound-3-4': paths += generateCompoundSVG(x,y,w,h,3,4); break;
+        case 'compound-3-5': paths += generateCompoundSVG(x,y,w,h,3,5); break;
+        case 'compound-4-5': paths += generateCompoundSVG(x,y,w,h,4,5); break;
+        case 'compound-4-6': paths += generateCompoundSVG(x,y,w,h,4,6); break;
+        case 'compound-5-6': paths += generateCompoundSVG(x,y,w,h,5,6); break;
+        case 'program': paths += generateProgramSVG(x,y,w,h); break;
+        case 'nested-phi':
+          const ng1=w/phi,ng2=ng1/phi;
+          paths += line(x+ng1,y,x+ng1,y+h) + line(x+w-ng1,y,x+w-ng1,y+h);
+          paths += line(x+ng2,y,x+ng2,y+h) + line(x+w-ng2,y,x+w-ng2,y+h);
+          const ngh1=h/phi,ngh2=ngh1/phi;
+          paths += line(x,y+ngh1,x+w,y+ngh1) + line(x,y+h-ngh1,x+w,y+h-ngh1);
+          paths += line(x,y+ngh2,x+w,y+ngh2) + line(x,y+h-ngh2,x+w,y+h-ngh2);
+          break;
+        case 'asymmetric-compound':
+          const acw=w/3;
+          paths += rect(x,y,acw,h);
+          const acg=(w-acw-g); const colW=(acg-g*5)/6;
+          for(let i=0;i<6;i++) paths += rect(x+acw+g+i*(colW+g),y,colW,h);
+          break;
+        case 'circle': paths += circle(cx,cy,r); break;
+        case 'vesica-piscis':
+          const vr=r*0.75;
+          paths += circle(cx-vr*0.4,cy,vr) + circle(cx+vr*0.4,cy,vr);
+          break;
+        case 'trinity':
+          for(let i=0;i<3;i++){const a=i*Math.PI*2/3-Math.PI/2; paths += circle(cx+r*0.35*Math.cos(a),cy+r*0.35*Math.sin(a),r*0.7);}
+          break;
+        case 'tetrad':
+          for(let i=0;i<4;i++){const a=i*Math.PI/2; paths += circle(cx+r*0.4*Math.cos(a),cy+r*0.4*Math.sin(a),r*0.65);}
+          break;
+        case 'quintet':
+          for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2; paths += circle(cx+r*0.45*Math.cos(a),cy+r*0.45*Math.sin(a),r*0.58);}
+          break;
+        case 'seed-of-life':
+          const sr=r*0.5; paths += circle(cx,cy,sr);
+          for(let i=0;i<6;i++){const a=i*Math.PI/3; paths += circle(cx+sr*Math.cos(a),cy+sr*Math.sin(a),sr);}
+          break;
+        case 'flower-of-life':
+          const flr=r*0.28; paths += circle(cx,cy,flr);
+          for(let ring=0;ring<2;ring++){const dist=flr*(ring+1);for(let i=0;i<6;i++){const a=i*Math.PI/3+(ring*Math.PI/6); paths += circle(cx+dist*Math.cos(a),cy+dist*Math.sin(a),flr);}}
+          for(let i=0;i<6;i++){const a=i*Math.PI/3; paths += circle(cx+flr*2*Math.cos(a),cy+flr*2*Math.sin(a),flr);}
+          break;
+        case 'sri-yantra': paths += generateSriYantraSVG(cx,cy,r); break;
+        case 'metatrons-cube': paths += generateMetatronSVG(cx,cy,r); break;
+      }
+      return paths;
+    }
+
+    function generateGoldenSpiralSVG(x,y,w,h) {
+      const p=1.618; let cx=x,cy=y,cw=w,ch=h; let paths='';
+      function line(x1,y1,x2,y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
+      for(let i=0;i<8;i++){
+        if(i%4===0){const nw=cw/p; paths+=line(cx+nw,cy,cx+nw,cy+ch); cx+=nw;cw-=nw;}
+        else if(i%4===1){const nh=ch/p; paths+=line(cx,cy+ch-nh,cx+cw,cy+ch-nh); ch-=nh;}
+        else if(i%4===2){const nw=cw/p; paths+=line(cx+cw-nw,cy,cx+cw-nw,cy+ch); cw-=nw;}
+        else{const nh=ch/p; paths+=line(cx,cy+nh,cx+cw,cy+nh); cy+=nh;ch-=nh;}
+      }
+      return paths;
+    }
+
+    function generateModSVG(x,y,w,h,cols,rows,g) {
+      const cw=(w-g*(cols-1))/cols,rh=(h-g*(rows-1))/rows; let paths='';
+      for(let col=0;col<cols;col++) for(let row=0;row<rows;row++) paths+=`<rect x="${x+col*(cw+g)}" y="${y+row*(rh+g)}" width="${cw}" height="${rh}"/>`;
+      return paths;
+    }
+
+    function generateBaseSVG(x,y,w,h,sp) {
+      let paths='';
+      for(let py=y;py<=y+h;py+=sp) paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;
+      return paths;
+    }
+
+    function generateStdSVG(x,y,w,h,sp) {
+      let paths='';
+      for(let py=y;py<=y+h;py+=sp) paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;
+      for(let px=x;px<=x+w;px+=sp) paths+=`<line x1="${px}" y1="${y}" x2="${px}" y2="${y+h}"/>`;
+      return paths;
+    }
+
+    function generateIsoSVG(x,y,w,h,s) {
+      const sp=40*s, a=Math.tan(30*Math.PI/180); let paths='';
+      for(let i=-h;i<w+h;i+=sp) { paths+=`<line x1="${x+i}" y1="${y+h}" x2="${x+i+h/a}" y2="${y}"/>`; paths+=`<line x1="${x+i}" y1="${y+h}" x2="${x+i-h/a}" y2="${y}"/>`; }
+      for(let px=x;px<=x+w;px+=sp) paths+=`<line x1="${px}" y1="${y}" x2="${px}" y2="${y+h}"/>`;
+      return paths;
+    }
+
+    function generate1PSVG(x,y,w,h) {
+      const cx=x+w/2,cy=y+h/2; let paths='';
+      [[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x+w/2,y],[x+w,cy],[x+w/2,y+h],[x,cy]].forEach(p=>{ paths+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}"/>`; });
+      paths+=`<line x1="${x}" y1="${cy}" x2="${x+w}" y2="${cy}"/>`;
+      return paths;
+    }
+
+    function generate2PSVG(x,y,w,h) {
+      const hy=y+h*0.4,lv=x-w*0.1,rv=x+w*1.1; let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;
+      for(let i=0;i<=4;i++) { paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/4}"/>`; paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/4}"/>`; }
+      return paths;
+    }
+
+    function generate3PSVG(x,y,w,h) {
+      const hy=y+h*0.3,lv=x-w*0.1,rv=x+w*1.1,bv=y+h*1.3; let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;
+      for(let i=0;i<=3;i++) { paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/3}"/>`; paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/3}"/>`; }
+      for(let i=0;i<=4;i++) paths+=`<line x1="${x+w*i/4}" y1="${y}" x2="${x+w/2}" y2="${bv}"/>`;
+      return paths;
+    }
+
+    function generateColsSVG(x,y,w,h,n,g) {
+      const cw=(w-g*(n-1))/n; let paths='';
+      for(let i=0;i<n;i++){const cx=x+i*(cw+g); paths+=`<line x1="${cx}" y1="${y}" x2="${cx}" y2="${y+h}"/>`; paths+=`<line x1="${cx+cw}" y1="${y}" x2="${cx+cw}" y2="${y+h}"/>`;}
+      return paths;
+    }
+
+    function generateRowsSVG(x,y,w,h,n,g) {
+      const rh=(h-g*(n-1))/n; let paths='';
+      for(let i=0;i<n;i++){const ry=y+i*(rh+g); paths+=`<line x1="${x}" y1="${ry}" x2="${x+w}" y2="${ry}"/>`; paths+=`<line x1="${x}" y1="${ry+rh}" x2="${x+w}" y2="${ry+rh}"/>`;}
+      return paths;
+    }
+
+    function generateCompoundSVG(x,y,w,h,n1,n2) {
+      let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;
+      for(let i=1;i<n1;i++) paths+=`<line x1="${x+w*i/n1}" y1="${y}" x2="${x+w*i/n1}" y2="${y+h}"/>`;
+      for(let i=1;i<n2;i++) paths+=`<line x1="${x+w*i/n2}" y1="${y}" x2="${x+w*i/n2}" y2="${y+h}"/>`;
+      for(let i=1;i<n1;i++) paths+=`<line x1="${x}" y1="${y+h*i/n1}" x2="${x+w}" y2="${y+h*i/n1}"/>`;
+      for(let i=1;i<n2;i++) paths+=`<line x1="${x}" y1="${y+h*i/n2}" x2="${x+w}" y2="${y+h*i/n2}"/>`;
+      return paths;
+    }
+
+    function generateProgramSVG(x,y,w,h) {
+      let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;
+      [2,3,4,5,6].forEach(d=>{for(let i=1;i<d;i++){paths+=`<line x1="${x+w*i/d}" y1="${y}" x2="${x+w*i/d}" y2="${y+h}"/>`; paths+=`<line x1="${x}" y1="${y+h*i/d}" x2="${x+w}" y2="${y+h*i/d}"/>`;}});
+      return paths;
+    }
+
+    function generateSriYantraSVG(cx,cy,r) {
+      const s=r*1.1; let paths='';
+      const upTris=[[[0,-0.95],[-.85,.65],[.85,.65]],[[0,-0.65],[-.55,.4],[.55,.4]],[[0,-0.4],[-.35,.22],[.35,.22]],[[0,-0.2],[-.18,.1],[.18,.1]]];
+      const downTris=[[[0,.95],[-.75,-.55],[.75,-.55]],[[0,.7],[-.6,-.38],[.6,-.38]],[[0,.48],[-.42,-.25],[.42,-.25]],[[0,.32],[-.28,-.15],[.28,-.15]],[[0,.15],[-.12,-.05],[.12,-.05]]];
+      [...upTris,...downTris].forEach(tri=>{ paths+=`<polygon points="${tri.map(p=>`${cx+p[0]*s},${cy+p[1]*s}`).join(' ')}"/>`; });
+      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}"/>`;
+      return paths;
+    }
+
+    function generateMetatronSVG(cx,cy,r) {
+      let paths='';
+      const pts=[]; for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2; pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}
+      const inner=[]; for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2; inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}
+      pts.push([cx,cy]); inner.forEach(p=>pts.push(p));
+      for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) paths+=`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}"/>`;
+      [...pts.slice(0,6),...inner].forEach(p=>{ paths+=`<circle cx="${p[0]}" cy="${p[1]}" r="${r*0.25}"/>`; });
+      paths+=`<circle cx="${cx}" cy="${cy}" r="${r*0.25}"/>`;
+      return paths;
+    }
 
     // Donation panel
     const donationPanel = document.getElementById('donationPanel');
