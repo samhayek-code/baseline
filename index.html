@@ -3,70 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baseline — Grid Generator</title>
+  <title>Baseline — Grid Generator v2</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Light mode - warm cream */
-      --bg-primary: #f5f2eb;
-      --bg-secondary: #ebe8e1;
-      --bg-tertiary: #e1ded6;
-      --bg-elevated: #faf8f4;
-      --fg-primary: #1a1a18;
-      --fg-secondary: #4a4a46;
-      --fg-muted: #8a8a84;
-      --border-primary: #d4d1c9;
-      --border-secondary: #c4c1b9;
-      --border-subtle: #e4e1d9;
-      --accent: #e05a3a;
-      --accent-hover: #c94a2c;
-      --accent-muted: rgba(224, 90, 58, 0.1);
-      --accent-dim: #b34a30;
-      --canvas-bg: #1a1a18;
-      --technical-line: rgba(26, 26, 24, 0.06);
+      /* Dark theme (default) */
+      --bg-primary: #09090b;
+      --bg-secondary: rgba(255, 255, 255, 0.02);
+      --bg-tertiary: rgba(255, 255, 255, 0.04);
+      --bg-elevated: rgba(255, 255, 255, 0.03);
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      --bg-glass-hover: rgba(255, 255, 255, 0.06);
+      --bg-glass-active: rgba(255, 255, 255, 0.08);
+      
+      --fg-primary: #fafafa;
+      --fg-secondary: #a1a1aa;
+      --fg-muted: #71717a;
+      --fg-subtle: #52525b;
+      
+      --border-primary: rgba(255, 255, 255, 0.06);
+      --border-secondary: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --border-active: rgba(255, 255, 255, 0.15);
+      
+      --accent: #ffffff;
+      --accent-muted: rgba(255, 255, 255, 0.1);
+      --accent-glow: rgba(255, 255, 255, 0.05);
+      
+      --color-pop: #a855f7;
+      --color-pop-muted: rgba(168, 85, 247, 0.15);
+      --color-pop-glow: rgba(168, 85, 247, 0.1);
+      
+      --canvas-bg: #fafafa;
+      
+      --btn-bg-solid: rgba(24, 24, 27, 0.92);
+      
+      /* Radius - sharper by ~15-20% */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+      
+      --blur-md: 12px;
+      --blur-lg: 24px;
     }
 
-    [data-theme="dark"] {
-      /* Dark mode - deep black with white lines */
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-tertiary: #1a1a1a;
-      --bg-elevated: #0e0e0e;
-      --fg-primary: #f0f0ec;
-      --fg-secondary: #a0a09a;
-      --fg-muted: #606060;
-      --border-primary: #252525;
-      --border-secondary: #333333;
-      --border-subtle: #1f1f1f;
-      --accent: #e86a4a;
-      --accent-hover: #f07a5a;
-      --accent-muted: rgba(232, 106, 74, 0.15);
-      --accent-dim: #ba553c;
-      --canvas-bg: #faf8f4;
-      --technical-line: rgba(240, 240, 236, 0.04);
+    [data-theme="light"] {
+      --bg-primary: #f4f4f5;
+      --bg-secondary: rgba(0, 0, 0, 0.02);
+      --bg-tertiary: rgba(0, 0, 0, 0.04);
+      --bg-elevated: rgba(255, 255, 255, 0.8);
+      --bg-glass: rgba(255, 255, 255, 0.6);
+      --bg-glass-hover: rgba(255, 255, 255, 0.8);
+      --bg-glass-active: rgba(255, 255, 255, 0.9);
+      
+      --fg-primary: #09090b;
+      --fg-secondary: #52525b;
+      --fg-muted: #71717a;
+      --fg-subtle: #a1a1aa;
+      
+      --border-primary: rgba(0, 0, 0, 0.06);
+      --border-secondary: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(0, 0, 0, 0.12);
+      --border-active: rgba(0, 0, 0, 0.15);
+      
+      --accent: #09090b;
+      --accent-muted: rgba(0, 0, 0, 0.1);
+      --accent-glow: rgba(0, 0, 0, 0.05);
+      
+      --canvas-bg: #09090b;
+      
+      --btn-bg-solid: rgba(255, 255, 255, 0.92);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-primary);
       color: var(--fg-primary);
       min-height: 100vh;
       font-size: 13px;
       line-height: 1.5;
-      transition: background 0.3s, color 0.3s;
       letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
 
     .app { display: flex; height: 100vh; position: relative; }
 
     /* Sidebar */
     .sidebar {
-      width: 340px;
-      background: var(--bg-secondary);
+      width: 390px;
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur-lg));
+      -webkit-backdrop-filter: blur(var(--blur-lg));
       border-right: 1px solid var(--border-primary);
       overflow-y: auto;
       flex-shrink: 0;
@@ -75,35 +114,11 @@
       position: relative;
     }
 
-    /* Corner marks - technical detail */
-    .sidebar::before,
-    .sidebar::after {
-      content: '';
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      border-color: var(--border-secondary);
-      border-style: solid;
-      z-index: 20;
-      pointer-events: none;
-    }
-
-    .sidebar::before {
-      top: 8px;
-      left: 8px;
-      border-width: 1px 0 0 1px;
-    }
-
-    .sidebar::after {
-      bottom: 8px;
-      left: 8px;
-      border-width: 0 0 1px 1px;
-    }
-
     .sidebar-header {
-      padding: 24px 20px;
+      padding: 24px;
       border-bottom: 1px solid var(--border-primary);
-      background: var(--bg-secondary);
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur-md));
       position: sticky;
       top: 0;
       z-index: 10;
@@ -117,48 +132,47 @@
     }
 
     .logo {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--fg-primary);
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-primary);
     }
 
-    .logo svg { width: 100%; height: 100%; }
+    .logo svg { width: 20px; height: 20px; }
 
     .brand-text h1 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
-      font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
       color: var(--fg-primary);
       letter-spacing: -0.02em;
-      text-transform: uppercase;
     }
 
     .header-meta {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding-top: 12px;
-      border-top: 1px solid var(--technical-line);
+      gap: 8px;
+    }
+
+    .version-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 4px 10px;
+      background: var(--color-pop-muted);
+      color: var(--color-pop);
+      border-radius: var(--radius-full);
+      letter-spacing: 0.02em;
     }
 
     .meta-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      font-size: 12px;
       color: var(--fg-muted);
-    }
-
-    .meta-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 500;
-      color: var(--fg-muted);
-      letter-spacing: 0.02em;
     }
 
     .sidebar-content { 
@@ -167,183 +181,156 @@
       padding: 16px;
     }
 
+    /* Sections / Cards */
     .section {
-      padding: 16px;
+      padding: 20px;
       margin-bottom: 12px;
-      background: var(--bg-elevated);
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur-md));
       border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
       position: relative;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .section:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-glass-hover);
     }
 
     .section:last-child { margin-bottom: 0; }
 
-    /* Section corner marks - all 4 corners */
+    /* Corner marks - kept for technical feel */
     .section::before,
     .section::after {
       content: '';
       position: absolute;
       width: 6px;
       height: 6px;
-      border-color: var(--accent-dim);
+      border-color: var(--fg-subtle);
       border-style: solid;
       pointer-events: none;
+      opacity: 0.5;
     }
 
     .section::before {
-      top: -1px;
-      left: -1px;
+      top: 8px;
+      left: 8px;
       border-width: 1px 0 0 1px;
     }
 
     .section::after {
-      top: -1px;
-      right: -1px;
-      border-width: 1px 1px 0 0;
-    }
-
-    /* Additional corner marks via inner element */
-    .section-corners::before,
-    .section-corners::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-color: var(--accent-dim);
-      border-style: solid;
-      pointer-events: none;
-    }
-
-    .section-corners::before {
-      bottom: -1px;
-      left: -1px;
-      border-width: 0 0 1px 1px;
-    }
-
-    .section-corners::after {
-      bottom: -1px;
-      right: -1px;
+      bottom: 8px;
+      right: 8px;
       border-width: 0 1px 1px 0;
     }
 
     .section-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       color: var(--fg-muted);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--technical-line);
     }
 
-    .section-actions { display: flex; gap: 6px; }
+    .section-actions { display: flex; gap: 8px; }
 
     .clear-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      padding: 4px 8px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      padding: 6px 12px;
       background: transparent;
       border: 1px solid var(--border-secondary);
-      color: var(--fg-muted);
+      border-radius: var(--radius-full);
+      color: var(--fg-secondary);
       cursor: pointer;
       font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       transition: all 0.15s;
     }
 
     .clear-btn:hover { 
-      background: var(--accent-muted); 
-      border-color: var(--accent);
-      color: var(--accent); 
+      background: var(--bg-glass-hover); 
+      border-color: var(--border-hover);
+      color: var(--fg-primary); 
     }
 
-    .form-group { margin-bottom: 12px; }
+    .form-group { margin-bottom: 14px; }
     .form-group:last-child { margin-bottom: 0; }
 
     .label-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     label {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--fg-secondary);
-      letter-spacing: 0.01em;
     }
 
-    .lock-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      background: transparent;
+    /* Inputs */
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
       border: 1px solid var(--border-secondary);
-      cursor: pointer;
-      color: var(--fg-muted);
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
+      font-size: 13px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--fg-primary);
       transition: all 0.15s;
     }
 
-    .lock-btn:hover { 
-      background: var(--bg-tertiary); 
-      color: var(--fg-secondary); 
-    }
-    
-    .lock-btn.locked { 
-      background: var(--accent); 
-      border-color: var(--accent); 
-      color: white; 
-    }
-    
-    .lock-btn svg { width: 11px; height: 11px; }
-
-    select, input[type="number"], input[type="text"] {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border-secondary);
-      background: var(--bg-primary);
-      font-size: 12px;
-      font-family: 'Inter', sans-serif;
-      color: var(--fg-primary);
-      transition: border-color 0.15s;
+    select:hover, input[type="number"]:hover, input[type="text"]:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-glass-hover);
     }
 
     select:focus, input:focus {
       outline: none;
-      border-color: var(--accent);
+      border-color: var(--border-active);
+      background: var(--bg-glass-active);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
     }
 
     input[type="color"] {
       width: 100%;
-      height: 36px;
+      height: 44px;
       border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-md);
       cursor: pointer;
-      padding: 3px;
-      background: var(--bg-primary);
+      padding: 4px;
+      background: var(--bg-glass);
     }
 
-    .input-row { display: flex; gap: 10px; }
+    .input-row { display: flex; gap: 12px; }
     .input-row .form-group { flex: 1; }
 
-    /* Grid Templates */
+    /* Grid Templates with Toggles */
     .grid-category { margin-bottom: 0; }
 
     .grid-category-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--fg-muted);
-      padding: 10px 12px;
+      color: var(--fg-secondary);
+      padding: 12px 14px;
       background: var(--bg-tertiary);
       margin: 0;
       border-top: 1px solid var(--border-primary);
@@ -353,68 +340,124 @@
     }
 
     .grid-category-title::before {
-      content: '//';
-      color: var(--accent);
-      font-weight: 400;
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--color-pop);
+      border-radius: 50%;
     }
 
     .grid-category:first-child .grid-category-title {
       border-top: none;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
 
     .grid-templates {
-      max-height: 320px;
+      max-height: 340px;
       overflow-y: auto;
       border: 1px solid var(--border-primary);
-      background: var(--bg-elevated);
+      border-radius: var(--radius-md);
+      background: var(--bg-glass);
     }
 
     .grid-template-item {
       display: flex;
       align-items: center;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border-subtle);
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-primary);
       cursor: pointer;
-      transition: all 0.1s;
-      font-size: 12px;
-      background: var(--bg-elevated);
+      transition: all 0.15s;
+      font-size: 13px;
+      background: transparent;
     }
 
     .grid-template-item:last-child { border-bottom: none; }
     
     .grid-template-item:hover { 
-      background: var(--accent-muted);
-    }
-
-    .grid-template-item input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      margin-right: 10px;
-      accent-color: var(--accent);
-      cursor: pointer;
+      background: var(--bg-glass-hover);
     }
 
     .grid-template-item span { 
-      font-size: 12px; 
-      color: var(--fg-primary);
-      letter-spacing: 0.01em;
+      color: var(--fg-secondary);
+      transition: color 0.15s;
+      pointer-events: none;
     }
 
-    /* Buttons */
+    .grid-template-item:hover span {
+      color: var(--fg-primary);
+    }
+
+    /* Toggle Switch */
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-full);
+      transition: all 0.2s;
+      pointer-events: none;
+    }
+
+    .toggle-slider::before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 2px;
+      bottom: 2px;
+      background: var(--fg-muted);
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    .toggle input:checked + .toggle-slider {
+      background: var(--color-pop-muted);
+      border-color: var(--color-pop);
+    }
+
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(16px);
+      background: var(--color-pop);
+    }
+
+    .toggle:hover .toggle-slider {
+      border-color: var(--border-hover);
+    }
+
+    /* Buttons - Pill Shape */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 16px;
+      padding: 12px 20px;
       border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
+      border-radius: var(--radius-full);
     }
 
     .btn-primary {
@@ -423,19 +466,33 @@
       width: 100%;
     }
 
-    .btn-primary:hover { opacity: 0.85; }
+    .btn-primary:hover { 
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
 
     .btn-secondary {
-      background: transparent;
+      background: var(--bg-glass);
       color: var(--fg-primary);
       border: 1px solid var(--border-secondary);
       width: 100%;
     }
 
     .btn-secondary:hover { 
-      background: var(--accent-muted);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--fg-secondary);
+      padding: 8px 16px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-glass-hover);
+      color: var(--fg-primary);
     }
 
     /* Canvas Area */
@@ -450,7 +507,7 @@
       position: relative;
     }
 
-    /* Canvas area technical grid background */
+    /* Subtle dot grid background */
     .canvas-area::before {
       content: '';
       position: absolute;
@@ -458,78 +515,19 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: 
-        linear-gradient(var(--technical-line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--technical-line) 1px, transparent 1px);
-      background-size: 48px 48px;
+      background-image: radial-gradient(circle, var(--border-primary) 1px, transparent 1px);
+      background-size: 24px 24px;
       pointer-events: none;
     }
 
     .canvas-wrapper {
       position: relative;
-      box-shadow: 0 0 0 1px var(--border-primary), 0 24px 48px rgba(0,0,0,0.15);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
     .canvas-wrapper canvas { display: block; }
 
-    /* Canvas corner marks */
-    .canvas-wrapper::before,
-    .canvas-wrapper::after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--accent-dim);
-      border-style: solid;
-      z-index: 10;
-      pointer-events: none;
-    }
-
-    .canvas-wrapper::before {
-      top: -6px;
-      left: -6px;
-      border-width: 1px 0 0 1px;
-    }
-
-    .canvas-wrapper::after {
-      bottom: -6px;
-      right: -6px;
-      border-width: 0 1px 1px 0;
-    }
-
-    /* Additional canvas corners via inner wrapper */
-    .canvas-corners {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-    }
-
-    .canvas-corners::before,
-    .canvas-corners::after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--accent-dim);
-      border-style: solid;
-    }
-
-    .canvas-corners::before {
-      top: -6px;
-      right: -6px;
-      border-width: 1px 1px 0 0;
-    }
-
-    .canvas-corners::after {
-      bottom: -6px;
-      left: -6px;
-      border-width: 0 0 1px 1px;
-    }
-
-    /* Export Button */
+    /* Export Button - Floating pill */
     .export-btn-fixed {
       position: fixed;
       top: 20px;
@@ -537,106 +535,232 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 12px 20px;
-      background: var(--accent);
+      padding: 12px 24px;
+      background: var(--fg-primary);
       border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: white;
+      color: var(--bg-primary);
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
       z-index: 100;
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.15);
     }
 
-    .export-btn-fixed:hover { background: var(--accent-hover); }
-    .export-btn-fixed svg { width: 14px; height: 14px; }
+    [data-theme="light"] .export-btn-fixed {
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .export-btn-fixed:hover { 
+      transform: translateY(-2px);
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+    }
+
+    [data-theme="light"] .export-btn-fixed:hover {
+      box-shadow: 
+        0 8px 20px rgba(0, 0, 0, 0.2),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .export-btn-fixed svg { width: 16px; height: 16px; }
 
     .export-btn-fixed .shortcut-hint {
-      background: rgba(255,255,255,0.2);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--bg-primary);
       border: none;
-      color: white;
-      margin-left: 4px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Theme Toggle */
-    .theme-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 36px;
-      height: 36px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-secondary);
-      cursor: pointer;
+    [data-theme="light"] .export-btn-fixed .shortcut-hint {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Shortcut hints */
+    .shortcut-hint {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 8px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--fg-muted);
+    }
+
+    /* Transform Buttons */
+    .transform-btn {
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--btn-bg-solid);
+      backdrop-filter: blur(var(--blur-md));
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-full);
+      cursor: pointer;
       color: var(--fg-secondary);
       transition: all 0.2s;
-      z-index: 100;
     }
 
-    .theme-toggle:hover { 
-      background: var(--accent-muted); 
-      border-color: var(--accent);
-      color: var(--accent); 
+    .transform-btn:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
     }
-    
-    .theme-toggle svg { width: 16px; height: 16px; }
-    .theme-toggle .sun-icon { display: none; }
-    .theme-toggle .moon-icon { display: block; }
-    [data-theme="dark"] .theme-toggle .sun-icon { display: block; }
-    [data-theme="dark"] .theme-toggle .moon-icon { display: none; }
 
-    /* Donation Panel */
-    .donation-trigger {
+    .transform-btn.active {
+      background: var(--color-pop-muted);
+      border-color: var(--color-pop);
+      color: var(--color-pop);
+    }
+
+    .transform-btn svg { width: 18px; height: 18px; }
+
+    /* Bottom Bar */
+    .bottom-bar {
       position: fixed;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-secondary);
-      border-right: none;
-      padding: 20px 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--fg-muted);
-      cursor: pointer;
-      transition: all 0.3s;
-      z-index: 90;
+      left: 410px;
+      right: 20px;
+      bottom: 20px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      z-index: 90;
+    }
+
+    .bottom-left {
+      display: flex;
+      gap: 8px;
+    }
+
+    .bottom-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .zoom-indicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--fg-muted);
+    }
+
+    .bottom-right {
+      display: flex;
       gap: 12px;
     }
 
+    .donation-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--btn-bg-solid);
+      backdrop-filter: blur(var(--blur-md));
+      border: 1px solid var(--border-secondary);
+      padding: 12px 20px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
     .donation-trigger:hover { 
-      padding-right: 16px;
-      color: var(--accent);
-      border-color: var(--accent);
+      border-color: var(--color-pop);
+      color: var(--fg-primary);
+      background: var(--color-pop-muted);
     }
 
     .donation-trigger .heart-icon {
       width: 16px;
       height: 16px;
-      transform: rotate(90deg);
-      fill: var(--accent);
+      fill: var(--color-pop);
     }
+
+    /* Theme toggle in bottom corner */
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--btn-bg-solid);
+      backdrop-filter: blur(var(--blur-md));
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      color: var(--fg-secondary);
+      transition: all 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
+    }
+
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .sun-icon { display: none; }
+    .theme-toggle .moon-icon { display: block; }
+    [data-theme="light"] .theme-toggle .sun-icon { display: block; }
+    [data-theme="light"] .theme-toggle .moon-icon { display: none; }
+
+    /* Lock buttons */
+    .lock-btn {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--fg-muted);
+      transition: all 0.15s;
+      padding: 0;
+    }
+
+    .lock-btn:hover {
+      border-color: var(--color-pop);
+      color: var(--color-pop);
+    }
+
+    .lock-btn.locked {
+      background: var(--color-pop-muted);
+      border-color: var(--color-pop);
+      color: var(--color-pop);
+    }
+
+    .lock-btn svg { width: 12px; height: 12px; }
+    .lock-btn .lock-icon { display: none; }
+    .lock-btn .unlock-icon { display: block; }
+    .lock-btn.locked .lock-icon { display: block; }
+    .lock-btn.locked .unlock-icon { display: none; }
 
     .donation-panel {
       position: fixed;
-      right: -380px;
+      right: -420px;
       top: 0;
       height: 100vh;
-      width: 360px;
-      background: var(--bg-secondary);
+      width: 400px;
+      background: var(--btn-bg-solid);
+      backdrop-filter: blur(var(--blur-lg));
       border-left: 1px solid var(--border-primary);
       z-index: 200;
       transition: right 0.3s ease;
@@ -647,7 +771,7 @@
     .donation-panel.open { right: 0; }
 
     .donation-panel-header {
-      padding: 24px 20px;
+      padding: 24px;
       border-bottom: 1px solid var(--border-primary);
       display: flex;
       align-items: center;
@@ -655,18 +779,16 @@
     }
 
     .donation-panel-header h2 { 
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
     }
 
     .donation-close {
-      width: 28px;
-      height: 28px;
-      background: transparent;
+      width: 32px;
+      height: 32px;
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -676,39 +798,40 @@
     }
 
     .donation-close:hover { 
-      background: var(--accent-muted); 
-      border-color: var(--accent);
-      color: var(--accent); 
+      background: var(--bg-glass-hover); 
+      border-color: var(--border-hover);
+      color: var(--fg-primary); 
     }
     
-    .donation-close svg { width: 14px; height: 14px; }
+    .donation-close svg { width: 16px; height: 16px; }
 
-    .donation-content { flex: 1; padding: 20px; overflow-y: auto; }
+    .donation-content { flex: 1; padding: 24px; overflow-y: auto; }
 
     .donation-message {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--fg-secondary);
       line-height: 1.8;
       margin-bottom: 24px;
-      padding: 16px;
-      background: var(--bg-elevated);
+      padding: 20px;
+      background: var(--bg-tertiary);
       border: 1px solid var(--border-primary);
-      border-left: 2px solid var(--accent);
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--color-pop);
     }
 
     .share-section {
       margin-top: 20px;
-      padding: 16px;
-      background: var(--bg-elevated);
+      padding: 20px;
+      background: var(--bg-tertiary);
       border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
       text-align: center;
     }
 
     .share-section p {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--fg-muted);
       margin-bottom: 12px;
-      letter-spacing: 0.01em;
     }
 
     .share-btn {
@@ -716,114 +839,67 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: var(--fg-primary);
       color: var(--bg-primary);
       border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
     }
 
-    .share-btn:hover { opacity: 0.85; }
-    .share-btn svg { width: 14px; height: 14px; }
+    .share-btn:hover { 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+
+    .share-btn svg { width: 16px; height: 16px; }
 
     .wallet-card {
-      background: var(--bg-elevated);
+      background: var(--bg-tertiary);
       border: 1px solid var(--border-primary);
-      padding: 16px;
+      border-radius: var(--radius-md);
+      padding: 20px;
       margin-bottom: 12px;
-      position: relative;
+      transition: border-color 0.2s;
     }
 
-    .wallet-card .section-corners::before,
-    .wallet-card .section-corners::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-color: var(--accent-dim);
-      border-style: solid;
-      pointer-events: none;
+    .wallet-card:hover {
+      border-color: var(--border-hover);
     }
 
-    .wallet-card .section-corners::before {
-      bottom: -1px;
-      left: -1px;
-      border-width: 0 0 1px 1px;
-    }
-
-    .wallet-card .section-corners::after {
-      bottom: -1px;
-      right: -1px;
-      border-width: 0 1px 1px 0;
-    }
-
-    .wallet-card::before,
-    .wallet-card::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-color: var(--accent-dim);
-      border-style: solid;
-      pointer-events: none;
-    }
-
-    .wallet-card::before {
-      top: -1px;
-      left: -1px;
-      border-width: 1px 0 0 1px;
-    }
-
-    .wallet-card::after {
-      top: -1px;
-      right: -1px;
-      border-width: 1px 1px 0 0;
-    }
-
-    .wallet-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .wallet-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 
     .wallet-icon {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
+      border-radius: var(--radius-sm);
     }
 
-    .wallet-icon svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .wallet-icon.sol { background: linear-gradient(135deg, #9945FF, #14F195); }
-    .wallet-icon.eth { background: #627EEA; }
-    .wallet-icon.btc { background: #F7931A; }
+    .wallet-icon svg { width: 32px; height: 32px; }
 
     .wallet-name { 
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
     }
 
     .wallet-address {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 10px;
       color: var(--fg-muted);
       word-break: break-all;
-      line-height: 1.5;
-      margin-bottom: 12px;
-      padding: 8px;
-      background: var(--bg-primary);
-      border: 1px solid var(--border-subtle);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      padding: 10px;
+      background: var(--bg-glass);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-sm);
     }
 
     .wallet-actions { display: flex; gap: 8px; }
@@ -834,31 +910,31 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 8px 12px;
-      background: transparent;
+      padding: 10px 14px;
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
       color: var(--fg-secondary);
       cursor: pointer;
       transition: all 0.15s;
     }
 
     .wallet-btn:hover { 
-      background: var(--accent-muted);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
     }
     
-    .wallet-btn svg { width: 12px; height: 12px; }
+    .wallet-btn svg { width: 14px; height: 14px; }
 
     /* QR Modal */
     .qr-modal {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
       display: flex; align-items: center; justify-content: center;
       z-index: 300; opacity: 0; visibility: hidden;
       transition: all 0.3s;
@@ -867,55 +943,41 @@
     .qr-modal.open { opacity: 1; visibility: visible; }
 
     .qr-modal-content {
-      background: var(--bg-secondary);
+      background: var(--bg-glass);
+      backdrop-filter: blur(var(--blur-lg));
       border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
       padding: 32px;
       text-align: center;
       max-width: 320px;
-      position: relative;
-    }
-
-    .qr-modal-content::before {
-      content: '';
-      position: absolute;
-      top: -1px;
-      right: -1px;
-      width: 8px;
-      height: 8px;
-      border-top: 1px solid var(--accent-dim);
-      border-right: 1px solid var(--accent-dim);
     }
 
     .qr-modal-content h3 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 14px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
       margin-bottom: 20px;
     }
 
     .qr-code { margin-bottom: 20px; }
-    .qr-code canvas { margin: 0 auto; }
+    .qr-code canvas { margin: 0 auto; border-radius: var(--radius-sm); }
 
     .qr-close {
-      padding: 10px 24px;
-      background: transparent;
+      padding: 12px 28px;
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--fg-secondary);
       cursor: pointer;
       transition: all 0.15s;
     }
 
     .qr-close:hover { 
-      background: var(--accent-muted);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
     }
 
     /* Toast */
@@ -926,15 +988,14 @@
       transform: translateX(-50%) translateY(100px);
       background: var(--fg-primary);
       color: var(--bg-primary);
-      padding: 12px 24px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-size: 13px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       z-index: 400;
       opacity: 0;
       transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
@@ -943,6 +1004,8 @@
     .export-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9, 9, 11, 0.95);
+      backdrop-filter: blur(var(--blur-lg));
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -955,23 +1018,19 @@
 
     .export-overlay.open { opacity: 1; visibility: visible; }
 
-    .export-overlay.light-bg {
-      background: #1a1a18;
-    }
-
-    .export-overlay.dark-bg {
-      background: #f0f0ec;
-    }
-
     .export-preview {
       max-width: 70vw;
       max-height: 55vh;
       margin-bottom: 32px;
       position: relative;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
 
-    .export-preview img { max-width: 100%; max-height: 55vh; display: block; }
+    .export-preview img { 
+      max-width: 100%; 
+      max-height: 55vh; 
+      display: block;
+    }
 
     .export-options {
       display: flex;
@@ -984,148 +1043,120 @@
     .export-options label {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      gap: 10px;
+      font-size: 13px;
       color: var(--fg-secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
       cursor: pointer;
     }
 
-    .export-overlay.light-bg .export-options label {
-      color: #a0a09a;
-    }
-
-    .export-overlay.dark-bg .export-options label {
-      color: #4a4a46;
-    }
-
     .export-options input[type="checkbox"] {
-      width: 14px;
-      height: 14px;
-      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      accent-color: var(--color-pop);
     }
 
     .format-selector {
       display: flex;
       gap: 0;
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-full);
+      padding: 4px;
     }
 
     .format-btn {
       padding: 10px 20px;
       background: transparent;
       border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.15s;
       color: var(--fg-muted);
     }
 
-    .export-overlay.light-bg .format-btn {
-      color: #606060;
-      border-right: 1px solid #333;
-    }
-
-    .export-overlay.dark-bg .format-btn {
-      color: #8a8a84;
-      border-right: 1px solid #c4c1b9;
-    }
-
-    .format-btn:last-child {
-      border-right: none;
-    }
-
     .format-btn.active {
-      background: var(--accent);
-      color: white;
+      background: var(--fg-primary);
+      color: var(--bg-primary);
     }
 
     .format-btn:hover:not(.active) {
-      background: var(--accent-muted);
+      color: var(--fg-primary);
     }
 
     .export-actions { display: flex; gap: 12px; margin-top: 24px; }
 
     .export-btn {
-      padding: 12px 28px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      padding: 14px 32px;
+      border-radius: var(--radius-full);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       cursor: pointer;
-      transition: all 0.15s;
+      transition: all 0.2s;
     }
 
     .export-btn.primary {
-      background: var(--accent);
-      color: white;
+      background: var(--fg-primary);
+      color: var(--bg-primary);
       border: none;
     }
 
-    .export-btn.primary:hover { background: var(--accent-hover); }
+    .export-btn.primary:hover { 
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+    }
 
     .export-btn.secondary {
       background: transparent;
+      color: var(--fg-secondary);
       border: 1px solid var(--border-secondary);
     }
 
-    .export-overlay.light-bg .export-btn.secondary {
-      color: #a0a09a;
-      border-color: #333;
-    }
-
-    .export-overlay.dark-bg .export-btn.secondary {
-      color: #4a4a46;
-      border-color: #c4c1b9;
-    }
-
     .export-btn.secondary:hover { 
-      background: var(--accent-muted);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
     }
 
-    /* Preview Background */
+    /* Background Color Swatches */
     .bg-preview-section { display: flex; flex-direction: column; gap: 12px; }
 
-    .bg-swatches { display: flex; gap: 6px; }
+    .bg-swatches { display: flex; gap: 8px; }
 
     .bg-swatch {
       flex: 1;
       aspect-ratio: 1;
-      max-width: 40px;
+      max-width: 44px;
       border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all 0.15s;
       padding: 3px;
       background: transparent;
     }
 
-    .bg-swatch:hover { border-color: var(--fg-muted); }
-    .bg-swatch.active { border-color: var(--accent); border-width: 2px; padding: 2px; }
+    .bg-swatch:hover { border-color: var(--border-hover); transform: scale(1.05); }
+    .bg-swatch.active { border-color: var(--color-pop); border-width: 2px; padding: 2px; }
 
-    .bg-swatch-color { width: 100%; height: 100%; }
+    .bg-swatch-color { width: 100%; height: 100%; border-radius: 4px; }
 
     .color-input-row { display: flex; gap: 8px; align-items: stretch; }
-    .color-input-row input[type="color"] { flex: 0 0 36px; height: 36px; }
+    .color-input-row input[type="color"] { flex: 0 0 44px; height: 44px; }
     .color-input-row input[type="text"] { flex: 1; }
 
     .color-format-toggle {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      background: transparent;
+      width: 44px;
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-md);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--fg-muted);
       cursor: pointer;
@@ -1133,33 +1164,40 @@
     }
 
     .color-format-toggle:hover { 
-      background: var(--accent-muted);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--bg-glass-hover);
+      border-color: var(--border-hover);
+      color: var(--fg-primary);
     }
 
     /* Slider */
     input[type="range"] {
       width: 100%;
-      height: 4px;
-      background: var(--border-secondary);
+      height: 6px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-full);
       outline: none;
       -webkit-appearance: none;
     }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       background: var(--fg-primary);
+      border-radius: 50%;
       cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
     }
 
     /* Opacity Control */
     .opacity-control {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .opacity-control input[type="range"] {
@@ -1169,20 +1207,21 @@
     .opacity-input-wrap {
       display: flex;
       align-items: center;
-      background: var(--bg-primary);
+      background: var(--bg-glass);
       border: 1px solid var(--border-secondary);
-      padding-right: 8px;
-      min-width: 60px;
+      border-radius: var(--radius-md);
+      padding-right: 10px;
+      min-width: 70px;
     }
 
     .opacity-input-wrap input[type="number"] {
-      width: 32px;
+      width: 36px;
       border: none;
       background: transparent;
       text-align: right;
-      padding: 8px 2px 8px 8px;
+      padding: 10px 2px 10px 10px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 12px;
       -moz-appearance: textfield;
     }
 
@@ -1199,30 +1238,16 @@
 
     .opacity-suffix {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--fg-muted);
       font-weight: 500;
-    }
-
-    /* Shortcut hints */
-    .shortcut-hint {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px 6px;
-      background: transparent;
-      border: 1px solid var(--border-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--fg-muted);
-      margin-left: 8px;
     }
 
     .donation-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
       z-index: 150;
       opacity: 0;
       visibility: hidden;
@@ -1237,9 +1262,9 @@
 <body>
   <svg class="svg-defs">
     <defs>
-      <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style="stop-color:#e86a4a" />
-        <stop offset="100%" style="stop-color:#e05a3a" />
+      <linearGradient id="solGrad" x1="0" y1="0" x2="128" y2="128">
+        <stop stop-color="#9945FF"/>
+        <stop offset="1" stop-color="#14F195"/>
       </linearGradient>
     </defs>
   </svg>
@@ -1250,12 +1275,10 @@
         <div class="header-top">
           <div class="logo">
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="1" y="1" width="30" height="30" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <line x1="11" y1="1" x2="11" y2="31" stroke="currentColor" stroke-width="1"/>
-              <line x1="21" y1="1" x2="21" y2="31" stroke="currentColor" stroke-width="1"/>
-              <line x1="1" y1="11" x2="31" y2="11" stroke="currentColor" stroke-width="1"/>
-              <line x1="1" y1="21" x2="31" y2="21" stroke="currentColor" stroke-width="1"/>
-              <rect x="14" y="14" width="4" height="4" fill="currentColor"/>
+              <line x1="11" y1="1" x2="11" y2="31" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="21" y1="1" x2="21" y2="31" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="1" y1="11" x2="31" y2="11" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="1" y1="21" x2="31" y2="21" stroke="currentColor" stroke-width="1.5"/>
             </svg>
           </div>
           <div class="brand-text">
@@ -1263,15 +1286,14 @@
           </div>
         </div>
         <div class="header-meta">
+          <span class="version-badge">v2.0</span>
           <span class="meta-label">Grid Generator</span>
-          <span class="meta-value">v1.0</span>
         </div>
       </div>
 
       <div class="sidebar-content">
         <!-- Canvas Size -->
         <div class="section">
-          <div class="section-corners"></div>
           <div class="section-title">Canvas Size</div>
           <div class="form-group">
             <div class="label-row"><label>Preset</label></div>
@@ -1288,7 +1310,10 @@
               <optgroup label="Video">
                 <option value="1920x1080">Full HD 1080p (1920×1080)</option>
                 <option value="3840x2160">4K UHD (3840×2160)</option>
+                <option value="2560x1440">2K QHD (2560×1440)</option>
+                <option value="1280x720">HD 720p (1280×720)</option>
                 <option value="1080x1920">Vertical Video (1080×1920)</option>
+                <option value="1080x1080">Square Video (1080×1080)</option>
               </optgroup>
               <optgroup label="Print (300 DPI)">
                 <option value="2550x3300">US Letter Portrait (8.5×11")</option>
@@ -1301,8 +1326,12 @@
               <optgroup label="Screen">
                 <option value="1440x900">Desktop (1440×900)</option>
                 <option value="1920x1080">Desktop HD (1920×1080)</option>
+                <option value="2560x1440">2K Monitor (2560×1440)</option>
+                <option value="1366x768">Laptop HD (1366×768)</option>
+                <option value="768x1024">iPad Portrait (768×1024)</option>
                 <option value="375x812">iPhone SE (375×812)</option>
                 <option value="390x844">iPhone 14 (390×844)</option>
+                <option value="414x896">iPhone 11/XR (414×896)</option>
               </optgroup>
             </select>
           </div>
@@ -1320,15 +1349,10 @@
 
         <!-- Grid Layout -->
         <div class="section">
-          <div class="section-corners"></div>
           <div class="section-title">
             Grid Layout
             <div class="section-actions">
-              <button class="clear-btn" id="clearGridsBtn">Clear</button>
-              <button class="lock-btn" id="lockGrids">
-                <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
-                <svg class="lock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-              </button>
+              <button class="clear-btn" id="clearGridsBtn">Clear All</button>
             </div>
           </div>
           <div class="grid-templates" id="gridTemplates"></div>
@@ -1336,14 +1360,13 @@
 
         <!-- Spacing -->
         <div class="section">
-          <div class="section-corners"></div>
           <div class="section-title">Spacing</div>
           <div class="input-row">
             <div class="form-group">
               <div class="label-row">
                 <label>Margin</label>
                 <button class="lock-btn locked" id="lockMargin">
-                  <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                  <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                   <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </button>
               </div>
@@ -1353,7 +1376,7 @@
               <div class="label-row">
                 <label>Padding</label>
                 <button class="lock-btn locked" id="lockPadding">
-                  <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                  <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                   <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </button>
               </div>
@@ -1364,7 +1387,7 @@
             <div class="label-row">
               <label>Gutter</label>
               <button class="lock-btn locked" id="lockGutter">
-                <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                 <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               </button>
             </div>
@@ -1374,14 +1397,13 @@
 
         <!-- Line Style -->
         <div class="section">
-          <div class="section-corners"></div>
           <div class="section-title">Line Style</div>
           <div class="input-row">
             <div class="form-group">
               <div class="label-row">
                 <label>Weight</label>
                 <button class="lock-btn locked" id="lockLineWeight">
-                  <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                  <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                   <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </button>
               </div>
@@ -1391,7 +1413,7 @@
               <div class="label-row">
                 <label>Style</label>
                 <button class="lock-btn locked" id="lockLineStyle">
-                  <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                  <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                   <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 </button>
               </div>
@@ -1407,16 +1429,16 @@
               <label>Color</label>
               <button class="lock-btn" id="lockLineColor">
                 <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
-                <svg class="lock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               </button>
             </div>
-            <input type="color" id="lineColor" value="#e86a4a">
+            <input type="color" id="lineColor" value="#a855f7">
           </div>
           <div class="form-group">
             <div class="label-row">
               <label>Opacity</label>
               <button class="lock-btn locked" id="lockLineOpacity">
-                <svg class="unlock-icon" style="display:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                <svg class="unlock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
                 <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
               </button>
             </div>
@@ -1432,19 +1454,18 @@
 
         <!-- Preview Background -->
         <div class="section">
-          <div class="section-corners"></div>
-          <div class="section-title">Preview Background</div>
+          <div class="section-title">Background</div>
           <div class="bg-preview-section">
             <div class="bg-swatches">
-              <button class="bg-swatch" data-bg="#FFFFFF"><div class="bg-swatch-color" style="background:#FFF;border:1px solid #ddd;"></div></button>
+              <button class="bg-swatch active" data-bg="#FFFFFF"><div class="bg-swatch-color" style="background:#FFF;"></div></button>
               <button class="bg-swatch" data-bg="#BFBFBF"><div class="bg-swatch-color" style="background:#BFBFBF;"></div></button>
               <button class="bg-swatch" data-bg="#808080"><div class="bg-swatch-color" style="background:#808080;"></div></button>
               <button class="bg-swatch" data-bg="#404040"><div class="bg-swatch-color" style="background:#404040;"></div></button>
-              <button class="bg-swatch active" data-bg="#000000"><div class="bg-swatch-color" style="background:#000;"></div></button>
+              <button class="bg-swatch" data-bg="#09090b"><div class="bg-swatch-color" style="background:#09090b;"></div></button>
             </div>
             <div class="color-input-row">
-              <input type="color" id="bgColor" value="#000000">
-              <input type="text" id="bgColorText" value="#000000" placeholder="#000000">
+              <input type="color" id="bgColor" value="#FFFFFF">
+              <input type="text" id="bgColorText" value="#FFFFFF" placeholder="#000000">
               <button class="color-format-toggle" id="formatToggle">HEX</button>
             </div>
           </div>
@@ -1452,9 +1473,8 @@
 
         <!-- Randomize -->
         <div class="section">
-          <div class="section-corners"></div>
           <button class="btn btn-secondary" id="randomizeBtn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5M4 20L21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
             Randomize
             <span class="shortcut-hint">R</span>
           </button>
@@ -1465,28 +1485,43 @@
     <main class="canvas-area" id="canvasArea">
       <div class="canvas-wrapper" id="canvasWrapper">
         <canvas id="gridCanvas"></canvas>
-        <div class="canvas-corners"></div>
       </div>
     </main>
 
     <!-- Export Button -->
     <button class="export-btn-fixed" id="exportBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
       Export
       <span class="shortcut-hint">E</span>
     </button>
 
-    <!-- Theme Toggle -->
-    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </button>
-
-    <!-- Support Tab -->
-    <button class="donation-trigger" id="donationTrigger">
-      <svg class="heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-      Support
-    </button>
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+      <div class="bottom-left">
+        <button class="transform-btn" id="rotateBtn" title="Rotate 90°">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </button>
+        <button class="transform-btn" id="flipHBtn" title="Flip Horizontal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M16 7l4 5-4 5M8 7l-4 5 4 5"/></svg>
+        </button>
+        <button class="transform-btn" id="flipVBtn" title="Flip Vertical">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M7 8l5-4 5 4M7 16l5 4 5-4"/></svg>
+        </button>
+      </div>
+      <div class="bottom-center">
+        <span class="zoom-indicator" id="zoomIndicator">100%</span>
+      </div>
+      <div class="bottom-right">
+        <button class="donation-trigger" id="donationTrigger">
+          <svg class="heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          Support
+        </button>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
 
     <div class="donation-overlay" id="donationOverlay"></div>
 
@@ -1501,21 +1536,13 @@
         <div class="donation-message">
           Hey there! 👋<br><br>
           Thanks for using Baseline. This tool is free and always will be — no ads, no tracking, no paywalls.<br><br>
-          If it's saved you time or made your design workflow easier, consider a small donation.<br><br>Every bit helps keep this project alive and improving. ✨<br><br>
-          Thanks! 🙏
+          If it's saved you time or made your design workflow easier, consider a small donation. Every bit helps keep this project alive and improving. ✨
         </div>
 
         <div class="wallet-card">
-          <div class="section-corners"></div>
           <div class="wallet-header">
-            <div class="wallet-icon sol">
-              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="64" cy="64" r="64" fill="url(#solGrad)"/>
-                <path d="M35.5 80.5L47.3 68.7C48.1 67.9 49.2 67.5 50.3 67.5H92.5C93.4 67.5 93.8 68.6 93.2 69.2L81.4 81C80.6 81.8 79.5 82.2 78.4 82.2H36.2C35.3 82.2 34.9 81.1 35.5 80.5Z" fill="white"/>
-                <path d="M35.5 47.5L47.3 59.3C48.1 60.1 49.2 60.5 50.3 60.5H92.5C93.4 60.5 93.8 59.4 93.2 58.8L81.4 47C80.6 46.2 79.5 45.8 78.4 45.8H36.2C35.3 45.8 34.9 46.9 35.5 47.5Z" fill="white"/>
-                <path d="M92.5 53.5H50.3C49.2 53.5 48.1 53.9 47.3 54.7L35.5 66.5C34.9 67.1 35.3 68.2 36.2 68.2H78.4C79.5 68.2 80.6 67.8 81.4 67L93.2 55.2C93.8 54.6 93.4 53.5 92.5 53.5Z" fill="white"/>
-                <defs><linearGradient id="solGrad" x1="0" y1="0" x2="128" y2="128"><stop stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs>
-              </svg>
+            <div class="wallet-icon">
+              <svg viewBox="0 0 128 128" fill="none"><circle cx="64" cy="64" r="64" fill="url(#solGrad)"/><path d="M35.5 80.5L47.3 68.7C48.1 67.9 49.2 67.5 50.3 67.5H92.5C93.4 67.5 93.8 68.6 93.2 69.2L81.4 81C80.6 81.8 79.5 82.2 78.4 82.2H36.2C35.3 82.2 34.9 81.1 35.5 80.5Z" fill="white"/><path d="M35.5 47.5L47.3 59.3C48.1 60.1 49.2 60.5 50.3 60.5H92.5C93.4 60.5 93.8 59.4 93.2 58.8L81.4 47C80.6 46.2 79.5 45.8 78.4 45.8H36.2C35.3 45.8 34.9 46.9 35.5 47.5Z" fill="white"/><path d="M92.5 53.5H50.3C49.2 53.5 48.1 53.9 47.3 54.7L35.5 66.5C34.9 67.1 35.3 68.2 36.2 68.2H78.4C79.5 68.2 80.6 67.8 81.4 67L93.2 55.2C93.8 54.6 93.4 53.5 92.5 53.5Z" fill="white"/></svg>
             </div>
             <div class="wallet-name">Solana</div>
           </div>
@@ -1526,18 +1553,9 @@
           </div>
         </div>
         <div class="wallet-card">
-          <div class="section-corners"></div>
           <div class="wallet-header">
-            <div class="wallet-icon eth">
-              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="64" cy="64" r="64" fill="#627EEA"/>
-                <path d="M64 16V52.66L93.86 65.06L64 16Z" fill="white" fill-opacity="0.6"/>
-                <path d="M64 16L34.14 65.06L64 52.66V16Z" fill="white"/>
-                <path d="M64 87.46V112L93.88 71.16L64 87.46Z" fill="white" fill-opacity="0.6"/>
-                <path d="M64 112V87.46L34.14 71.16L64 112Z" fill="white"/>
-                <path d="M64 81.36L93.86 65.06L64 52.68V81.36Z" fill="white" fill-opacity="0.2"/>
-                <path d="M34.14 65.06L64 81.36V52.68L34.14 65.06Z" fill="white" fill-opacity="0.6"/>
-              </svg>
+            <div class="wallet-icon">
+              <svg viewBox="0 0 128 128" fill="none"><circle cx="64" cy="64" r="64" fill="#627EEA"/><path d="M64 16V52.66L93.86 65.06L64 16Z" fill="white" fill-opacity="0.6"/><path d="M64 16L34.14 65.06L64 52.66V16Z" fill="white"/><path d="M64 87.46V112L93.88 71.16L64 87.46Z" fill="white" fill-opacity="0.6"/><path d="M64 112V87.46L34.14 71.16L64 112Z" fill="white"/><path d="M64 81.36L93.86 65.06L64 52.68V81.36Z" fill="white" fill-opacity="0.2"/><path d="M34.14 65.06L64 81.36V52.68L34.14 65.06Z" fill="white" fill-opacity="0.6"/></svg>
             </div>
             <div class="wallet-name">Ethereum</div>
           </div>
@@ -1548,13 +1566,9 @@
           </div>
         </div>
         <div class="wallet-card">
-          <div class="section-corners"></div>
           <div class="wallet-header">
-            <div class="wallet-icon btc">
-              <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="64" cy="64" r="64" fill="#F7931A"/>
-                <path d="M89.5 55.5C90.6 47.3 84.5 42.9 76 40L78.6 29.5L72.1 27.9L69.6 38.1C67.9 37.7 66.1 37.3 64.4 36.9L66.9 26.6L60.4 25L57.8 35.5C56.4 35.2 55 34.9 53.7 34.5L46.1 32.6L44.4 39.5C44.4 39.5 49.2 40.6 49.1 40.7C51.8 41.4 52.3 43.1 52.2 44.5L49.1 57C49.3 57 49.5 57.1 49.8 57.2L49.1 57L44.7 75.4C44.4 76.2 43.5 77.4 41.6 76.9C41.7 77 36.9 75.8 36.9 75.8L33.5 83.2L40.6 85C42.2 85.4 43.7 85.8 45.2 86.2L42.6 96.9L49.1 98.5L51.7 87.9C53.5 88.4 55.2 88.8 56.9 89.2L54.3 99.7L60.8 101.3L63.4 90.6C74.4 92.7 82.7 91.8 86.1 81.9C88.8 73.9 85.8 69.3 80 66.4C84.3 65.4 87.5 62.5 88.4 57.1L89.5 55.5ZM73.6 77.5C71.7 85.5 58 81.1 53.6 80L57.1 65.8C61.5 66.9 75.6 69 73.6 77.5ZM75.5 55.4C73.8 62.7 62.5 59 58.8 58L62 45.1C65.7 46.1 77.3 47.7 75.5 55.4Z" fill="white"/>
-              </svg>
+            <div class="wallet-icon">
+              <svg viewBox="0 0 128 128" fill="none"><circle cx="64" cy="64" r="64" fill="#F7931A"/><path d="M89.5 55.5C90.6 47.3 84.5 42.9 76 40L78.6 29.5L72.1 27.9L69.6 38.1C67.9 37.7 66.1 37.3 64.4 36.9L66.9 26.6L60.4 25L57.8 35.5C56.4 35.2 55 34.9 53.7 34.5L46.1 32.6L44.4 39.5C44.4 39.5 49.2 40.6 49.1 40.7C51.8 41.4 52.3 43.1 52.2 44.5L49.1 57C49.3 57 49.5 57.1 49.8 57.2L49.1 57L44.7 75.4C44.4 76.2 43.5 77.4 41.6 76.9C41.7 77 36.9 75.8 36.9 75.8L33.5 83.2L40.6 85C42.2 85.4 43.7 85.8 45.2 86.2L42.6 96.9L49.1 98.5L51.7 87.9C53.5 88.4 55.2 88.8 56.9 89.2L54.3 99.7L60.8 101.3L63.4 90.6C74.4 92.7 82.7 91.8 86.1 81.9C88.8 73.9 85.8 69.3 80 66.4C84.3 65.4 87.5 62.5 88.4 57.1L89.5 55.5ZM73.6 77.5C71.7 85.5 58 81.1 53.6 80L57.1 65.8C61.5 66.9 75.6 69 73.6 77.5ZM75.5 55.4C73.8 62.7 62.5 59 58.8 58L62 45.1C65.7 46.1 77.3 47.7 75.5 55.4Z" fill="white"/></svg>
             </div>
             <div class="wallet-name">Bitcoin</div>
           </div>
@@ -1607,20 +1621,11 @@
   <script>
     const GRID_LAYOUTS = {
       'Compositional': [
+        { id: 'center-lines', name: 'Center Lines' },
         { id: 'rule-of-thirds', name: 'Rule of Thirds' },
         { id: 'fibonacci', name: 'Fibonacci' },
-        { id: 'diagonal', name: 'Diagonal Lines' },
-        { id: 'diagonal-triangles', name: 'Diagonal Triangles' },
-        { id: 'center-lines', name: 'Center Lines' },
         { id: 'dynamic-symmetry', name: 'Dynamic Symmetry' },
         { id: 'harmonic-armature', name: 'Harmonic Armature' },
-      ],
-      'Editorial': [
-        { id: 'manuscript', name: 'Manuscript' },
-        { id: 'ratio-2-1', name: '2:1' },
-        { id: 'ratio-1-2', name: '1:2' },
-        { id: 'feature', name: 'Feature' },
-        { id: 'pull-quote', name: 'Pull Quote' },
       ],
       'Modular': [
         { id: 'modular-2x2', name: '2×2 Modular' },
@@ -1635,16 +1640,30 @@
         { id: 'perspective-1pt', name: '1-Point Perspective' },
         { id: 'perspective-2pt', name: '2-Point Perspective' },
         { id: 'perspective-3pt', name: '3-Point Perspective' },
-        { id: 'vanishing-center', name: 'Vanishing Center' },
-        { id: 'radial', name: 'Radial' },
+      ],
+      'Editorial': [
+        { id: 'manuscript', name: 'Manuscript' },
+        { id: 'ratio-2-1', name: '2:1 Ratio' },
+        { id: 'ratio-1-2', name: '1:2 Ratio' },
+        { id: 'pull-quote', name: 'Pull Quote' },
+        { id: 'layout-book-page', name: 'Book Page' },
+        { id: 'feature', name: 'Feature' },
+        { id: 'layout-dual-header', name: 'Dual Header' },
+        { id: 'layout-hero-split', name: 'Hero Split' },
+        { id: 'layout-sidebar-stack', name: 'Sidebar Stack' },
+        { id: 'layout-poster-block', name: 'Poster Block' },
+        { id: 'layout-news-mix', name: 'News Mix' },
+        { id: 'layout-catalog', name: 'Catalog' },
+        { id: 'asymmetric-compound', name: 'Asymmetric' },
       ],
       'Rhythm': [
+        { id: 'fifths', name: 'Fifths' },
+        { id: 'sevenths', name: 'Sevenths' },
         { id: 'field-grid', name: 'Field' },
         { id: 'musical', name: 'Musical' },
         { id: 'progressive', name: 'Progressive' },
         { id: 'fibonacci-rhythm', name: 'Fibonacci Rhythm' },
         { id: 'phi-sections', name: 'Phi Sections' },
-        { id: 'fifths', name: 'Fifths' },
       ],
       'Compound': [
         { id: 'compound-3-4', name: '3+4' },
@@ -1653,8 +1672,7 @@
         { id: 'compound-4-6', name: '4+6' },
         { id: 'compound-5-6', name: '5+6' },
         { id: 'program', name: 'Program' },
-        { id: 'nested-phi', name: 'Nested Phi' },
-        { id: 'asymmetric-compound', name: 'Asymmetric' },
+        { id: 'cross-channel', name: 'Cross Channel' },
       ],
       'Standard': [
         { id: 'standard-4', name: 'Standard (4px)' },
@@ -1687,6 +1705,29 @@
         { id: 'rows-8', name: '8 Rows' },
         { id: 'rows-12', name: '12 Rows' },
       ],
+      'Axial': [
+        { id: 'axial-15', name: '15°' },
+        { id: 'axial-30', name: '30°' },
+        { id: 'axial-45', name: '45°' },
+        { id: 'axial-60', name: '60°' },
+        { id: 'axial-offset-high', name: 'Offset High' },
+        { id: 'axial-offset-low', name: 'Offset Low' },
+      ],
+      'Diagonal': [
+        { id: 'diagonal', name: 'Diagonal Lines' },
+        { id: 'diagonal-thirds', name: 'Diagonal Thirds' },
+        { id: 'diagonal-quarters', name: 'Diagonal Quarters' },
+        { id: 'diagonal-cross', name: 'Diagonal Cross' },
+        { id: 'diagonal-angle', name: 'Angular 30/60' },
+        { id: 'diagonal-chevron', name: 'Chevron' },
+      ],
+      'Radial': [
+        { id: 'radial', name: 'Radial' },
+        { id: 'radial-corner', name: 'Corner Radial' },
+        { id: 'radial-concentric', name: 'Concentric' },
+        { id: 'radial-sunburst', name: 'Sunburst' },
+        { id: 'radial-quadrant', name: 'Quadrant Arcs' },
+      ],
       'Sacred Geometry': [
         { id: 'circle', name: 'Circle' },
         { id: 'vesica-piscis', name: 'Vesica Piscis' },
@@ -1706,37 +1747,113 @@
       width: 1080, height: 1080,
       selectedGrids: ['fibonacci'],
       margin: 20, padding: 20, gutter: 20,
-      lineWeight: 1, lineStyle: 'solid', lineColor: '#d8735a', lineOpacity: 70,
-      bgColor: '#ffffff'
+      lineWeight: 1, lineStyle: 'solid', lineColor: '#a855f7', lineOpacity: 70,
+      bgColor: '#FFFFFF',
+      rotation: 0,
+      flipH: false,
+      flipV: false,
+      zoom: 1
     };
 
-    let locks = { grids: false, margin: true, padding: true, gutter: true, lineWeight: true, lineStyle: true, lineColor: false, lineOpacity: true };
+    let locks = {
+      margin: true,
+      padding: true,
+      gutter: true,
+      lineWeight: true,
+      lineStyle: true,
+      lineColor: false,
+      lineOpacity: true
+    };
+
     let colorFormat = 'HEX';
 
     const canvas = document.getElementById('gridCanvas');
     const ctx = canvas.getContext('2d');
     const canvasArea = document.getElementById('canvasArea');
 
-    // Theme
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
+    // Lock button handlers
+    document.querySelectorAll('.lock-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lockMap = {
+          'lockMargin': 'margin',
+          'lockPadding': 'padding',
+          'lockGutter': 'gutter',
+          'lockLineWeight': 'lineWeight',
+          'lockLineStyle': 'lineStyle',
+          'lockLineColor': 'lineColor',
+          'lockLineOpacity': 'lineOpacity'
+        };
+        const key = lockMap[btn.id];
+        if (key) {
+          locks[key] = !locks[key];
+          btn.classList.toggle('locked', locks[key]);
+        }
+      });
     });
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Build grid list
+    // Theme toggle
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const html = document.documentElement;
+      const newTheme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = newTheme;
+    });
+
+    // Scroll wheel zoom
+    canvasArea.addEventListener('wheel', e => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      state.zoom = Math.min(3, Math.max(0.1, state.zoom + delta));
+      updateZoomIndicator();
+      render();
+    }, { passive: false });
+
+    function updateZoomIndicator() {
+      document.getElementById('zoomIndicator').textContent = Math.round(state.zoom * 100) + '%';
+    }
+
+    // Transform controls
+    document.getElementById('rotateBtn').addEventListener('click', () => {
+      state.rotation = (state.rotation + 90) % 360;
+      render();
+    });
+
+    document.getElementById('flipHBtn').addEventListener('click', () => {
+      state.flipH = !state.flipH;
+      document.getElementById('flipHBtn').classList.toggle('active', state.flipH);
+      render();
+    });
+
+    document.getElementById('flipVBtn').addEventListener('click', () => {
+      state.flipV = !state.flipV;
+      document.getElementById('flipVBtn').classList.toggle('active', state.flipV);
+      render();
+    });
+
+    // Build grid list with toggles
     const gridContainer = document.getElementById('gridTemplates');
     Object.entries(GRID_LAYOUTS).forEach(([cat, grids]) => {
       const catEl = document.createElement('div');
       catEl.className = 'grid-category';
       catEl.innerHTML = `<div class="grid-category-title">${cat}</div>`;
       grids.forEach(g => {
-        const item = document.createElement('label');
+        const item = document.createElement('div');
         item.className = 'grid-template-item';
-        item.innerHTML = `<input type="checkbox" id="grid-${g.id}" ${state.selectedGrids.includes(g.id) ? 'checked' : ''}><span>${g.name}</span>`;
+        item.innerHTML = `
+          <span>${g.name}</span>
+          <label class="toggle">
+            <input type="checkbox" id="grid-${g.id}" ${state.selectedGrids.includes(g.id) ? 'checked' : ''}>
+            <span class="toggle-slider"></span>
+          </label>
+        `;
+        item.addEventListener('click', e => {
+          if (e.target.tagName !== 'INPUT') {
+            const checkbox = item.querySelector('input');
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event('change'));
+          }
+        });
         item.querySelector('input').addEventListener('change', e => {
+          e.stopPropagation();
           if (e.target.checked) state.selectedGrids.push(g.id);
           else state.selectedGrids = state.selectedGrids.filter(id => id !== g.id);
           render();
@@ -1780,20 +1897,6 @@
     document.getElementById('opacityNumber').addEventListener('blur', e => { e.target.value = state.lineOpacity; });
     document.getElementById('bgColor').addEventListener('input', e => { state.bgColor = e.target.value; document.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('active')); updateColorDisplay(); render(); });
 
-    // Locks
-    document.querySelectorAll('.lock-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const m = { lockGrids:'grids', lockMargin:'margin', lockPadding:'padding', lockGutter:'gutter', lockLineWeight:'lineWeight', lockLineStyle:'lineStyle', lockLineColor:'lineColor', lockLineOpacity:'lineOpacity' };
-        const k = m[btn.id];
-        if (k) {
-          locks[k] = !locks[k];
-          btn.classList.toggle('locked');
-          btn.querySelector('.lock-icon').style.display = locks[k] ? 'block' : 'none';
-          btn.querySelector('.unlock-icon').style.display = locks[k] ? 'none' : 'block';
-        }
-      });
-    });
-
     // Background swatches
     document.querySelectorAll('.bg-swatch').forEach(s => {
       s.addEventListener('click', () => {
@@ -1827,14 +1930,39 @@
     function hexToRgba(h, a) { const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16); return `rgba(${r},${g},${b},${a})`; }
 
     function randomize() {
-      if (!locks.grids) { const n = Math.floor(Math.random()*3)+1; state.selectedGrids = [...ALL_GRIDS].sort(() => Math.random()-0.5).slice(0,n).map(g => g.id); document.querySelectorAll('#gridTemplates input').forEach(c => c.checked = state.selectedGrids.includes(c.id.replace('grid-',''))); }
-      if (!locks.lineStyle) { state.lineStyle = ['solid','dashed','dotted'][Math.floor(Math.random()*3)]; document.getElementById('lineStyle').value = state.lineStyle; }
-      if (!locks.lineColor) { state.lineColor = ['#e86a4a','#f97316','#eab308','#22c55e','#14b8a6','#0ea5e9','#8b5cf6','#ec4899'][Math.floor(Math.random()*8)]; document.getElementById('lineColor').value = state.lineColor; }
-      if (!locks.lineOpacity) { state.lineOpacity = Math.floor(Math.random()*50)+50; document.getElementById('lineOpacity').value = state.lineOpacity; document.getElementById('opacityNumber').value = state.lineOpacity; }
-      if (!locks.lineWeight) { state.lineWeight = (Math.floor(Math.random()*6)+1)*0.5; document.getElementById('lineWeight').value = state.lineWeight; }
-      if (!locks.margin) { state.margin = Math.floor(Math.random()*4)*20; document.getElementById('margin').value = state.margin; }
-      if (!locks.padding) { state.padding = (Math.floor(Math.random()*4)+1)*20; document.getElementById('padding').value = state.padding; }
-      if (!locks.gutter) { state.gutter = (Math.floor(Math.random()*4)+1)*10; document.getElementById('gutter').value = state.gutter; }
+      const n = Math.floor(Math.random()*3)+1;
+      state.selectedGrids = [...ALL_GRIDS].sort(() => Math.random()-0.5).slice(0,n).map(g => g.id);
+      document.querySelectorAll('#gridTemplates input').forEach(c => c.checked = state.selectedGrids.includes(c.id.replace('grid-','')));
+      
+      if (!locks.lineStyle) {
+        state.lineStyle = ['solid','dashed','dotted'][Math.floor(Math.random()*3)];
+        document.getElementById('lineStyle').value = state.lineStyle;
+      }
+      if (!locks.lineColor) {
+        state.lineColor = ['#a855f7','#ec4899','#f97316','#22c55e','#14b8a6','#0ea5e9','#8b5cf6','#ffffff'][Math.floor(Math.random()*8)];
+        document.getElementById('lineColor').value = state.lineColor;
+      }
+      if (!locks.lineOpacity) {
+        state.lineOpacity = Math.floor(Math.random()*50)+50;
+        document.getElementById('lineOpacity').value = state.lineOpacity;
+        document.getElementById('opacityNumber').value = state.lineOpacity;
+      }
+      if (!locks.lineWeight) {
+        state.lineWeight = (Math.floor(Math.random()*6)+1)*0.5;
+        document.getElementById('lineWeight').value = state.lineWeight;
+      }
+      if (!locks.margin) {
+        state.margin = Math.floor(Math.random()*40)+10;
+        document.getElementById('margin').value = state.margin;
+      }
+      if (!locks.padding) {
+        state.padding = Math.floor(Math.random()*40)+10;
+        document.getElementById('padding').value = state.padding;
+      }
+      if (!locks.gutter) {
+        state.gutter = Math.floor(Math.random()*30)+10;
+        document.getElementById('gutter').value = state.gutter;
+      }
       render();
     }
 
@@ -1845,42 +1973,23 @@
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key.toLowerCase() === 'r') randomize();
       if (e.key.toLowerCase() === 'e') showExport();
-      if (e.key.toLowerCase() === 't') document.getElementById('themeToggle').click();
     });
 
     // Export
     let exportFormat = 'png';
 
-    function getContrastBg(bgColor) {
-      // Calculate luminance
-      const hex = bgColor.replace('#', '');
-      const r = parseInt(hex.substr(0, 2), 16);
-      const g = parseInt(hex.substr(2, 2), 16);
-      const b = parseInt(hex.substr(4, 2), 16);
-      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-      return luminance > 0.5 ? 'dark-bg' : 'light-bg';
-    }
-
     function showExport() {
       const overlay = document.getElementById('exportOverlay');
       const transparent = document.getElementById('transparentBg').checked;
-      
-      // Set adaptive background
-      overlay.classList.remove('light-bg', 'dark-bg');
-      overlay.classList.add(getContrastBg(state.bgColor));
-      
-      // Generate preview (always with current bg for preview)
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = state.width;
       tempCanvas.height = state.height;
       const tempCtx = tempCanvas.getContext('2d');
       renderGrids(tempCtx, transparent);
-      
       document.getElementById('exportPreviewImg').src = tempCanvas.toDataURL('image/png');
       overlay.classList.add('open');
     }
 
-    // Format selection
     document.querySelectorAll('.format-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
@@ -1889,7 +1998,6 @@
       });
     });
 
-    // Update preview when transparent checkbox changes
     document.getElementById('transparentBg').addEventListener('change', () => {
       const transparent = document.getElementById('transparentBg').checked;
       const tempCanvas = document.createElement('canvas');
@@ -1905,9 +2013,7 @@
 
     document.getElementById('exportDownload').addEventListener('click', () => {
       const transparent = document.getElementById('transparentBg').checked;
-      
       if (exportFormat === 'svg') {
-        // Generate SVG
         const svg = generateSVG(transparent);
         const blob = new Blob([svg], { type: 'image/svg+xml' });
         const url = URL.createObjectURL(blob);
@@ -1917,7 +2023,6 @@
         a.click();
         URL.revokeObjectURL(url);
       } else {
-        // Generate PNG
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = state.width;
         tempCanvas.height = state.height;
@@ -1932,292 +2037,6 @@
       document.getElementById('exportOverlay').classList.remove('open');
     });
 
-    // SVG Generation
-    function generateSVG(transparent) {
-      const m = state.margin;
-      const p = state.padding;
-      const g = state.gutter;
-      const x = m + p, y = m + p;
-      const w = state.width - 2*(m+p), h = state.height - 2*(m+p);
-      const s = Math.max(state.width, state.height) / 1000;
-      
-      let paths = '';
-      state.selectedGrids.forEach(id => {
-        paths += generateGridSVG(id, x, y, w, h, g, s);
-      });
-      
-      const strokeColor = state.lineColor;
-      const strokeOpacity = state.lineOpacity / 100;
-      let dashArray = '';
-      if (state.lineStyle === 'dashed') dashArray = `stroke-dasharray="${8*s},${4*s}"`;
-      else if (state.lineStyle === 'dotted') dashArray = `stroke-dasharray="${2*s},${4*s}"`;
-      
-      const bgRect = transparent ? '' : `<rect width="${state.width}" height="${state.height}" fill="${state.bgColor}"/>`;
-      
-      return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${state.width}" height="${state.height}" viewBox="0 0 ${state.width} ${state.height}">
-  ${bgRect}
-  <g stroke="${strokeColor}" stroke-opacity="${strokeOpacity}" stroke-width="${state.lineWeight}" fill="none" ${dashArray}>
-    ${paths}
-  </g>
-</svg>`;
-    }
-
-    function generateGridSVG(id, x, y, w, h, g, s) {
-      const phi = 1.618;
-      const cx = x + w/2, cy = y + h/2;
-      const r = Math.min(w, h) * 0.4;
-      let paths = '';
-      
-      function line(x1, y1, x2, y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
-      function rect(rx, ry, rw, rh) { return `<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}"/>`; }
-      function circle(ccx, ccy, cr) { return `<circle cx="${ccx}" cy="${ccy}" r="${cr}"/>`; }
-      
-      switch(id) {
-        case 'rule-of-thirds':
-          paths += line(x+w/3,y,x+w/3,y+h) + line(x+2*w/3,y,x+2*w/3,y+h);
-          paths += line(x,y+h/3,x+w,y+h/3) + line(x,y+2*h/3,x+w,y+2*h/3);
-          break;
-        case 'fibonacci':
-          paths += generateGoldenSpiralSVG(x,y,w,h);
-          break;
-        case 'diagonal':
-          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
-          break;
-        case 'diagonal-triangles':
-          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
-          paths += line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h);
-          paths += line(x,y,x+w/2,y+h) + line(x+w,y,x+w/2,y+h);
-          break;
-        case 'center-lines':
-          paths += line(x+w/2,y,x+w/2,y+h) + line(x,y+h/2,x+w,y+h/2);
-          break;
-        case 'dynamic-symmetry':
-          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
-          paths += line(x,y,x+w,y+h*0.618) + line(x+w,y,x,y+h*0.618);
-          paths += line(x,y+h,x+w,y+h*0.382) + line(x+w,y+h,x,y+h*0.382);
-          break;
-        case 'harmonic-armature':
-          paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h);
-          paths += line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h);
-          paths += line(x,y+h/2,x+w,y) + line(x,y+h/2,x+w,y+h);
-          paths += line(x+w,y+h/2,x,y) + line(x+w,y+h/2,x,y+h);
-          break;
-        case 'manuscript':
-          paths += rect(x+w*0.1,y,w*0.8,h);
-          break;
-        case 'ratio-2-1': { const a21=(w-g)/3; paths += rect(x,y,a21*2,h) + rect(x+a21*2+g,y,a21,h); break; }
-        case 'ratio-1-2': { const a12=(w-g)/3; paths += rect(x,y,a12,h) + rect(x+a12+g,y,a12*2,h); break; }
-        case 'feature': { const fw=w*0.6; paths += rect(x,y,fw,h*0.65) + rect(x,y+h*0.65+g,fw,h*0.35-g) + rect(x+fw+g,y,w-fw-g,h); break; }
-        case 'pull-quote': paths += rect(x,y,w,h) + rect(x+w*0.15,y+h*0.35,w*0.7,h*0.3); break;
-        case 'modular-2x2': paths += generateModSVG(x,y,w,h,2,2,g); break;
-        case 'modular-3x3': paths += generateModSVG(x,y,w,h,3,3,g); break;
-        case 'modular-4x4': paths += generateModSVG(x,y,w,h,4,4,g); break;
-        case 'modular-4x6': paths += generateModSVG(x,y,w,h,4,6,g); break;
-        case 'modular-5x5': paths += generateModSVG(x,y,w,h,5,5,g); break;
-        case 'modular-6x6': paths += generateModSVG(x,y,w,h,6,6,g); break;
-        case 'isometric': paths += generateIsoSVG(x,y,w,h,s); break;
-        case 'perspective-1pt': paths += generate1PSVG(x,y,w,h); break;
-        case 'perspective-2pt': paths += generate2PSVG(x,y,w,h); break;
-        case 'perspective-3pt': paths += generate3PSVG(x,y,w,h); break;
-        case 'vanishing-center':
-          for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2; paths += line(cx,cy,cx+Math.cos(a)*w,cy+Math.sin(a)*h);}
-          break;
-        case 'radial':
-          const rr=Math.min(w,h)/2;
-          for(let i=1;i<=5;i++) paths += circle(cx,cy,rr*i/5);
-          for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2; paths += line(cx,cy,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}
-          break;
-        case 'field-grid':
-          const fc=4,fgr=6,fgw=w/fc,fgh=h/fgr;
-          for(let i=0;i<=fc;i++) paths += line(x+i*fgw,y,x+i*fgw,y+h);
-          for(let i=0;i<=fgr;i++) paths += line(x,y+i*fgh,x+w,y+i*fgh);
-          break;
-        case 'musical':
-          [0,0.125,0.25,0.333,0.5,0.667,0.75,0.875,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
-          break;
-        case 'progressive':
-          [0,0.08,0.18,0.3,0.45,0.62,0.8,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
-          break;
-        case 'fibonacci-rhythm': {
-          let fibAcc = 0;
-          [0,1,1,2,3,5,8,13,21].forEach((v,i)=>{ if(i>0){ const p=fibAcc/34; paths += line(x,y+h*p,x+w,y+h*p); } fibAcc+=v; });
-          break;
-        }
-        case 'phi-sections':
-          [0,1-1/phi,1/phi,1-(1/phi/phi),1/phi/phi,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
-          break;
-        case 'fifths':
-          [0,0.2,0.4,0.6,0.8,1].forEach(v=>{ paths += line(x,y+h*v,x+w,y+h*v); });
-          break;
-        case 'standard-4': paths += generateStdSVG(x,y,w,h,4*s); break;
-        case 'standard-8': paths += generateStdSVG(x,y,w,h,8*s); break;
-        case 'standard-12': paths += generateStdSVG(x,y,w,h,12*s); break;
-        case 'standard-24': paths += generateStdSVG(x,y,w,h,24*s); break;
-        case 'standard-48': paths += generateStdSVG(x,y,w,h,48*s); break;
-        case 'baseline-4': paths += generateBaseSVG(x,y,w,h,4*s); break;
-        case 'baseline-8': paths += generateBaseSVG(x,y,w,h,8*s); break;
-        case 'baseline-12': paths += generateBaseSVG(x,y,w,h,12*s); break;
-        case 'baseline-24': paths += generateBaseSVG(x,y,w,h,24*s); break;
-        case 'baseline-48': paths += generateBaseSVG(x,y,w,h,48*s); break;
-        case 'columns-2':case 'columns-3':case 'columns-4':case 'columns-5':case 'columns-6':case 'columns-8':case 'columns-12':
-          paths += generateColsSVG(x,y,w,h,+id.split('-')[1],g); break;
-        case 'rows-2':case 'rows-3':case 'rows-4':case 'rows-6':case 'rows-8':case 'rows-12':
-          paths += generateRowsSVG(x,y,w,h,+id.split('-')[1],g); break;
-        case 'compound-3-4': paths += generateCompoundSVG(x,y,w,h,3,4); break;
-        case 'compound-3-5': paths += generateCompoundSVG(x,y,w,h,3,5); break;
-        case 'compound-4-5': paths += generateCompoundSVG(x,y,w,h,4,5); break;
-        case 'compound-4-6': paths += generateCompoundSVG(x,y,w,h,4,6); break;
-        case 'compound-5-6': paths += generateCompoundSVG(x,y,w,h,5,6); break;
-        case 'program': paths += generateProgramSVG(x,y,w,h); break;
-        case 'nested-phi':
-          const ng1=w/phi,ng2=ng1/phi;
-          paths += line(x+ng1,y,x+ng1,y+h) + line(x+w-ng1,y,x+w-ng1,y+h);
-          paths += line(x+ng2,y,x+ng2,y+h) + line(x+w-ng2,y,x+w-ng2,y+h);
-          const ngh1=h/phi,ngh2=ngh1/phi;
-          paths += line(x,y+ngh1,x+w,y+ngh1) + line(x,y+h-ngh1,x+w,y+h-ngh1);
-          paths += line(x,y+ngh2,x+w,y+ngh2) + line(x,y+h-ngh2,x+w,y+h-ngh2);
-          break;
-        case 'asymmetric-compound':
-          const acw=w/3;
-          paths += rect(x,y,acw,h);
-          const acg=(w-acw-g); const colW=(acg-g*5)/6;
-          for(let i=0;i<6;i++) paths += rect(x+acw+g+i*(colW+g),y,colW,h);
-          break;
-        case 'circle': paths += circle(cx,cy,r); break;
-        case 'vesica-piscis':
-          const vr=r*0.75;
-          paths += circle(cx-vr*0.4,cy,vr) + circle(cx+vr*0.4,cy,vr);
-          break;
-        case 'trinity':
-          for(let i=0;i<3;i++){const a=i*Math.PI*2/3-Math.PI/2; paths += circle(cx+r*0.35*Math.cos(a),cy+r*0.35*Math.sin(a),r*0.7);}
-          break;
-        case 'tetrad':
-          for(let i=0;i<4;i++){const a=i*Math.PI/2; paths += circle(cx+r*0.4*Math.cos(a),cy+r*0.4*Math.sin(a),r*0.65);}
-          break;
-        case 'quintet':
-          for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2; paths += circle(cx+r*0.45*Math.cos(a),cy+r*0.45*Math.sin(a),r*0.58);}
-          break;
-        case 'seed-of-life':
-          const sr=r*0.5; paths += circle(cx,cy,sr);
-          for(let i=0;i<6;i++){const a=i*Math.PI/3; paths += circle(cx+sr*Math.cos(a),cy+sr*Math.sin(a),sr);}
-          break;
-        case 'flower-of-life':
-          const flr=r*0.28; paths += circle(cx,cy,flr);
-          for(let ring=0;ring<2;ring++){const dist=flr*(ring+1);for(let i=0;i<6;i++){const a=i*Math.PI/3+(ring*Math.PI/6); paths += circle(cx+dist*Math.cos(a),cy+dist*Math.sin(a),flr);}}
-          for(let i=0;i<6;i++){const a=i*Math.PI/3; paths += circle(cx+flr*2*Math.cos(a),cy+flr*2*Math.sin(a),flr);}
-          break;
-        case 'sri-yantra': paths += generateSriYantraSVG(cx,cy,r); break;
-        case 'metatrons-cube': paths += generateMetatronSVG(cx,cy,r); break;
-      }
-      return paths;
-    }
-
-    function generateGoldenSpiralSVG(x,y,w,h) {
-      const p=1.618; let cx=x,cy=y,cw=w,ch=h; let paths='';
-      function line(x1,y1,x2,y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
-      for(let i=0;i<8;i++){
-        if(i%4===0){const nw=cw/p; paths+=line(cx+nw,cy,cx+nw,cy+ch); cx+=nw;cw-=nw;}
-        else if(i%4===1){const nh=ch/p; paths+=line(cx,cy+ch-nh,cx+cw,cy+ch-nh); ch-=nh;}
-        else if(i%4===2){const nw=cw/p; paths+=line(cx+cw-nw,cy,cx+cw-nw,cy+ch); cw-=nw;}
-        else{const nh=ch/p; paths+=line(cx,cy+nh,cx+cw,cy+nh); cy+=nh;ch-=nh;}
-      }
-      return paths;
-    }
-
-    function generateModSVG(x,y,w,h,cols,rows,g) {
-      const cw=(w-g*(cols-1))/cols,rh=(h-g*(rows-1))/rows; let paths='';
-      for(let col=0;col<cols;col++) for(let row=0;row<rows;row++) paths+=`<rect x="${x+col*(cw+g)}" y="${y+row*(rh+g)}" width="${cw}" height="${rh}"/>`;
-      return paths;
-    }
-
-    function generateBaseSVG(x,y,w,h,sp) {
-      let paths='';
-      for(let py=y;py<=y+h;py+=sp) paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;
-      return paths;
-    }
-
-    function generateStdSVG(x,y,w,h,sp) {
-      let paths='';
-      for(let py=y;py<=y+h;py+=sp) paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;
-      for(let px=x;px<=x+w;px+=sp) paths+=`<line x1="${px}" y1="${y}" x2="${px}" y2="${y+h}"/>`;
-      return paths;
-    }
-
-    function generateIsoSVG(x,y,w,h,s) {
-      const sp=40*s, a=Math.tan(30*Math.PI/180); let paths='';
-      for(let i=-h;i<w+h;i+=sp) { paths+=`<line x1="${x+i}" y1="${y+h}" x2="${x+i+h/a}" y2="${y}"/>`; paths+=`<line x1="${x+i}" y1="${y+h}" x2="${x+i-h/a}" y2="${y}"/>`; }
-      for(let px=x;px<=x+w;px+=sp) paths+=`<line x1="${px}" y1="${y}" x2="${px}" y2="${y+h}"/>`;
-      return paths;
-    }
-
-    function generate1PSVG(x,y,w,h) {
-      const cx=x+w/2,cy=y+h/2; let paths='';
-      [[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x+w/2,y],[x+w,cy],[x+w/2,y+h],[x,cy]].forEach(p=>{ paths+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}"/>`; });
-      paths+=`<line x1="${x}" y1="${cy}" x2="${x+w}" y2="${cy}"/>`;
-      return paths;
-    }
-
-    function generate2PSVG(x,y,w,h) {
-      const hy=y+h*0.4,lv=x-w*0.1,rv=x+w*1.1; let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;
-      for(let i=0;i<=4;i++) { paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/4}"/>`; paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/4}"/>`; }
-      return paths;
-    }
-
-    function generate3PSVG(x,y,w,h) {
-      const hy=y+h*0.3,lv=x-w*0.1,rv=x+w*1.1,bv=y+h*1.3; let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;
-      for(let i=0;i<=3;i++) { paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/3}"/>`; paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/3}"/>`; }
-      for(let i=0;i<=4;i++) paths+=`<line x1="${x+w*i/4}" y1="${y}" x2="${x+w/2}" y2="${bv}"/>`;
-      return paths;
-    }
-
-    function generateColsSVG(x,y,w,h,n,g) {
-      const cw=(w-g*(n-1))/n; let paths='';
-      for(let i=0;i<n;i++){const cx=x+i*(cw+g); paths+=`<line x1="${cx}" y1="${y}" x2="${cx}" y2="${y+h}"/>`; paths+=`<line x1="${cx+cw}" y1="${y}" x2="${cx+cw}" y2="${y+h}"/>`;}
-      return paths;
-    }
-
-    function generateRowsSVG(x,y,w,h,n,g) {
-      const rh=(h-g*(n-1))/n; let paths='';
-      for(let i=0;i<n;i++){const ry=y+i*(rh+g); paths+=`<line x1="${x}" y1="${ry}" x2="${x+w}" y2="${ry}"/>`; paths+=`<line x1="${x}" y1="${ry+rh}" x2="${x+w}" y2="${ry+rh}"/>`;}
-      return paths;
-    }
-
-    function generateCompoundSVG(x,y,w,h,n1,n2) {
-      let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;
-      for(let i=1;i<n1;i++) paths+=`<line x1="${x+w*i/n1}" y1="${y}" x2="${x+w*i/n1}" y2="${y+h}"/>`;
-      for(let i=1;i<n2;i++) paths+=`<line x1="${x+w*i/n2}" y1="${y}" x2="${x+w*i/n2}" y2="${y+h}"/>`;
-      for(let i=1;i<n1;i++) paths+=`<line x1="${x}" y1="${y+h*i/n1}" x2="${x+w}" y2="${y+h*i/n1}"/>`;
-      for(let i=1;i<n2;i++) paths+=`<line x1="${x}" y1="${y+h*i/n2}" x2="${x+w}" y2="${y+h*i/n2}"/>`;
-      return paths;
-    }
-
-    function generateProgramSVG(x,y,w,h) {
-      let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;
-      [2,3,4,5,6].forEach(d=>{for(let i=1;i<d;i++){paths+=`<line x1="${x+w*i/d}" y1="${y}" x2="${x+w*i/d}" y2="${y+h}"/>`; paths+=`<line x1="${x}" y1="${y+h*i/d}" x2="${x+w}" y2="${y+h*i/d}"/>`;}});
-      return paths;
-    }
-
-    function generateSriYantraSVG(cx,cy,r) {
-      const s=r*1.1; let paths='';
-      const upTris=[[[0,-0.95],[-.85,.65],[.85,.65]],[[0,-0.65],[-.55,.4],[.55,.4]],[[0,-0.4],[-.35,.22],[.35,.22]],[[0,-0.2],[-.18,.1],[.18,.1]]];
-      const downTris=[[[0,.95],[-.75,-.55],[.75,-.55]],[[0,.7],[-.6,-.38],[.6,-.38]],[[0,.48],[-.42,-.25],[.42,-.25]],[[0,.32],[-.28,-.15],[.28,-.15]],[[0,.15],[-.12,-.05],[.12,-.05]]];
-      [...upTris,...downTris].forEach(tri=>{ paths+=`<polygon points="${tri.map(p=>`${cx+p[0]*s},${cy+p[1]*s}`).join(' ')}"/>`; });
-      paths+=`<circle cx="${cx}" cy="${cy}" r="${r}"/>`;
-      return paths;
-    }
-
-    function generateMetatronSVG(cx,cy,r) {
-      let paths='';
-      const pts=[]; for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2; pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}
-      const inner=[]; for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2; inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}
-      pts.push([cx,cy]); inner.forEach(p=>pts.push(p));
-      for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++) paths+=`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}"/>`;
-      [...pts.slice(0,6),...inner].forEach(p=>{ paths+=`<circle cx="${p[0]}" cy="${p[1]}" r="${r*0.25}"/>`; });
-      paths+=`<circle cx="${cx}" cy="${cy}" r="${r*0.25}"/>`;
-      return paths;
-    }
-
     // Donation panel
     const donationPanel = document.getElementById('donationPanel');
     const donationOverlay = document.getElementById('donationOverlay');
@@ -2227,12 +2046,7 @@
 
     // Share
     document.getElementById('shareBtn').addEventListener('click', () => {
-      const text = encodeURIComponent(
-        'Use Baseline to generate grids for your designs.\n\n' +
-        'https://baselinegrids.netlify.app/\n\n' +
-        'Created by: @samhayek_\n\n' +
-        '100% free, forever.'
-      );
+      const text = encodeURIComponent('Use Baseline to generate grids for your designs.\n\nhttps://baselinegrids.netlify.app/\n\nCreated by: @samhayek_\n\n100% free, forever.');
       window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'width=550,height=420');
     });
 
@@ -2257,7 +2071,8 @@
     function render() {
       const areaW = canvasArea.clientWidth - 96;
       const areaH = canvasArea.clientHeight - 96;
-      const scale = Math.min(areaW / state.width, areaH / state.height, 1);
+      const baseScale = Math.min(areaW / state.width, areaH / state.height, 1);
+      const scale = baseScale * state.zoom;
       canvas.width = state.width;
       canvas.height = state.height;
       canvas.style.width = state.width * scale + 'px';
@@ -2282,8 +2097,187 @@
       else if (state.lineStyle === 'dotted') c.setLineDash([2*s, 4*s]);
       else c.setLineDash([]);
 
+      // Apply transforms
+      c.save();
+      c.translate(state.width / 2, state.height / 2);
+      c.rotate(state.rotation * Math.PI / 180);
+      c.scale(state.flipH ? -1 : 1, state.flipV ? -1 : 1);
+      c.translate(-state.width / 2, -state.height / 2);
+
       state.selectedGrids.forEach(id => drawGrid(c, id, x, y, w, h, g, s));
+      
+      c.restore();
     }
+
+    // SVG Generation
+    function generateSVG(transparent) {
+      const m = state.margin;
+      const p = state.padding;
+      const g = state.gutter;
+      const x = m + p, y = m + p;
+      const w = state.width - 2*(m+p), h = state.height - 2*(m+p);
+      const s = Math.max(state.width, state.height) / 1000;
+      let paths = '';
+      state.selectedGrids.forEach(id => { paths += generateGridSVG(id, x, y, w, h, g, s); });
+      const strokeColor = state.lineColor;
+      const strokeOpacity = state.lineOpacity / 100;
+      let dashArray = '';
+      if (state.lineStyle === 'dashed') dashArray = `stroke-dasharray="${8*s},${4*s}"`;
+      else if (state.lineStyle === 'dotted') dashArray = `stroke-dasharray="${2*s},${4*s}"`;
+      const bgRect = transparent ? '' : `<rect width="${state.width}" height="${state.height}" fill="${state.bgColor}"/>`;
+      
+      // Build transform string
+      let transforms = [];
+      transforms.push(`translate(${state.width/2},${state.height/2})`);
+      if (state.rotation !== 0) transforms.push(`rotate(${state.rotation})`);
+      if (state.flipH || state.flipV) transforms.push(`scale(${state.flipH ? -1 : 1},${state.flipV ? -1 : 1})`);
+      transforms.push(`translate(${-state.width/2},${-state.height/2})`);
+      const transformAttr = (state.rotation !== 0 || state.flipH || state.flipV) ? `transform="${transforms.join(' ')}"` : '';
+      
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${state.width}" height="${state.height}" viewBox="0 0 ${state.width} ${state.height}">
+  ${bgRect}
+  <g stroke="${strokeColor}" stroke-opacity="${strokeOpacity}" stroke-width="${state.lineWeight}" fill="none" ${dashArray} ${transformAttr}>
+    ${paths}
+  </g>
+</svg>`;
+    }
+
+    function generateGridSVG(id, x, y, w, h, g, s) {
+      const phi = 1.618;
+      const cx = x + w/2, cy = y + h/2;
+      const r = Math.min(w, h) * 0.4;
+      let paths = '';
+      function line(x1, y1, x2, y2) { return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`; }
+      function rect(rx, ry, rw, rh) { return `<rect x="${rx}" y="${ry}" width="${rw}" height="${rh}"/>`; }
+      function circle(ccx, ccy, cr) { return `<circle cx="${ccx}" cy="${ccy}" r="${cr}"/>`; }
+
+      switch(id) {
+        case 'rule-of-thirds': paths += line(x+w/3,y,x+w/3,y+h) + line(x+2*w/3,y,x+2*w/3,y+h) + line(x,y+h/3,x+w,y+h/3) + line(x,y+2*h/3,x+w,y+2*h/3); break;
+        case 'fibonacci': paths += generateGoldenSpiralSVG(x,y,w,h); break;
+        case 'center-lines': paths += line(x+w/2,y,x+w/2,y+h) + line(x,y+h/2,x+w,y+h/2); break;
+        case 'dynamic-symmetry': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h) + line(x,y,x+w,y+h*0.618) + line(x+w,y,x,y+h*0.618) + line(x,y+h,x+w,y+h*0.382) + line(x+w,y+h,x,y+h*0.382); break;
+        case 'harmonic-armature': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h) + line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h) + line(x,y+h/2,x+w,y) + line(x,y+h/2,x+w,y+h) + line(x+w,y+h/2,x,y) + line(x+w,y+h/2,x,y+h); break;
+        case 'axial-15': { const ang=15*Math.PI/180; const dy=w*Math.tan(ang)/2; paths+=line(x,cy-dy,x+w,cy+dy); break; }
+        case 'axial-30': { const ang=30*Math.PI/180; const dy=w*Math.tan(ang)/2; paths+=line(x,cy-dy,x+w,cy+dy); break; }
+        case 'axial-45': { paths+=line(x,y,x+w,y+h); break; }
+        case 'axial-60': { const ang=60*Math.PI/180; const dy=Math.min(w*Math.tan(ang)/2,h/2); const dx=dy/Math.tan(ang); paths+=line(cx-dx,y,cx+dx,y+h); break; }
+        case 'axial-offset-high': { const ang=30*Math.PI/180; const offY=y+h*0.25; const dy=w*Math.tan(ang)/2; paths+=line(x,offY-dy,x+w,offY+dy); break; }
+        case 'axial-offset-low': { const ang=30*Math.PI/180; const offY=y+h*0.75; const dy=w*Math.tan(ang)/2; paths+=line(x,offY-dy,x+w,offY+dy); break; }
+        case 'diagonal': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h); break;
+        case 'diagonal-triangles': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h) + line(x+w/2,y,x,y+h) + line(x+w/2,y,x+w,y+h) + line(x,y,x+w/2,y+h) + line(x+w,y,x+w/2,y+h); break;
+        case 'diagonal-diamond': { const dsp=Math.min(w,h)/6; for(let i=-10;i<=10;i++){paths+=line(x+w/2+i*dsp,y,x+w,y+h/2-i*dsp)+line(x+w/2+i*dsp,y,x,y+h/2+i*dsp)+line(x+w/2+i*dsp,y+h,x+w,y+h/2-i*dsp)+line(x+w/2+i*dsp,y+h,x,y+h/2+i*dsp);} break; }
+        case 'diagonal-thirds': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h) + line(x+w/3,y,x+w,y+h*2/3) + line(x,y+h/3,x+w*2/3,y+h) + line(x+w*2/3,y,x,y+h*2/3) + line(x+w,y+h/3,x+w/3,y+h); break;
+        case 'diagonal-quarters': paths += line(x,y,x+w,y+h) + line(x+w,y,x,y+h) + line(x+w/2,y,x,y+h/2) + line(x+w/2,y,x+w,y+h/2) + line(x,y+h/2,x+w/2,y+h) + line(x+w,y+h/2,x+w/2,y+h); break;
+        case 'diagonal-cross': { for(let i=1;i<4;i++){paths+=line(x+w*i/4,y,x+w,y+h*(4-i)/4)+line(x,y+h*i/4,x+w*(4-i)/4,y+h)+line(x+w*(4-i)/4,y,x,y+h*(4-i)/4)+line(x+w,y+h*i/4,x+w*i/4,y+h);} paths+=line(x,y,x+w,y+h)+line(x+w,y,x,y+h); break; }
+        case 'diagonal-angle': { const tan30=Math.tan(30*Math.PI/180),tan60=Math.tan(60*Math.PI/180); paths+=line(x,y+h,Math.min(x+w,x+h/tan30),y)+line(x+w,y+h,Math.max(x,x+w-h/tan30),y)+line(x,y+h,Math.min(x+w,x+h/tan60),y)+line(x+w,y+h,Math.max(x,x+w-h/tan60),y); break; }
+        case 'diagonal-chevron': { const chevH=h/5; for(let i=0;i<5;i++){const cy=y+i*chevH; paths+=line(x,cy+chevH,x+w/2,cy)+line(x+w/2,cy,x+w,cy+chevH);} break; }
+        case 'radial': { const rr=Math.min(w,h)/2; for(let i=1;i<=5;i++)paths+=circle(cx,cy,rr*i/5); for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2;paths+=line(cx,cy,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);} break; }
+        case 'radial-corner': { const maxR=Math.sqrt(w*w+h*h); for(let i=1;i<=5;i++){const radius=maxR*i/5;paths+=`<path d="M${x+w-radius},${y+h} A${radius},${radius} 0 0,1 ${x+w},${y+h-radius}" fill="none"/>`;} for(let i=0;i<5;i++){const angle=Math.PI+(i/4)*(Math.PI/2);paths+=line(x+w,y+h,x+w+Math.cos(angle)*maxR,y+h+Math.sin(angle)*maxR);} break; }
+        case 'radial-concentric': { const cr=Math.min(w,h)/2; for(let i=1;i<=12;i++)paths+=circle(cx,cy,cr*i/12); break; }
+        case 'radial-sunburst': { const rayR=Math.max(w,h); for(let i=0;i<16;i++){const angle=(i/16)*Math.PI*2;paths+=line(cx,cy,cx+Math.cos(angle)*rayR,cy+Math.sin(angle)*rayR);} break; }
+        case 'radial-quadrant': { const qr=Math.min(w,h)*0.6; for(let i=1;i<=3;i++){const radius=qr*i/3;paths+=`<path d="M${x},${y+radius} A${radius},${radius} 0 0,1 ${x+radius},${y}"/>`;paths+=`<path d="M${x+w-radius},${y} A${radius},${radius} 0 0,1 ${x+w},${y+radius}"/>`;paths+=`<path d="M${x+w},${y+h-radius} A${radius},${radius} 0 0,1 ${x+w-radius},${y+h}"/>`;paths+=`<path d="M${x+radius},${y+h} A${radius},${radius} 0 0,1 ${x},${y+h-radius}"/>`;} break; }
+        case 'vanishing-center': for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2;paths+=line(cx,cy,cx+Math.cos(a)*w,cy+Math.sin(a)*h);} break;
+        case 'manuscript': paths += rect(x+w*0.1,y,w*0.8,h); break;
+        case 'ratio-2-1': { const a21=(w-g)/3; paths+=rect(x,y,a21*2,h)+rect(x+a21*2+g,y,a21,h); break; }
+        case 'ratio-1-2': { const a12=(w-g)/3; paths+=rect(x,y,a12,h)+rect(x+a12+g,y,a12*2,h); break; }
+        case 'feature': { const fw=w*0.6; paths+=rect(x,y,fw,h*0.65)+rect(x,y+h*0.65+g,fw,h*0.35-g)+rect(x+fw+g,y,w-fw-g,h); break; }
+        case 'pull-quote': paths += rect(x,y,w,h) + rect(x+w*0.15,y+h*0.35,w*0.7,h*0.3); break;
+        case 'layout-dual-header': { const imgH=h*0.35,imgW=(w-g)/2; paths+=rect(x,y,imgW,imgH)+line(x,y,x+imgW,y+imgH)+line(x+imgW,y,x,y+imgH); paths+=rect(x+imgW+g,y,imgW,imgH)+line(x+imgW+g,y,x+w,y+imgH)+line(x+w,y,x+imgW+g,y+imgH); const colW=(w-g*2)/3,colY=y+imgH+g,colH=h-imgH-g; for(let i=0;i<3;i++)paths+=rect(x+i*(colW+g),colY,colW,colH); break; }
+        case 'layout-sidebar-stack': { const leftW=w*0.55,rightW=w-leftW-g,topH=h*0.65,rightImgH=(topH-g)/2; paths+=rect(x,y,leftW,topH)+line(x,y,x+leftW,y+topH)+line(x+leftW,y,x,y+topH); paths+=rect(x+leftW+g,y,rightW,rightImgH)+line(x+leftW+g,y,x+w,y+rightImgH)+line(x+w,y,x+leftW+g,y+rightImgH); paths+=rect(x+leftW+g,y+rightImgH+g,rightW,rightImgH)+line(x+leftW+g,y+rightImgH+g,x+w,y+topH)+line(x+w,y+rightImgH+g,x+leftW+g,y+topH); paths+=rect(x,y+topH+g,w,h-topH-g); break; }
+        case 'layout-hero-split': { const heroW=w*0.65,heroH=h*0.6,sideW=w-heroW-g; paths+=rect(x,y,heroW,heroH)+line(x,y,x+heroW,y+heroH)+line(x+heroW,y,x,y+heroH); paths+=rect(x+heroW+g,y,sideW,heroH); paths+=rect(x,y+heroH+g,w,h-heroH-g); break; }
+        case 'layout-poster-block': { const topH=h*0.55; paths+=rect(x,y,w,topH)+line(x,y,x+w,y+topH)+line(x+w,y,x,y+topH); const botH=h-topH-g,cellW=(w-g*3)/4; for(let i=0;i<4;i++)paths+=rect(x+i*(cellW+g),y+topH+g,cellW,botH); break; }
+        case 'layout-catalog': { const cols=3,rows=2,cellW=(w-g*(cols-1))/cols,cellH=(h-g*(rows-1))/rows,imgH=cellH*0.7; for(let row=0;row<rows;row++){for(let col=0;col<cols;col++){const bx=x+col*(cellW+g),by=y+row*(cellH+g); paths+=rect(bx,by,cellW,imgH)+line(bx,by,bx+cellW,by+imgH)+line(bx+cellW,by,bx,by+imgH); paths+=rect(bx,by+imgH,cellW,cellH-imgH);}} break; }
+        case 'layout-news-mix': { const largeW=w*0.55,largeH=h*0.65; paths+=rect(x,y,largeW,largeH)+line(x,y,x+largeW,y+largeH)+line(x+largeW,y,x,y+largeH); paths+=rect(x,y+largeH+g,largeW,h-largeH-g); const smallW=w-largeW-g,smallH=(h-g*2)/3; for(let i=0;i<3;i++){const sy=y+i*(smallH+g),simgH=smallH*0.5; paths+=rect(x+largeW+g,sy,smallW,simgH)+line(x+largeW+g,sy,x+w,sy+simgH)+line(x+w,sy,x+largeW+g,sy+simgH); paths+=rect(x+largeW+g,sy+simgH,smallW,smallH-simgH);} break; }
+        case 'layout-book-page': { const marginL=w*0.12,marginR=w*0.08,marginT=h*0.1,marginB=h*0.12,contentW=w-marginL-marginR,contentH=h-marginT-marginB,imgH=contentH*0.4; paths+=rect(x+marginL,y+marginT,contentW,contentH); paths+=rect(x+marginL,y+marginT,contentW,imgH)+line(x+marginL,y+marginT,x+marginL+contentW,y+marginT+imgH)+line(x+marginL+contentW,y+marginT,x+marginL,y+marginT+imgH); paths+=line(x+marginL,y+marginT+imgH+g*2,x+marginL+contentW,y+marginT+imgH+g*2); break; }
+        case 'layout-gallery': { const cellW=(w-g)/2,cellH=(h-g)/2; paths+=rect(x,y,cellW,cellH)+line(x,y,x+cellW,y+cellH)+line(x+cellW,y,x,y+cellH); paths+=rect(x+cellW+g,y,cellW,cellH)+line(x+cellW+g,y,x+w,y+cellH)+line(x+w,y,x+cellW+g,y+cellH); paths+=rect(x,y+cellH+g,cellW,cellH)+line(x,y+cellH+g,x+cellW,y+h)+line(x+cellW,y+cellH+g,x,y+h); paths+=rect(x+cellW+g,y+cellH+g,cellW,cellH)+line(x+cellW+g,y+cellH+g,x+w,y+h)+line(x+w,y+cellH+g,x+cellW+g,y+h); break; }
+        case 'modular-2x2': paths += generateModSVG(x,y,w,h,2,2,g); break;
+        case 'modular-3x3': paths += generateModSVG(x,y,w,h,3,3,g); break;
+        case 'modular-4x4': paths += generateModSVG(x,y,w,h,4,4,g); break;
+        case 'modular-4x6': paths += generateModSVG(x,y,w,h,4,6,g); break;
+        case 'modular-5x5': paths += generateModSVG(x,y,w,h,5,5,g); break;
+        case 'modular-6x6': paths += generateModSVG(x,y,w,h,6,6,g); break;
+        case 'isometric': paths += generateIsoSVG(x,y,w,h,s); break;
+        case 'perspective-1pt': paths += generate1PSVG(x,y,w,h); break;
+        case 'perspective-2pt': paths += generate2PSVG(x,y,w,h); break;
+        case 'perspective-3pt': paths += generate3PSVG(x,y,w,h); break;
+        case 'field-grid': { const fc=4,fgr=6,fgw=w/fc,fgh=h/fgr; for(let i=0;i<=fc;i++)paths+=line(x+i*fgw,y,x+i*fgw,y+h); for(let i=0;i<=fgr;i++)paths+=line(x,y+i*fgh,x+w,y+i*fgh); break; }
+        case 'musical': [0,0.125,0.25,0.333,0.5,0.667,0.75,0.875,1].forEach(v=>{paths+=line(x,y+h*v,x+w,y+h*v);}); break;
+        case 'progressive': [0,0.08,0.18,0.3,0.45,0.62,0.8,1].forEach(v=>{paths+=line(x,y+h*v,x+w,y+h*v);}); break;
+        case 'fibonacci-rhythm': { let fibAcc=0; [0,1,1,2,3,5,8,13,21].forEach((v,i)=>{if(i>0){const p=fibAcc/34;paths+=line(x,y+h*p,x+w,y+h*p);}fibAcc+=v;}); break; }
+        case 'phi-sections': [0,1-1/phi,1/phi,1-(1/phi/phi),1/phi/phi,1].forEach(v=>{paths+=line(x,y+h*v,x+w,y+h*v);}); break;
+        case 'fifths': [0,0.2,0.4,0.6,0.8,1].forEach(v=>{paths+=line(x,y+h*v,x+w,y+h*v);}); break;
+        case 'sevenths': { for(let i=0;i<=7;i++)paths+=line(x,y+h*i/7,x+w,y+h*i/7); break; }
+        case 'standard-4': paths += generateStdSVG(x,y,w,h,4*s); break;
+        case 'standard-8': paths += generateStdSVG(x,y,w,h,8*s); break;
+        case 'standard-12': paths += generateStdSVG(x,y,w,h,12*s); break;
+        case 'standard-24': paths += generateStdSVG(x,y,w,h,24*s); break;
+        case 'standard-48': paths += generateStdSVG(x,y,w,h,48*s); break;
+        case 'baseline-4': paths += generateBaseSVG(x,y,w,h,4*s); break;
+        case 'baseline-8': paths += generateBaseSVG(x,y,w,h,8*s); break;
+        case 'baseline-12': paths += generateBaseSVG(x,y,w,h,12*s); break;
+        case 'baseline-24': paths += generateBaseSVG(x,y,w,h,24*s); break;
+        case 'baseline-48': paths += generateBaseSVG(x,y,w,h,48*s); break;
+        case 'columns-2':case 'columns-3':case 'columns-4':case 'columns-5':case 'columns-6':case 'columns-8':case 'columns-12': paths += generateColsSVG(x,y,w,h,+id.split('-')[1],g); break;
+        case 'rows-2':case 'rows-3':case 'rows-4':case 'rows-6':case 'rows-8':case 'rows-12': paths += generateRowsSVG(x,y,w,h,+id.split('-')[1],g); break;
+        case 'compound-3-4': paths += generateCompoundSVG(x,y,w,h,3,4); break;
+        case 'compound-3-5': paths += generateCompoundSVG(x,y,w,h,3,5); break;
+        case 'compound-4-5': paths += generateCompoundSVG(x,y,w,h,4,5); break;
+        case 'compound-4-6': paths += generateCompoundSVG(x,y,w,h,4,6); break;
+        case 'compound-5-6': paths += generateCompoundSVG(x,y,w,h,5,6); break;
+        case 'program': paths += generateProgramSVG(x,y,w,h); break;
+        case 'cross-channel': { const ng1=w/phi,ng2=ng1/phi; paths+=line(x+ng1,y,x+ng1,y+h)+line(x+w-ng1,y,x+w-ng1,y+h)+line(x+ng2,y,x+ng2,y+h)+line(x+w-ng2,y,x+w-ng2,y+h); const ngh1=h/phi,ngh2=ngh1/phi; paths+=line(x,y+ngh1,x+w,y+ngh1)+line(x,y+h-ngh1,x+w,y+h-ngh1)+line(x,y+ngh2,x+w,y+ngh2)+line(x,y+h-ngh2,x+w,y+h-ngh2); break; }
+        case 'asymmetric-compound': { const acw=w/3; paths+=rect(x,y,acw,h); const colW=(w-acw-g-g*5)/6; for(let i=0;i<6;i++)paths+=rect(x+acw+g+i*(colW+g),y,colW,h); break; }
+        case 'circle': paths += circle(cx,cy,r); break;
+        case 'vesica-piscis': { const vr=r*0.75; paths+=circle(cx-vr*0.4,cy,vr)+circle(cx+vr*0.4,cy,vr); break; }
+        case 'trinity': for(let i=0;i<3;i++){const a=i*Math.PI*2/3-Math.PI/2;paths+=circle(cx+r*0.35*Math.cos(a),cy+r*0.35*Math.sin(a),r*0.7);} break;
+        case 'tetrad': for(let i=0;i<4;i++){const a=i*Math.PI/2;paths+=circle(cx+r*0.4*Math.cos(a),cy+r*0.4*Math.sin(a),r*0.65);} break;
+        case 'quintet': for(let i=0;i<5;i++){const a=i*Math.PI*2/5-Math.PI/2;paths+=circle(cx+r*0.45*Math.cos(a),cy+r*0.45*Math.sin(a),r*0.58);} break;
+        case 'seed-of-life': { const sr=r*0.5;paths+=circle(cx,cy,sr);for(let i=0;i<6;i++){const a=i*Math.PI/3;paths+=circle(cx+sr*Math.cos(a),cy+sr*Math.sin(a),sr);} break; }
+        case 'flower-of-life': { const flr=r*0.28;paths+=circle(cx,cy,flr);for(let ring=0;ring<2;ring++){const dist=flr*(ring+1);for(let i=0;i<6;i++){const a=i*Math.PI/3+(ring*Math.PI/6);paths+=circle(cx+dist*Math.cos(a),cy+dist*Math.sin(a),flr);}}for(let i=0;i<6;i++){const a=i*Math.PI/3;paths+=circle(cx+flr*2*Math.cos(a),cy+flr*2*Math.sin(a),flr);} break; }
+        case 'sri-yantra': paths += generateSriYantraSVG(cx,cy,r); break;
+        case 'metatrons-cube': paths += generateMetatronSVG(cx,cy,r); break;
+      }
+      return paths;
+    }
+
+    function generateGoldenSpiralSVG(x,y,w,h) { const p=1.618;let cx=x,cy=y,cw=w,ch=h,paths=''; function line(x1,y1,x2,y2){return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;} for(let i=0;i<8;i++){if(i%4===0){const nw=cw/p;paths+=line(cx+nw,cy,cx+nw,cy+ch);cx+=nw;cw-=nw;}else if(i%4===1){const nh=ch/p;paths+=line(cx,cy+ch-nh,cx+cw,cy+ch-nh);ch-=nh;}else if(i%4===2){const nw=cw/p;paths+=line(cx+cw-nw,cy,cx+cw-nw,cy+ch);cw-=nw;}else{const nh=ch/p;paths+=line(cx,cy+nh,cx+cw,cy+nh);cy+=nh;ch-=nh;}} return paths; }
+    function generateModSVG(x,y,w,h,cols,rows,g) { const cw=(w-g*(cols-1))/cols,rh=(h-g*(rows-1))/rows;let paths='';for(let col=0;col<cols;col++)for(let row=0;row<rows;row++)paths+=`<rect x="${x+col*(cw+g)}" y="${y+row*(rh+g)}" width="${cw}" height="${rh}"/>`;return paths; }
+    function generateBaseSVG(x,y,w,h,sp) { let paths='';for(let py=y;py<=y+h;py+=sp)paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;return paths; }
+    function generateStdSVG(x,y,w,h,sp) { let paths='';for(let py=y;py<=y+h;py+=sp)paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;for(let px=x;px<=x+w;px+=sp)paths+=`<line x1="${px}" y1="${y}" x2="${px}" y2="${y+h}"/>`;return paths; }
+    function generateIsoSVG(x,y,w,h,s) { const sp=30*s,tan30=Math.tan(30*Math.PI/180);let paths='';for(let i=-Math.ceil(h/sp)*2;i<Math.ceil((w+h)/sp)*2;i++){const startX=x+i*sp/2;paths+=`<line x1="${startX}" y1="${y+h}" x2="${startX+h/tan30}" y2="${y}"/>`;paths+=`<line x1="${startX}" y1="${y+h}" x2="${startX-h/tan30}" y2="${y}"/>`;}for(let py=y;py<=y+h;py+=sp*tan30*2)paths+=`<line x1="${x}" y1="${py}" x2="${x+w}" y2="${py}"/>`;return paths; }
+    function generate1PSVG(x,y,w,h) { const cx=x+w/2,cy=y+h/2;let paths='';[[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x+w/2,y],[x+w,cy],[x+w/2,y+h],[x,cy]].forEach(p=>{paths+=`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}"/>`;});paths+=`<line x1="${x}" y1="${cy}" x2="${x+w}" y2="${cy}"/>`;return paths; }
+    function generate2PSVG(x,y,w,h) { const hy=y+h*0.4,lv=x-w*0.1,rv=x+w*1.1;let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;for(let i=0;i<=4;i++){paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/4}"/>`;paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/4}"/>`;}return paths; }
+    function generate3PSVG(x,y,w,h) { const hy=y+h*0.3,lv=x-w*0.1,rv=x+w*1.1,bv=y+h*1.3;let paths=`<line x1="${x}" y1="${hy}" x2="${x+w}" y2="${hy}"/>`;for(let i=0;i<=3;i++){paths+=`<line x1="${lv}" y1="${hy}" x2="${x+w}" y2="${y+h*i/3}"/>`;paths+=`<line x1="${rv}" y1="${hy}" x2="${x}" y2="${y+h*i/3}"/>`;}for(let i=0;i<=4;i++)paths+=`<line x1="${x+w*i/4}" y1="${y}" x2="${x+w/2}" y2="${bv}"/>`;return paths; }
+    function generateColsSVG(x,y,w,h,n,g) { const cw=(w-g*(n-1))/n;let paths='';for(let i=0;i<n;i++){const cx=x+i*(cw+g);paths+=`<line x1="${cx}" y1="${y}" x2="${cx}" y2="${y+h}"/>`;paths+=`<line x1="${cx+cw}" y1="${y}" x2="${cx+cw}" y2="${y+h}"/>`;}return paths; }
+    function generateRowsSVG(x,y,w,h,n,g) { const rh=(h-g*(n-1))/n;let paths='';for(let i=0;i<n;i++){const ry=y+i*(rh+g);paths+=`<line x1="${x}" y1="${ry}" x2="${x+w}" y2="${ry}"/>`;paths+=`<line x1="${x}" y1="${ry+rh}" x2="${x+w}" y2="${ry+rh}"/>`;}return paths; }
+    function generateCompoundSVG(x,y,w,h,n1,n2) { let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;for(let i=1;i<n1;i++)paths+=`<line x1="${x+w*i/n1}" y1="${y}" x2="${x+w*i/n1}" y2="${y+h}"/>`;for(let i=1;i<n2;i++)paths+=`<line x1="${x+w*i/n2}" y1="${y}" x2="${x+w*i/n2}" y2="${y+h}"/>`;for(let i=1;i<n1;i++)paths+=`<line x1="${x}" y1="${y+h*i/n1}" x2="${x+w}" y2="${y+h*i/n1}"/>`;for(let i=1;i<n2;i++)paths+=`<line x1="${x}" y1="${y+h*i/n2}" x2="${x+w}" y2="${y+h*i/n2}"/>`;return paths; }
+    function generateProgramSVG(x,y,w,h) { let paths=`<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`;[2,3,4,5,6].forEach(d=>{for(let i=1;i<d;i++){paths+=`<line x1="${x+w*i/d}" y1="${y}" x2="${x+w*i/d}" y2="${y+h}"/>`;paths+=`<line x1="${x}" y1="${y+h*i/d}" x2="${x+w}" y2="${y+h*i/d}"/>`;}});return paths; }
+    function generateSriYantraSVG(cx,cy,r) { const s=r*1.15;let paths='';
+      // 4 upward triangles (symmetrical)
+      const upTris=[
+        [[0,-0.92],[-.82,.58],[.82,.58]],
+        [[0,-0.58],[-.52,.32],[.52,.32]],
+        [[0,-0.32],[-.32,.16],[.32,.16]],
+        [[0,-0.12],[-.14,.06],[.14,.06]]
+      ];
+      // 5 downward triangles (symmetrical)
+      const downTris=[
+        [[0,.92],[-.72,-.48],[.72,-.48]],
+        [[0,.62],[-.54,-.32],[.54,-.32]],
+        [[0,.42],[-.38,-.2],[.38,-.2]],
+        [[0,.26],[-.24,-.1],[.24,-.1]],
+        [[0,.12],[-.1,-.04],[.1,-.04]]
+      ];
+      [...upTris,...downTris].forEach(tri=>{
+        paths+=`<polygon points="${tri.map(p=>`${cx+p[0]*s},${cy+p[1]*s}`).join(' ')}"/>`;
+      });
+      // Add horizontal lines for intersection emphasis
+      paths+=`<line x1="${cx-s*0.82}" y1="${cy+s*0.58}" x2="${cx+s*0.82}" y2="${cy+s*0.58}"/>`;
+      paths+=`<line x1="${cx-s*0.72}" y1="${cy-s*0.48}" x2="${cx+s*0.72}" y2="${cy-s*0.48}"/>`;
+      return paths;
+    }
+    function generateMetatronSVG(cx,cy,r) { let paths='';const pts=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}const inner=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}pts.push([cx,cy]);inner.forEach(p=>pts.push(p));for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++)paths+=`<line x1="${pts[i][0]}" y1="${pts[i][1]}" x2="${pts[j][0]}" y2="${pts[j][1]}"/>`;[...pts.slice(0,6),...inner].forEach(p=>{paths+=`<circle cx="${p[0]}" cy="${p[1]}" r="${r*0.25}"/>`;});paths+=`<circle cx="${cx}" cy="${cy}" r="${r*0.25}"/>`;return paths; }
 
     function drawGrid(c, id, x, y, w, h, g, s) {
       c.beginPath();
@@ -2294,16 +2288,42 @@
       switch(id) {
         case 'rule-of-thirds': c.moveTo(x+w/3,y);c.lineTo(x+w/3,y+h);c.moveTo(x+2*w/3,y);c.lineTo(x+2*w/3,y+h);c.moveTo(x,y+h/3);c.lineTo(x+w,y+h/3);c.moveTo(x,y+2*h/3);c.lineTo(x+w,y+2*h/3);break;
         case 'fibonacci': drawGoldenSpiral(c,x,y,w,h);break;
-        case 'diagonal': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);break;
-        case 'diagonal-triangles': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x+w,y+h);c.moveTo(x,y);c.lineTo(x+w/2,y+h);c.moveTo(x+w,y);c.lineTo(x+w/2,y+h);break;
         case 'center-lines': c.moveTo(x+w/2,y);c.lineTo(x+w/2,y+h);c.moveTo(x,y+h/2);c.lineTo(x+w,y+h/2);break;
         case 'dynamic-symmetry': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x,y);c.lineTo(x+w,y+h*0.618);c.moveTo(x+w,y);c.lineTo(x,y+h*0.618);c.moveTo(x,y+h);c.lineTo(x+w,y+h*0.382);c.moveTo(x+w,y+h);c.lineTo(x,y+h*0.382);break;
         case 'harmonic-armature': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x+w,y+h);c.moveTo(x,y+h/2);c.lineTo(x+w,y);c.moveTo(x,y+h/2);c.lineTo(x+w,y+h);c.moveTo(x+w,y+h/2);c.lineTo(x,y);c.moveTo(x+w,y+h/2);c.lineTo(x,y+h);break;
+        case 'axial-15': { const ang=15*Math.PI/180; const dy=w*Math.tan(ang)/2; c.moveTo(x,cy-dy);c.lineTo(x+w,cy+dy); break; }
+        case 'axial-30': { const ang=30*Math.PI/180; const dy=w*Math.tan(ang)/2; c.moveTo(x,cy-dy);c.lineTo(x+w,cy+dy); break; }
+        case 'axial-45': { c.moveTo(x,y);c.lineTo(x+w,y+h); break; }
+        case 'axial-60': { const ang=60*Math.PI/180; const dy=Math.min(w*Math.tan(ang)/2,h/2); const dx=dy/Math.tan(ang); c.moveTo(cx-dx,y);c.lineTo(cx+dx,y+h); break; }
+        case 'axial-offset-high': { const ang=30*Math.PI/180; const offY=y+h*0.25; const dy=w*Math.tan(ang)/2; c.moveTo(x,offY-dy);c.lineTo(x+w,offY+dy); break; }
+        case 'axial-offset-low': { const ang=30*Math.PI/180; const offY=y+h*0.75; const dy=w*Math.tan(ang)/2; c.moveTo(x,offY-dy);c.lineTo(x+w,offY+dy); break; }
+        case 'diagonal': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);break;
+        case 'diagonal-triangles': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x+w,y+h);c.moveTo(x,y);c.lineTo(x+w/2,y+h);c.moveTo(x+w,y);c.lineTo(x+w/2,y+h);break;
+        case 'diagonal-diamond': { const dsp=Math.min(w,h)/6;for(let i=-10;i<=10;i++){c.moveTo(x+w/2+i*dsp,y);c.lineTo(x+w,y+h/2-i*dsp);c.moveTo(x+w/2+i*dsp,y);c.lineTo(x,y+h/2+i*dsp);c.moveTo(x+w/2+i*dsp,y+h);c.lineTo(x+w,y+h/2-i*dsp);c.moveTo(x+w/2+i*dsp,y+h);c.lineTo(x,y+h/2+i*dsp);}break; }
+        case 'diagonal-thirds': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x+w/3,y);c.lineTo(x+w,y+h*2/3);c.moveTo(x,y+h/3);c.lineTo(x+w*2/3,y+h);c.moveTo(x+w*2/3,y);c.lineTo(x,y+h*2/3);c.moveTo(x+w,y+h/3);c.lineTo(x+w/3,y+h);break;
+        case 'diagonal-quarters': c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);c.moveTo(x+w/2,y);c.lineTo(x,y+h/2);c.moveTo(x+w/2,y);c.lineTo(x+w,y+h/2);c.moveTo(x,y+h/2);c.lineTo(x+w/2,y+h);c.moveTo(x+w,y+h/2);c.lineTo(x+w/2,y+h);break;
+        case 'diagonal-cross': { for(let i=1;i<4;i++){c.moveTo(x+w*i/4,y);c.lineTo(x+w,y+h*(4-i)/4);c.moveTo(x,y+h*i/4);c.lineTo(x+w*(4-i)/4,y+h);c.moveTo(x+w*(4-i)/4,y);c.lineTo(x,y+h*(4-i)/4);c.moveTo(x+w,y+h*i/4);c.lineTo(x+w*i/4,y+h);}c.moveTo(x,y);c.lineTo(x+w,y+h);c.moveTo(x+w,y);c.lineTo(x,y+h);break; }
+        case 'diagonal-angle': { const tan30=Math.tan(30*Math.PI/180),tan60=Math.tan(60*Math.PI/180);c.moveTo(x,y+h);c.lineTo(Math.min(x+w,x+h/tan30),Math.max(y,y+h-h));c.moveTo(x+w,y+h);c.lineTo(Math.max(x,x+w-h/tan30),Math.max(y,y+h-h));c.moveTo(x,y+h);c.lineTo(Math.min(x+w,x+h/tan60),Math.max(y,y+h-h));c.moveTo(x+w,y+h);c.lineTo(Math.max(x,x+w-h/tan60),Math.max(y,y+h-h));break; }
+        case 'diagonal-chevron': { const chevH=h/5;for(let i=0;i<5;i++){const cy=y+i*chevH;c.moveTo(x,cy+chevH);c.lineTo(x+w/2,cy);c.moveTo(x+w/2,cy);c.lineTo(x+w,cy+chevH);}break; }
+        case 'radial': { const rr=Math.min(w,h)/2;for(let i=1;i<=5;i++){c.moveTo(cx+rr*i/5,cy);c.arc(cx,cy,rr*i/5,0,Math.PI*2);}for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2;c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}break; }
+        case 'radial-corner': { const maxR=Math.sqrt(w*w+h*h);for(let i=1;i<=5;i++){const radius=maxR*i/5;c.moveTo(x+w-radius,y+h);c.arc(x+w,y+h,radius,Math.PI,Math.PI*1.5);}for(let i=0;i<5;i++){const angle=Math.PI+(i/4)*(Math.PI/2);c.moveTo(x+w,y+h);c.lineTo(x+w+Math.cos(angle)*maxR,y+h+Math.sin(angle)*maxR);}break; }
+        case 'radial-concentric': { const cr=Math.min(w,h)/2;for(let i=1;i<=12;i++){c.moveTo(cx+cr*i/12,cy);c.arc(cx,cy,cr*i/12,0,Math.PI*2);}break; }
+        case 'radial-sunburst': { const rayR=Math.max(w,h);for(let i=0;i<16;i++){const angle=(i/16)*Math.PI*2;c.moveTo(cx,cy);c.lineTo(cx+Math.cos(angle)*rayR,cy+Math.sin(angle)*rayR);}break; }
+        case 'radial-quadrant': { const qr=Math.min(w,h)*0.6;for(let i=1;i<=3;i++){const radius=qr*i/3;c.moveTo(x,y+radius);c.arc(x,y,radius,Math.PI/2,0,true);c.moveTo(x+w-radius,y);c.arc(x+w,y,radius,Math.PI,Math.PI/2,true);c.moveTo(x+w,y+h-radius);c.arc(x+w,y+h,radius,Math.PI*1.5,Math.PI,true);c.moveTo(x+radius,y+h);c.arc(x,y+h,radius,0,Math.PI*1.5,true);}break; }
+        case 'vanishing-center': for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2;c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*w,cy+Math.sin(a)*h);}break;
         case 'manuscript': c.strokeRect(x+w*0.1,y,w*0.8,h);break;
         case 'ratio-2-1': { const a21=(w-g)/3;c.strokeRect(x,y,a21*2,h);c.strokeRect(x+a21*2+g,y,a21,h);break; }
         case 'ratio-1-2': { const a12=(w-g)/3;c.strokeRect(x,y,a12,h);c.strokeRect(x+a12+g,y,a12*2,h);break; }
         case 'feature': { const fw=w*0.6;c.strokeRect(x,y,fw,h*0.65);c.strokeRect(x,y+h*0.65+g,fw,h*0.35-g);c.strokeRect(x+fw+g,y,w-fw-g,h);break; }
         case 'pull-quote': { c.strokeRect(x,y,w,h);c.strokeRect(x+w*0.15,y+h*0.35,w*0.7,h*0.3);break; }
+        case 'layout-dual-header': { const imgH=h*0.35,imgW=(w-g)/2;c.strokeRect(x,y,imgW,imgH);c.moveTo(x,y);c.lineTo(x+imgW,y+imgH);c.moveTo(x+imgW,y);c.lineTo(x,y+imgH);c.strokeRect(x+imgW+g,y,imgW,imgH);c.moveTo(x+imgW+g,y);c.lineTo(x+w,y+imgH);c.moveTo(x+w,y);c.lineTo(x+imgW+g,y+imgH);const colW=(w-g*2)/3,colY=y+imgH+g,colH=h-imgH-g;for(let i=0;i<3;i++)c.strokeRect(x+i*(colW+g),colY,colW,colH);break; }
+        case 'layout-sidebar-stack': { const leftW=w*0.55,rightW=w-leftW-g,topH=h*0.65,rightImgH=(topH-g)/2;c.strokeRect(x,y,leftW,topH);c.moveTo(x,y);c.lineTo(x+leftW,y+topH);c.moveTo(x+leftW,y);c.lineTo(x,y+topH);c.strokeRect(x+leftW+g,y,rightW,rightImgH);c.moveTo(x+leftW+g,y);c.lineTo(x+w,y+rightImgH);c.moveTo(x+w,y);c.lineTo(x+leftW+g,y+rightImgH);c.strokeRect(x+leftW+g,y+rightImgH+g,rightW,rightImgH);c.moveTo(x+leftW+g,y+rightImgH+g);c.lineTo(x+w,y+topH);c.moveTo(x+w,y+rightImgH+g);c.lineTo(x+leftW+g,y+topH);c.strokeRect(x,y+topH+g,w,h-topH-g);break; }
+        case 'layout-hero-split': { const heroW=w*0.65,heroH=h*0.6,sideW=w-heroW-g;c.strokeRect(x,y,heroW,heroH);c.moveTo(x,y);c.lineTo(x+heroW,y+heroH);c.moveTo(x+heroW,y);c.lineTo(x,y+heroH);c.strokeRect(x+heroW+g,y,sideW,heroH);c.strokeRect(x,y+heroH+g,w,h-heroH-g);break; }
+        case 'layout-poster-block': { const topH=h*0.55;c.strokeRect(x,y,w,topH);c.moveTo(x,y);c.lineTo(x+w,y+topH);c.moveTo(x+w,y);c.lineTo(x,y+topH);const botH=h-topH-g,cellW=(w-g*3)/4;for(let i=0;i<4;i++)c.strokeRect(x+i*(cellW+g),y+topH+g,cellW,botH);break; }
+        case 'layout-catalog': { const cols=3,rows=2,cellW=(w-g*(cols-1))/cols,cellH=(h-g*(rows-1))/rows,imgH=cellH*0.7;for(let row=0;row<rows;row++){for(let col=0;col<cols;col++){const bx=x+col*(cellW+g),by=y+row*(cellH+g);c.strokeRect(bx,by,cellW,imgH);c.moveTo(bx,by);c.lineTo(bx+cellW,by+imgH);c.moveTo(bx+cellW,by);c.lineTo(bx,by+imgH);c.strokeRect(bx,by+imgH,cellW,cellH-imgH);}}break; }
+        case 'layout-news-mix': { const largeW=w*0.55,largeH=h*0.65;c.strokeRect(x,y,largeW,largeH);c.moveTo(x,y);c.lineTo(x+largeW,y+largeH);c.moveTo(x+largeW,y);c.lineTo(x,y+largeH);c.strokeRect(x,y+largeH+g,largeW,h-largeH-g);const smallW=w-largeW-g,smallH=(h-g*2)/3;for(let i=0;i<3;i++){const sy=y+i*(smallH+g),simgH=smallH*0.5;c.strokeRect(x+largeW+g,sy,smallW,simgH);c.moveTo(x+largeW+g,sy);c.lineTo(x+w,sy+simgH);c.moveTo(x+w,sy);c.lineTo(x+largeW+g,sy+simgH);c.strokeRect(x+largeW+g,sy+simgH,smallW,smallH-simgH);}break; }
+        case 'layout-book-page': { const marginL=w*0.12,marginR=w*0.08,marginT=h*0.1,marginB=h*0.12,contentW=w-marginL-marginR,contentH=h-marginT-marginB,imgH=contentH*0.4;c.strokeRect(x+marginL,y+marginT,contentW,contentH);c.strokeRect(x+marginL,y+marginT,contentW,imgH);c.moveTo(x+marginL,y+marginT);c.lineTo(x+marginL+contentW,y+marginT+imgH);c.moveTo(x+marginL+contentW,y+marginT);c.lineTo(x+marginL,y+marginT+imgH);c.moveTo(x+marginL,y+marginT+imgH+g*2);c.lineTo(x+marginL+contentW,y+marginT+imgH+g*2);break; }
+        case 'layout-gallery': { const cellW=(w-g)/2,cellH=(h-g)/2;c.strokeRect(x,y,cellW,cellH);c.moveTo(x,y);c.lineTo(x+cellW,y+cellH);c.moveTo(x+cellW,y);c.lineTo(x,y+cellH);c.strokeRect(x+cellW+g,y,cellW,cellH);c.moveTo(x+cellW+g,y);c.lineTo(x+w,y+cellH);c.moveTo(x+w,y);c.lineTo(x+cellW+g,y+cellH);c.strokeRect(x,y+cellH+g,cellW,cellH);c.moveTo(x,y+cellH+g);c.lineTo(x+cellW,y+h);c.moveTo(x+cellW,y+cellH+g);c.lineTo(x,y+h);c.strokeRect(x+cellW+g,y+cellH+g,cellW,cellH);c.moveTo(x+cellW+g,y+cellH+g);c.lineTo(x+w,y+h);c.moveTo(x+w,y+cellH+g);c.lineTo(x+cellW+g,y+h);break; }
         case 'modular-2x2': drawMod(c,x,y,w,h,2,2,g);break;
         case 'modular-3x3': drawMod(c,x,y,w,h,3,3,g);break;
         case 'modular-4x4': drawMod(c,x,y,w,h,4,4,g);break;
@@ -2314,14 +2334,13 @@
         case 'perspective-1pt': draw1P(c,x,y,w,h);break;
         case 'perspective-2pt': draw2P(c,x,y,w,h);break;
         case 'perspective-3pt': draw3P(c,x,y,w,h);break;
-        case 'vanishing-center': for(let i=0;i<12;i++){const a=(i/12)*Math.PI*2;c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*w,cy+Math.sin(a)*h);}break;
-        case 'radial': { const rr=Math.min(w,h)/2;for(let i=1;i<=5;i++){c.moveTo(cx+rr*i/5,cy);c.arc(cx,cy,rr*i/5,0,Math.PI*2);}for(let i=0;i<8;i++){const a=(i/8)*Math.PI*2;c.moveTo(cx,cy);c.lineTo(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr);}break; }
         case 'field-grid': { const fc=4,fgr=6,fgw=w/fc,fgh=h/fgr;for(let i=0;i<=fc;i++){c.moveTo(x+i*fgw,y);c.lineTo(x+i*fgw,y+h);}for(let i=0;i<=fgr;i++){c.moveTo(x,y+i*fgh);c.lineTo(x+w,y+i*fgh);}break; }
         case 'musical': [0,0.125,0.25,0.333,0.5,0.667,0.75,0.875,1].forEach(v=>{c.moveTo(x,y+h*v);c.lineTo(x+w,y+h*v);});break;
         case 'progressive': { const ms=[0,0.08,0.18,0.3,0.45,0.62,0.8,1];ms.forEach(v=>{c.moveTo(x,y+h*v);c.lineTo(x+w,y+h*v);});break; }
         case 'fibonacci-rhythm': [0,1,1,2,3,5,8,13,21].reduce((a,v,i)=>{if(i>0){const p=a/34;c.moveTo(x,y+h*p);c.lineTo(x+w,y+h*p);}return a+v;},0);break;
         case 'phi-sections': [0,1-1/phi,1/phi,1-(1/phi/phi),1/phi/phi,1].forEach(v=>{c.moveTo(x,y+h*v);c.lineTo(x+w,y+h*v);});break;
         case 'fifths': [0,0.2,0.4,0.6,0.8,1].forEach(v=>{c.moveTo(x,y+h*v);c.lineTo(x+w,y+h*v);});break;
+        case 'sevenths': { for(let i=0;i<=7;i++){c.moveTo(x,y+h*i/7);c.lineTo(x+w,y+h*i/7);} break; }
         case 'standard-4': drawStd(c,x,y,w,h,4*s);break;
         case 'standard-8': drawStd(c,x,y,w,h,8*s);break;
         case 'standard-12': drawStd(c,x,y,w,h,12*s);break;
@@ -2340,8 +2359,8 @@
         case 'compound-4-6': drawCompound(c,x,y,w,h,4,6);break;
         case 'compound-5-6': drawCompound(c,x,y,w,h,5,6);break;
         case 'program': drawProgram(c,x,y,w,h);break;
-        case 'nested-phi': { const ng1=w/phi,ng2=ng1/phi;c.moveTo(x+ng1,y);c.lineTo(x+ng1,y+h);c.moveTo(x+w-ng1,y);c.lineTo(x+w-ng1,y+h);c.moveTo(x+ng2,y);c.lineTo(x+ng2,y+h);c.moveTo(x+w-ng2,y);c.lineTo(x+w-ng2,y+h);const ngh1=h/phi,ngh2=ngh1/phi;c.moveTo(x,y+ngh1);c.lineTo(x+w,y+ngh1);c.moveTo(x,y+h-ngh1);c.lineTo(x+w,y+h-ngh1);c.moveTo(x,y+ngh2);c.lineTo(x+w,y+ngh2);c.moveTo(x,y+h-ngh2);c.lineTo(x+w,y+h-ngh2);break; }
-        case 'asymmetric-compound': { const acw=w/3;c.strokeRect(x,y,acw,h);const acg=(w-acw-g);const acc=(acg-g*5)/6;for(let i=0;i<6;i++)c.strokeRect(x+acw+g+i*(acc+g),y,acc,h);break; }
+        case 'cross-channel': { const ng1=w/phi,ng2=ng1/phi;c.moveTo(x+ng1,y);c.lineTo(x+ng1,y+h);c.moveTo(x+w-ng1,y);c.lineTo(x+w-ng1,y+h);c.moveTo(x+ng2,y);c.lineTo(x+ng2,y+h);c.moveTo(x+w-ng2,y);c.lineTo(x+w-ng2,y+h);const ngh1=h/phi,ngh2=ngh1/phi;c.moveTo(x,y+ngh1);c.lineTo(x+w,y+ngh1);c.moveTo(x,y+h-ngh1);c.lineTo(x+w,y+h-ngh1);c.moveTo(x,y+ngh2);c.lineTo(x+w,y+ngh2);c.moveTo(x,y+h-ngh2);c.lineTo(x+w,y+h-ngh2);break; }
+        case 'asymmetric-compound': { const acw=w/3;c.strokeRect(x,y,acw,h);const acg=(w-acw-g);const colW=(acg-g*5)/6;for(let i=0;i<6;i++)c.strokeRect(x+acw+g+i*(colW+g),y,colW,h);break; }
         case 'circle': c.moveTo(cx+r,cy);c.arc(cx,cy,r,0,Math.PI*2);break;
         case 'vesica-piscis': { const vr=r*0.75;c.moveTo(cx-vr*0.4+vr,cy);c.arc(cx-vr*0.4,cy,vr,0,Math.PI*2);c.moveTo(cx+vr*0.4+vr,cy);c.arc(cx+vr*0.4,cy,vr,0,Math.PI*2);break; }
         case 'trinity': for(let i=0;i<3;i++){const a=i*Math.PI*2/3-Math.PI/2;const px=cx+r*0.35*Math.cos(a),py=cy+r*0.35*Math.sin(a);c.moveTo(px+r*0.7,py);c.arc(px,py,r*0.7,0,Math.PI*2);}break;
@@ -2360,65 +2379,39 @@
     function drawMod(c,x,y,w,h,cols,rows,g){const cw=(w-g*(cols-1))/cols,rh=(h-g*(rows-1))/rows;for(let col=0;col<cols;col++)for(let row=0;row<rows;row++)c.rect(x+col*(cw+g),y+row*(rh+g),cw,rh);}
     function drawBase(c,x,y,w,h,sp){for(let py=y;py<=y+h;py+=sp){c.moveTo(x,py);c.lineTo(x+w,py);}}
     function drawStd(c,x,y,w,h,sp){for(let py=y;py<=y+h;py+=sp){c.moveTo(x,py);c.lineTo(x+w,py);}for(let px=x;px<=x+w;px+=sp){c.moveTo(px,y);c.lineTo(px,y+h);}}
-    function drawIso(c,x,y,w,h,s){const sp=40*s,a=Math.tan(30*Math.PI/180);for(let i=-h;i<w+h;i+=sp){c.moveTo(x+i,y+h);c.lineTo(x+i+h/a,y);c.moveTo(x+i,y+h);c.lineTo(x+i-h/a,y);}for(let px=x;px<=x+w;px+=sp){c.moveTo(px,y);c.lineTo(px,y+h);}}
+    function drawIso(c,x,y,w,h,s){const sp=30*s;const tan30=Math.tan(30*Math.PI/180);for(let i=-Math.ceil(h/sp)*2;i<Math.ceil((w+h)/sp)*2;i++){const startX=x+i*sp/2;c.moveTo(startX,y+h);c.lineTo(startX+h/tan30,y);}for(let i=-Math.ceil(h/sp)*2;i<Math.ceil((w+h)/sp)*2;i++){const startX=x+i*sp/2;c.moveTo(startX,y+h);c.lineTo(startX-h/tan30,y);}for(let py=y;py<=y+h;py+=sp*tan30*2){c.moveTo(x,py);c.lineTo(x+w,py);}}
     function draw1P(c,x,y,w,h){const cx=x+w/2,cy=y+h/2;[[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x+w/2,y],[x+w,cy],[x+w/2,y+h],[x,cy]].forEach(p=>{c.moveTo(cx,cy);c.lineTo(p[0],p[1]);});c.moveTo(x,cy);c.lineTo(x+w,cy);}
     function draw2P(c,x,y,w,h){const hy=y+h*0.4,lv=x-w*0.1,rv=x+w*1.1;c.moveTo(x,hy);c.lineTo(x+w,hy);for(let i=0;i<=4;i++){c.moveTo(lv,hy);c.lineTo(x+w,y+h*i/4);c.moveTo(rv,hy);c.lineTo(x,y+h*i/4);}}
     function draw3P(c,x,y,w,h){const hy=y+h*0.3,lv=x-w*0.1,rv=x+w*1.1,bv=y+h*1.3;c.moveTo(x,hy);c.lineTo(x+w,hy);for(let i=0;i<=3;i++){c.moveTo(lv,hy);c.lineTo(x+w,y+h*i/3);c.moveTo(rv,hy);c.lineTo(x,y+h*i/3);}for(let i=0;i<=4;i++){c.moveTo(x+w*i/4,y);c.lineTo(x+w/2,bv);}}
     function drawGoldenSpiral(c,x,y,w,h){const p=1.618;let cx=x,cy=y,cw=w,ch=h;for(let i=0;i<8;i++){if(i%4===0){const nw=cw/p;c.moveTo(cx+nw,cy);c.lineTo(cx+nw,cy+ch);cx+=nw;cw-=nw;}else if(i%4===1){const nh=ch/p;c.moveTo(cx,cy+ch-nh);c.lineTo(cx+cw,cy+ch-nh);ch-=nh;}else if(i%4===2){const nw=cw/p;c.moveTo(cx+cw-nw,cy);c.lineTo(cx+cw-nw,cy+ch);cw-=nw;}else{const nh=ch/p;c.moveTo(cx,cy+nh);c.lineTo(cx+cw,cy+nh);cy+=nh;ch-=nh;}}}
-
-    function drawCompound(c,x,y,w,h,n1,n2){
-      for(let i=1;i<n1;i++){c.moveTo(x+w*i/n1,y);c.lineTo(x+w*i/n1,y+h);}
-      for(let i=1;i<n2;i++){c.moveTo(x+w*i/n2,y);c.lineTo(x+w*i/n2,y+h);}
-      for(let i=1;i<n1;i++){c.moveTo(x,y+h*i/n1);c.lineTo(x+w,y+h*i/n1);}
-      for(let i=1;i<n2;i++){c.moveTo(x,y+h*i/n2);c.lineTo(x+w,y+h*i/n2);}
-      c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w,y+h);c.lineTo(x,y+h);c.closePath();
-    }
-
-    function drawProgram(c,x,y,w,h){
-      const divs=[2,3,4,5,6];
-      divs.forEach(d=>{
-        for(let i=1;i<d;i++){
-          c.moveTo(x+w*i/d,y);c.lineTo(x+w*i/d,y+h);
-          c.moveTo(x,y+h*i/d);c.lineTo(x+w,y+h*i/d);
-        }
-      });
-      c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w,y+h);c.lineTo(x,y+h);c.closePath();
-    }
-
-    function drawSriYantra(c,cx,cy,r){
-      const s=r*1.1;
+    function drawCompound(c,x,y,w,h,n1,n2){for(let i=1;i<n1;i++){c.moveTo(x+w*i/n1,y);c.lineTo(x+w*i/n1,y+h);}for(let i=1;i<n2;i++){c.moveTo(x+w*i/n2,y);c.lineTo(x+w*i/n2,y+h);}for(let i=1;i<n1;i++){c.moveTo(x,y+h*i/n1);c.lineTo(x+w,y+h*i/n1);}for(let i=1;i<n2;i++){c.moveTo(x,y+h*i/n2);c.lineTo(x+w,y+h*i/n2);}c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w,y+h);c.lineTo(x,y+h);c.closePath();}
+    function drawProgram(c,x,y,w,h){const divs=[2,3,4,5,6];divs.forEach(d=>{for(let i=1;i<d;i++){c.moveTo(x+w*i/d,y);c.lineTo(x+w*i/d,y+h);c.moveTo(x,y+h*i/d);c.lineTo(x+w,y+h*i/d);}});c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w,y+h);c.lineTo(x,y+h);c.closePath();}
+    function drawSriYantra(c,cx,cy,r){const s=r*1.15;
+      // 4 upward triangles (symmetrical)
       const upTris=[
-        [[0,-0.95],[-.85,.65],[.85,.65]],
-        [[0,-0.65],[-.55,.4],[.55,.4]],
-        [[0,-0.4],[-.35,.22],[.35,.22]],
-        [[0,-0.2],[-.18,.1],[.18,.1]],
+        [[0,-0.92],[-.82,.58],[.82,.58]],
+        [[0,-0.58],[-.52,.32],[.52,.32]],
+        [[0,-0.32],[-.32,.16],[.32,.16]],
+        [[0,-0.12],[-.14,.06],[.14,.06]]
       ];
+      // 5 downward triangles (symmetrical)
       const downTris=[
-        [[0,.95],[-.75,-.55],[.75,-.55]],
-        [[0,.7],[-.6,-.38],[.6,-.38]],
-        [[0,.48],[-.42,-.25],[.42,-.25]],
-        [[0,.32],[-.28,-.15],[.28,-.15]],
-        [[0,.15],[-.12,-.05],[.12,-.05]],
+        [[0,.92],[-.72,-.48],[.72,-.48]],
+        [[0,.62],[-.54,-.32],[.54,-.32]],
+        [[0,.42],[-.38,-.2],[.38,-.2]],
+        [[0,.26],[-.24,-.1],[.24,-.1]],
+        [[0,.12],[-.1,-.04],[.1,-.04]]
       ];
       [...upTris,...downTris].forEach(tri=>{
         c.moveTo(cx+tri[0][0]*s,cy+tri[0][1]*s);
         tri.forEach(p=>c.lineTo(cx+p[0]*s,cy+p[1]*s));
         c.closePath();
       });
-      c.moveTo(cx+r,cy);c.arc(cx,cy,r,0,Math.PI*2);
+      // Add horizontal lines for intersection emphasis
+      c.moveTo(cx-s*0.82,cy+s*0.58);c.lineTo(cx+s*0.82,cy+s*0.58);
+      c.moveTo(cx-s*0.72,cy-s*0.48);c.lineTo(cx+s*0.72,cy-s*0.48);
     }
-
-    function drawMetatron(c,cx,cy,r){
-      const pts=[];
-      for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}
-      const inner=[];
-      for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}
-      pts.push([cx,cy]);
-      inner.forEach(p=>pts.push(p));
-      for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){c.moveTo(pts[i][0],pts[i][1]);c.lineTo(pts[j][0],pts[j][1]);}}
-      [...pts.slice(0,6),...inner].forEach(p=>{c.moveTo(p[0]+r*0.25,p[1]);c.arc(p[0],p[1],r*0.25,0,Math.PI*2);});
-      c.moveTo(cx+r*0.25,cy);c.arc(cx,cy,r*0.25,0,Math.PI*2);
-    }
+    function drawMetatron(c,cx,cy,r){const pts=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}const inner=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}pts.push([cx,cy]);inner.forEach(p=>pts.push(p));for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){c.moveTo(pts[i][0],pts[i][1]);c.lineTo(pts[j][0],pts[j][1]);}}[...pts.slice(0,6),...inner].forEach(p=>{c.moveTo(p[0]+r*0.25,p[1]);c.arc(p[0],p[1],r*0.25,0,Math.PI*2);});c.moveTo(cx+r*0.25,cy);c.arc(cx,cy,r*0.25,0,Math.PI*2);}
 
     window.addEventListener('resize', render);
     render();
