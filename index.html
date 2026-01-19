@@ -2467,7 +2467,7 @@
     // Scroll wheel zoom
     canvasArea.addEventListener('wheel', e => {
       e.preventDefault();
-      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      const delta = e.deltaY > 0 ? -0.03 : 0.03;
       state.zoom = Math.min(3, Math.max(0.1, state.zoom + delta));
       updateZoomIndicator();
       render();
