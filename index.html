@@ -1452,6 +1452,211 @@
     .donation-overlay.open { opacity: 1; visibility: visible; }
 
     .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+    /* ===== MOBILE RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      /* App layout - stack vertically */
+      .app {
+        flex-direction: column;
+      }
+
+      /* Mobile top bar for action buttons */
+      .mobile-top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-primary);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 150;
+      }
+
+      /* Canvas area - fixed height square below top bar */
+      .canvas-area {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        height: calc(100vw);
+        max-height: calc(100vh - 56px - 60px);
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+      }
+
+      /* Canvas itself - 100% square, no zoom */
+      .canvas-area canvas {
+        width: calc(100vw - 32px) !important;
+        height: calc(100vw - 32px) !important;
+        max-width: calc(100vh - 56px - 60px - 32px);
+        max-height: calc(100vh - 56px - 60px - 32px);
+      }
+
+      /* Drawer handle */
+      .drawer-handle {
+        display: flex;
+        justify-content: center;
+        padding: 12px 0 8px;
+        cursor: pointer;
+      }
+
+      .drawer-pill {
+        width: 40px;
+        height: 5px;
+        background: var(--fg-muted);
+        border-radius: var(--radius-full);
+        opacity: 0.5;
+      }
+
+      /* Sidebar becomes bottom drawer */
+      .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 100vw - 56px + 60px);
+        transform: translateY(calc(100% - 52px));
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 200;
+        border-right: none;
+        border-top: 1px solid var(--border-primary);
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar.drawer-open {
+        transform: translateY(0);
+      }
+
+      .sidebar-header {
+        padding: 0 16px 8px;
+      }
+
+      .header-top {
+        margin-bottom: 0;
+      }
+
+      .logo {
+        width: 26px;
+        height: 26px;
+      }
+
+      .logo svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .brand-text h1 {
+        font-size: 14px;
+      }
+
+      .header-meta {
+        display: none;
+      }
+
+      .sidebar-content {
+        padding: 12px 16px 24px;
+        max-height: calc(100vh - 100vw - 56px - 52px + 60px);
+        overflow-y: auto;
+      }
+
+      .section {
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+
+      .section-header h3 {
+        font-size: 11px;
+      }
+
+      /* Export button - top right */
+      .export-btn-fixed {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        bottom: auto;
+        height: 44px;
+        padding: 0 18px;
+        font-size: 13px;
+        z-index: 160;
+      }
+
+      .export-btn-fixed .shortcut-hint {
+        display: none;
+      }
+
+      /* Hide desktop bottom bar */
+      .bottom-bar {
+        display: none;
+      }
+
+      /* Mobile FAB - top left */
+      .mobile-fab {
+        display: flex;
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        bottom: auto;
+        height: 44px;
+        width: 44px;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-secondary);
+        color: var(--fg-primary);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        z-index: 160;
+        transition: background 0.15s;
+      }
+
+      .mobile-fab:active {
+        background: var(--bg-tertiary);
+      }
+
+      .mobile-fab svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Adjust custom dropdown on mobile */
+      .custom-select-dropdown {
+        max-height: 200px;
+      }
+
+      /* Tighter spacing for mobile controls */
+      .slider-row {
+        gap: 10px;
+      }
+
+      .grid-options {
+        gap: 6px;
+      }
+
+      .grid-option {
+        padding: 10px 8px;
+      }
+    }
+
+    /* Desktop - hide mobile elements */
+    @media (min-width: 769px) {
+      .drawer-handle {
+        display: none;
+      }
+
+      .mobile-fab {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1467,6 +1672,9 @@
   <div class="app">
     <aside class="sidebar">
       <div class="sidebar-header">
+        <div class="drawer-handle">
+          <div class="drawer-pill"></div>
+        </div>
         <div class="header-top">
           <div class="logo">
             <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1738,6 +1946,17 @@
         <canvas id="gridCanvas"></canvas>
       </div>
     </main>
+
+    <!-- Mobile FAB (Randomize) -->
+    <button class="mobile-fab" id="mobileRandomize" title="Randomize">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 3 21 3 21 8"></polyline>
+        <line x1="4" y1="20" x2="21" y2="3"></line>
+        <polyline points="21 16 21 21 16 21"></polyline>
+        <line x1="15" y1="15" x2="21" y2="21"></line>
+        <line x1="4" y1="4" x2="9" y2="9"></line>
+      </svg>
+    </button>
 
     <!-- Export Button -->
     <button class="export-btn-fixed" id="exportBtn">
@@ -2835,6 +3054,34 @@
       c.moveTo(cx-s*0.72,cy-s*0.48);c.lineTo(cx+s*0.72,cy-s*0.48);
     }
     function drawMetatron(c,cx,cy,r){const pts=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}const inner=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}pts.push([cx,cy]);inner.forEach(p=>pts.push(p));for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){c.moveTo(pts[i][0],pts[i][1]);c.lineTo(pts[j][0],pts[j][1]);}}[...pts.slice(0,6),...inner].forEach(p=>{c.moveTo(p[0]+r*0.25,p[1]);c.arc(p[0],p[1],r*0.25,0,Math.PI*2);});c.moveTo(cx+r*0.25,cy);c.arc(cx,cy,r*0.25,0,Math.PI*2);}
+
+    // ===== MOBILE DRAWER TOGGLE =====
+    const sidebar = document.querySelector('.sidebar');
+    const drawerHandle = document.querySelector('.drawer-handle');
+
+    function toggleDrawer() {
+      sidebar.classList.toggle('drawer-open');
+    }
+
+    // Toggle drawer when clicking handle
+    if (drawerHandle) {
+      drawerHandle.addEventListener('click', toggleDrawer);
+    }
+
+    // Mobile FAB randomize button
+    const mobileFab = document.getElementById('mobileRandomize');
+    if (mobileFab) {
+      mobileFab.addEventListener('click', randomize);
+    }
+
+    // Close drawer when selecting a preset on mobile
+    sizeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.remove('drawer-open');
+        }
+      });
+    });
 
     window.addEventListener('resize', render);
     initSliders();
