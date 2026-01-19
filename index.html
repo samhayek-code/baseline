@@ -703,6 +703,11 @@
     }
 
     /* Export Button - Floating pill */
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
     .export-btn-fixed {
       position: fixed;
       top: 20px;
@@ -711,7 +716,9 @@
       align-items: center;
       gap: 10px;
       padding: 12px 24px;
-      background: var(--fg-primary);
+      background: linear-gradient(135deg, var(--fg-primary) 0%, var(--fg-primary) 50%, var(--accent) 100%);
+      background-size: 200% 200%;
+      background-position: 0% 50%;
       border: none;
       border-radius: var(--radius-full);
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -719,7 +726,12 @@
       font-weight: 600;
       color: var(--bg-primary);
       cursor: pointer;
-      transition: all 0.2s;
+      overflow: hidden;
+      isolation: isolate;
+      transition:
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background-position 0.5s ease,
+        box-shadow 0.6s ease-out;
       z-index: 100;
       box-shadow: 
         0 4px 12px rgba(0, 0, 0, 0.3),
@@ -732,17 +744,46 @@
         inset 0 0 0 2px rgba(0, 0, 0, 0.1);
     }
 
-    .export-btn-fixed:hover { 
+    .export-btn-fixed::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(236, 72, 153, 0.4) 20%,
+        rgba(168, 85, 247, 0.5) 40%,
+        rgba(59, 130, 246, 0.4) 60%,
+        rgba(20, 184, 166, 0.3) 80%,
+        transparent 100%
+      );
+      transform: translateX(-100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .export-btn-fixed:hover {
       transform: translateY(-2px);
-      box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.4),
-        inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+      background-position: 100% 50%;
+      box-shadow:
+        0 6px 18px rgba(168, 85, 247, 0.3),
+        0 3px 8px rgba(0, 0, 0, 0.15),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    }
+
+    .export-btn-fixed:hover::before {
+      opacity: 1;
+      animation: shimmer 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     [data-theme="light"] .export-btn-fixed:hover {
-      box-shadow: 
-        0 8px 20px rgba(0, 0, 0, 0.2),
-        inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+      box-shadow:
+        0 6px 18px rgba(168, 85, 247, 0.2),
+        0 3px 8px rgba(0, 0, 0, 0.08),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.08);
     }
 
     .export-btn-fixed svg { width: 16px; height: 16px; }
@@ -759,6 +800,100 @@
 
     [data-theme="light"] .export-btn-fixed .shortcut-hint {
       background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Layer Controls - top left */
+    .layer-controls {
+      position: fixed;
+      top: 20px;
+      left: 410px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md);
+      padding: 4px;
+      z-index: 90;
+    }
+
+    .layer-tabs {
+      display: flex;
+      gap: 4px;
+    }
+
+    .layer-tab {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .layer-tab:hover {
+      color: var(--fg-primary);
+    }
+
+    .layer-tab.active {
+      background: var(--fg-primary);
+      color: var(--bg-primary);
+    }
+
+    .layer-tab.has-content:not(.active)::after {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .layer-opacity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 12px;
+      padding-left: 12px;
+      border-left: 1px solid var(--border-primary);
+    }
+
+    .layer-opacity input[type="range"] {
+      width: 80px;
+      height: 4px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: linear-gradient(to right, var(--accent) 100%, var(--bg-tertiary) 100%);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+    }
+
+    .layer-opacity input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--fg-primary);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+
+    .layer-opacity input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    .layer-opacity-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--fg-muted);
+      min-width: 36px;
     }
 
     /* Shortcut hints */
@@ -1599,6 +1734,11 @@
         display: none;
       }
 
+      /* Hide layer controls on mobile */
+      .layer-controls {
+        display: none;
+      }
+
       /* Mobile FAB - top left */
       .mobile-fab {
         display: flex;
@@ -1965,6 +2105,18 @@
       <span class="shortcut-hint">E</span>
     </button>
 
+    <!-- Layer Controls (top-left) -->
+    <div class="layer-controls" id="layerControls">
+      <div class="layer-tabs">
+        <button class="layer-tab active" data-layer="1">Layer 1</button>
+        <button class="layer-tab" data-layer="2">Layer 2</button>
+      </div>
+      <div class="layer-opacity">
+        <input type="range" id="layerOpacity" min="0" max="100" value="100">
+        <span class="layer-opacity-value" id="layerOpacityValue">100%</span>
+      </div>
+    </div>
+
     <!-- Bottom Bar -->
     <div class="bottom-bar">
       <div class="bottom-left">
@@ -2213,17 +2365,44 @@
 
     const ALL_GRIDS = Object.values(GRID_LAYOUTS).flat();
 
+    // Active layer tracking
+    let activeLayer = 1;
+
+    // Layer-specific settings
+    let layers = {
+      1: {
+        selectedGrids: ['fibonacci'],
+        lineWeight: 1,
+        lineStyle: 'solid',
+        lineColor: '#a855f7',
+        lineOpacity: 70,
+        opacity: 100
+      },
+      2: {
+        selectedGrids: [],
+        lineWeight: 1,
+        lineStyle: 'solid',
+        lineColor: '#22c55e',
+        lineOpacity: 70,
+        opacity: 100
+      }
+    };
+
+    // Shared canvas settings
     let state = {
       width: 1080, height: 1080,
-      selectedGrids: ['fibonacci'],
       margin: 20, padding: 20, gutter: 20,
-      lineWeight: 1, lineStyle: 'solid', lineColor: '#a855f7', lineOpacity: 70,
       bgColor: '#FFFFFF',
       rotation: 0,
       flipH: false,
       flipV: false,
       zoom: 1
     };
+
+    // Helper to get current layer
+    function currentLayer() {
+      return layers[activeLayer];
+    }
 
     let locks = {
       margin: true,
@@ -2347,7 +2526,7 @@
         item.innerHTML = `
           <span>${g.name}</span>
           <label class="toggle">
-            <input type="checkbox" id="grid-${g.id}" ${state.selectedGrids.includes(g.id) ? 'checked' : ''}>
+            <input type="checkbox" id="grid-${g.id}" ${currentLayer().selectedGrids.includes(g.id) ? 'checked' : ''}>
             <span class="toggle-slider"></span>
           </label>
         `;
@@ -2360,8 +2539,9 @@
         });
         item.querySelector('input').addEventListener('change', e => {
           e.stopPropagation();
-          if (e.target.checked) state.selectedGrids.push(g.id);
-          else state.selectedGrids = state.selectedGrids.filter(id => id !== g.id);
+          if (e.target.checked) currentLayer().selectedGrids.push(g.id);
+          else currentLayer().selectedGrids = currentLayer().selectedGrids.filter(id => id !== g.id);
+          updateLayerIndicators();
           render();
         });
         itemsContainer.appendChild(item);
@@ -2374,8 +2554,9 @@
 
     // Clear grids
     document.getElementById('clearGridsBtn').addEventListener('click', () => {
-      state.selectedGrids = [];
+      currentLayer().selectedGrids = [];
       document.querySelectorAll('#gridTemplates input').forEach(c => c.checked = false);
+      updateLayerIndicators();
       render();
     });
 
@@ -2484,12 +2665,12 @@
     document.getElementById('gutter').addEventListener('blur', e => { e.target.value = state.gutter; });
 
     // Line style
-    document.getElementById('lineWeight').addEventListener('input', e => { state.lineWeight = +e.target.value; render(); });
-    document.getElementById('lineStyle').addEventListener('change', e => { state.lineStyle = e.target.value; render(); });
-    document.getElementById('lineColor').addEventListener('input', e => { state.lineColor = e.target.value; render(); });
-    document.getElementById('lineOpacity').addEventListener('input', e => { state.lineOpacity = +e.target.value; document.getElementById('opacityNumber').value = state.lineOpacity; render(); });
-    document.getElementById('opacityNumber').addEventListener('input', e => { let val = Math.min(100, Math.max(10, +e.target.value || 10)); state.lineOpacity = val; const slider = document.getElementById('lineOpacity'); slider.value = val; updateSliderFill(slider); render(); });
-    document.getElementById('opacityNumber').addEventListener('blur', e => { e.target.value = state.lineOpacity; });
+    document.getElementById('lineWeight').addEventListener('input', e => { currentLayer().lineWeight = +e.target.value; render(); });
+    document.getElementById('lineStyle').addEventListener('change', e => { currentLayer().lineStyle = e.target.value; render(); });
+    document.getElementById('lineColor').addEventListener('input', e => { currentLayer().lineColor = e.target.value; render(); });
+    document.getElementById('lineOpacity').addEventListener('input', e => { currentLayer().lineOpacity = +e.target.value; document.getElementById('opacityNumber').value = currentLayer().lineOpacity; render(); });
+    document.getElementById('opacityNumber').addEventListener('input', e => { let val = Math.min(100, Math.max(10, +e.target.value || 10)); currentLayer().lineOpacity = val; const slider = document.getElementById('lineOpacity'); slider.value = val; updateSliderFill(slider); render(); });
+    document.getElementById('opacityNumber').addEventListener('blur', e => { e.target.value = currentLayer().lineOpacity; });
     document.getElementById('bgColor').addEventListener('input', e => { state.bgColor = e.target.value; document.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('active')); updateColorDisplay(); render(); });
 
     // Background swatches
@@ -2532,28 +2713,29 @@
       else if (rand < 0.6) n = 2;
       else if (rand < 0.9) n = 3;
       else n = 4;
-      state.selectedGrids = [...ALL_GRIDS].sort(() => Math.random()-0.5).slice(0,n).map(g => g.id);
-      document.querySelectorAll('#gridTemplates input').forEach(c => c.checked = state.selectedGrids.includes(c.id.replace('grid-','')));
-      
+      currentLayer().selectedGrids = [...ALL_GRIDS].sort(() => Math.random()-0.5).slice(0,n).map(g => g.id);
+      document.querySelectorAll('#gridTemplates input').forEach(c => c.checked = currentLayer().selectedGrids.includes(c.id.replace('grid-','')));
+
       if (!locks.lineStyle) {
-        state.lineStyle = ['solid','dashed','dotted'][Math.floor(Math.random()*3)];
-        document.getElementById('lineStyle').value = state.lineStyle;
+        currentLayer().lineStyle = ['solid','dashed','dotted'][Math.floor(Math.random()*3)];
+        document.getElementById('lineStyle').value = currentLayer().lineStyle;
       }
       if (!locks.lineColor) {
-        state.lineColor = ['#a855f7','#ec4899','#f97316','#22c55e','#14b8a6','#0ea5e9','#8b5cf6','#ffffff'][Math.floor(Math.random()*8)];
-        document.getElementById('lineColor').value = state.lineColor;
+        currentLayer().lineColor = ['#a855f7','#ec4899','#f97316','#22c55e','#14b8a6','#0ea5e9','#8b5cf6','#ffffff'][Math.floor(Math.random()*8)];
+        document.getElementById('lineColor').value = currentLayer().lineColor;
       }
       if (!locks.lineOpacity) {
-        state.lineOpacity = Math.floor(Math.random()*50)+50;
+        currentLayer().lineOpacity = Math.floor(Math.random()*50)+50;
         const opSlider = document.getElementById('lineOpacity');
-        opSlider.value = state.lineOpacity;
-        document.getElementById('opacityNumber').value = state.lineOpacity;
+        opSlider.value = currentLayer().lineOpacity;
+        document.getElementById('opacityNumber').value = currentLayer().lineOpacity;
         updateSliderFill(opSlider);
       }
       if (!locks.lineWeight) {
-        state.lineWeight = (Math.floor(Math.random()*6)+1)*0.5;
-        document.getElementById('lineWeight').value = state.lineWeight;
+        currentLayer().lineWeight = (Math.floor(Math.random()*6)+1)*0.5;
+        document.getElementById('lineWeight').value = currentLayer().lineWeight;
       }
+      updateLayerIndicators();
       if (!locks.margin) {
         state.margin = Math.floor(Math.random()*40)+10;
         document.getElementById('margin').value = state.margin;
@@ -2733,22 +2915,29 @@
       const w = state.width - 2*(m+p), h = state.height - 2*(m+p);
       const s = Math.max(state.width, state.height) / 1000;
 
-      c.strokeStyle = hexToRgba(state.lineColor, state.lineOpacity / 100);
-      c.lineWidth = state.lineWeight;
-      if (state.lineStyle === 'dashed') c.setLineDash([8*s, 4*s]);
-      else if (state.lineStyle === 'dotted') c.setLineDash([2*s, 4*s]);
-      else c.setLineDash([]);
+      // Render both layers (1 first, then 2 on top)
+      [1, 2].forEach(layerNum => {
+        const layer = layers[layerNum];
+        if (layer.selectedGrids.length === 0 || layer.opacity === 0) return;
 
-      // Apply transforms
-      c.save();
-      c.translate(state.width / 2, state.height / 2);
-      c.rotate(state.rotation * Math.PI / 180);
-      c.scale(state.flipH ? -1 : 1, state.flipV ? -1 : 1);
-      c.translate(-state.width / 2, -state.height / 2);
+        c.save();
+        c.globalAlpha = layer.opacity / 100;
+        c.strokeStyle = hexToRgba(layer.lineColor, layer.lineOpacity / 100);
+        c.lineWidth = layer.lineWeight;
+        if (layer.lineStyle === 'dashed') c.setLineDash([8*s, 4*s]);
+        else if (layer.lineStyle === 'dotted') c.setLineDash([2*s, 4*s]);
+        else c.setLineDash([]);
 
-      state.selectedGrids.forEach(id => drawGrid(c, id, x, y, w, h, g, s));
-      
-      c.restore();
+        // Apply transforms
+        c.translate(state.width / 2, state.height / 2);
+        c.rotate(state.rotation * Math.PI / 180);
+        c.scale(state.flipH ? -1 : 1, state.flipV ? -1 : 1);
+        c.translate(-state.width / 2, -state.height / 2);
+
+        layer.selectedGrids.forEach(id => drawGrid(c, id, x, y, w, h, g, s));
+
+        c.restore();
+      });
     }
 
     // SVG Generation
@@ -2759,15 +2948,7 @@
       const x = m + p, y = m + p;
       const w = state.width - 2*(m+p), h = state.height - 2*(m+p);
       const s = Math.max(state.width, state.height) / 1000;
-      let paths = '';
-      state.selectedGrids.forEach(id => { paths += generateGridSVG(id, x, y, w, h, g, s); });
-      const strokeColor = state.lineColor;
-      const strokeOpacity = state.lineOpacity / 100;
-      let dashArray = '';
-      if (state.lineStyle === 'dashed') dashArray = `stroke-dasharray="${8*s},${4*s}"`;
-      else if (state.lineStyle === 'dotted') dashArray = `stroke-dasharray="${2*s},${4*s}"`;
-      const bgRect = transparent ? '' : `<rect width="${state.width}" height="${state.height}" fill="${state.bgColor}"/>`;
-      
+
       // Build transform string
       let transforms = [];
       transforms.push(`translate(${state.width/2},${state.height/2})`);
@@ -2775,13 +2956,33 @@
       if (state.flipH || state.flipV) transforms.push(`scale(${state.flipH ? -1 : 1},${state.flipV ? -1 : 1})`);
       transforms.push(`translate(${-state.width/2},${-state.height/2})`);
       const transformAttr = (state.rotation !== 0 || state.flipH || state.flipV) ? `transform="${transforms.join(' ')}"` : '';
-      
+
+      const bgRect = transparent ? '' : `<rect width="${state.width}" height="${state.height}" fill="${state.bgColor}"/>`;
+
+      // Generate SVG groups for both layers
+      let layerGroups = '';
+      [1, 2].forEach(layerNum => {
+        const layer = layers[layerNum];
+        if (layer.selectedGrids.length === 0 || layer.opacity === 0) return;
+
+        let paths = '';
+        layer.selectedGrids.forEach(id => { paths += generateGridSVG(id, x, y, w, h, g, s); });
+
+        const strokeColor = layer.lineColor;
+        const strokeOpacity = (layer.lineOpacity / 100) * (layer.opacity / 100);
+        let dashArray = '';
+        if (layer.lineStyle === 'dashed') dashArray = `stroke-dasharray="${8*s},${4*s}"`;
+        else if (layer.lineStyle === 'dotted') dashArray = `stroke-dasharray="${2*s},${4*s}"`;
+
+        layerGroups += `
+  <g stroke="${strokeColor}" stroke-opacity="${strokeOpacity}" stroke-width="${layer.lineWeight}" fill="none" ${dashArray} ${transformAttr}>
+    ${paths}
+  </g>`;
+      });
+
       return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${state.width}" height="${state.height}" viewBox="0 0 ${state.width} ${state.height}">
-  ${bgRect}
-  <g stroke="${strokeColor}" stroke-opacity="${strokeOpacity}" stroke-width="${state.lineWeight}" fill="none" ${dashArray} ${transformAttr}>
-    ${paths}
-  </g>
+  ${bgRect}${layerGroups}
 </svg>`;
     }
 
@@ -3054,6 +3255,74 @@
       c.moveTo(cx-s*0.72,cy-s*0.48);c.lineTo(cx+s*0.72,cy-s*0.48);
     }
     function drawMetatron(c,cx,cy,r){const pts=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}const inner=[];for(let i=0;i<6;i++){const a=i*Math.PI/3-Math.PI/2;inner.push([cx+r*0.5*Math.cos(a),cy+r*0.5*Math.sin(a)]);}pts.push([cx,cy]);inner.forEach(p=>pts.push(p));for(let i=0;i<pts.length;i++){for(let j=i+1;j<pts.length;j++){c.moveTo(pts[i][0],pts[i][1]);c.lineTo(pts[j][0],pts[j][1]);}}[...pts.slice(0,6),...inner].forEach(p=>{c.moveTo(p[0]+r*0.25,p[1]);c.arc(p[0],p[1],r*0.25,0,Math.PI*2);});c.moveTo(cx+r*0.25,cy);c.arc(cx,cy,r*0.25,0,Math.PI*2);}
+
+    // ===== LAYER CONTROLS =====
+    const layerTabs = document.querySelectorAll('.layer-tab');
+    const layerOpacitySlider = document.getElementById('layerOpacity');
+    const layerOpacityValue = document.getElementById('layerOpacityValue');
+
+    // Update UI to reflect current layer's settings
+    function updateUIForLayer() {
+      const layer = currentLayer();
+
+      // Update grid checkboxes
+      document.querySelectorAll('#gridTemplates input').forEach(c => {
+        c.checked = layer.selectedGrids.includes(c.id.replace('grid-', ''));
+      });
+
+      // Update line controls
+      document.getElementById('lineWeight').value = layer.lineWeight;
+      document.getElementById('lineStyle').value = layer.lineStyle;
+      document.getElementById('lineColor').value = layer.lineColor;
+      document.getElementById('lineOpacity').value = layer.lineOpacity;
+      document.getElementById('opacityNumber').value = layer.lineOpacity;
+
+      // Update layer opacity slider
+      layerOpacitySlider.value = layer.opacity;
+      layerOpacityValue.textContent = layer.opacity + '%';
+
+      // Update slider fills
+      document.querySelectorAll('input[type="range"]').forEach(updateSliderFill);
+    }
+
+    // Update layer tab indicators (dot when layer has content)
+    function updateLayerIndicators() {
+      layerTabs.forEach(tab => {
+        const layerNum = parseInt(tab.dataset.layer);
+        const layer = layers[layerNum];
+        if (layer.selectedGrids.length > 0) {
+          tab.classList.add('has-content');
+        } else {
+          tab.classList.remove('has-content');
+        }
+      });
+    }
+
+    // Switch active layer
+    layerTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const newLayer = parseInt(tab.dataset.layer);
+        if (newLayer === activeLayer) return;
+
+        activeLayer = newLayer;
+        layerTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        updateUIForLayer();
+      });
+    });
+
+    // Layer opacity slider
+    layerOpacitySlider.addEventListener('input', e => {
+      currentLayer().opacity = parseInt(e.target.value);
+      layerOpacityValue.textContent = e.target.value + '%';
+      updateSliderFill(layerOpacitySlider);
+      render();
+    });
+
+    // Initialize layer indicators and slider fill
+    updateLayerIndicators();
+    updateSliderFill(layerOpacitySlider);
 
     // ===== MOBILE DRAWER TOGGLE =====
     const sidebar = document.querySelector('.sidebar');
