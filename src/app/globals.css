@@ -1,0 +1,126 @@
+:root {
+  /* Dark theme (default) */
+  --bg-primary: #09090b;
+  --bg-secondary: rgba(255, 255, 255, 0.02);
+  --bg-tertiary: rgba(255, 255, 255, 0.04);
+  --bg-elevated: rgba(255, 255, 255, 0.03);
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --bg-glass-hover: rgba(255, 255, 255, 0.06);
+  --bg-glass-active: rgba(255, 255, 255, 0.08);
+
+  --fg-primary: #fafafa;
+  --fg-secondary: #a1a1aa;
+  --fg-muted: #71717a;
+  --fg-subtle: #52525b;
+
+  --border-primary: rgba(255, 255, 255, 0.06);
+  --border-secondary: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-active: rgba(255, 255, 255, 0.15);
+
+  --accent: #ffffff;
+  --accent-muted: rgba(255, 255, 255, 0.1);
+  --accent-glow: rgba(255, 255, 255, 0.05);
+
+  --color-pop: #a855f7;
+  --color-pop-muted: rgba(168, 85, 247, 0.15);
+  --color-pop-glow: rgba(168, 85, 247, 0.1);
+
+  --canvas-bg: #fafafa;
+
+  --btn-bg-solid: rgba(24, 24, 27, 0.92);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --blur-md: 12px;
+  --blur-lg: 24px;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f4f4f5;
+  --bg-secondary: rgba(0, 0, 0, 0.02);
+  --bg-tertiary: rgba(0, 0, 0, 0.04);
+  --bg-elevated: rgba(255, 255, 255, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.6);
+  --bg-glass-hover: rgba(255, 255, 255, 0.8);
+  --bg-glass-active: rgba(255, 255, 255, 0.9);
+
+  --fg-primary: #09090b;
+  --fg-secondary: #52525b;
+  --fg-muted: #71717a;
+  --fg-subtle: #a1a1aa;
+
+  --border-primary: rgba(0, 0, 0, 0.06);
+  --border-secondary: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.12);
+  --border-active: rgba(0, 0, 0, 0.15);
+
+  --accent: #09090b;
+  --accent-muted: rgba(0, 0, 0, 0.1);
+  --accent-glow: rgba(0, 0, 0, 0.05);
+
+  --canvas-bg: #09090b;
+
+  --btn-bg-solid: rgba(255, 255, 255, 0.92);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  background: var(--bg-primary);
+  color: var(--fg-primary);
+  min-height: 100vh;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--fg-primary);
+  color: var(--bg-primary);
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 400;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
