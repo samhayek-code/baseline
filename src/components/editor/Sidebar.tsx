@@ -14,6 +14,13 @@ import {
 
 // Size preset data
 const SIZE_PRESETS = {
+  Presentation: [
+    { value: "1920x1080", label: "Presentation 16:9 (1920×1080)" },
+    { value: "1600x1200", label: "Slide 4:3 (1600×1200)" },
+    { value: "1920x1200", label: "Slide 16:10 (1920×1200)" },
+    { value: "1024x768", label: "Slide Classic (1024×768)" },
+    { value: "2560x1440", label: "Presentation 2K (2560×1440)" },
+  ],
   "Social Media": [
     { value: "1080x1350", label: "Instagram Post (1080×1350)" },
     { value: "1080x1920", label: "Instagram Story (1080×1920)" },
@@ -21,6 +28,7 @@ const SIZE_PRESETS = {
     { value: "1500x500", label: "Twitter/X Header (1500×500)" },
     { value: "1000x1500", label: "Pinterest Pin (1000×1500)" },
     { value: "1280x720", label: "YouTube Thumbnail (1280×720)" },
+    { value: "1200x1200", label: "LinkedIn Post (1200×1200)" },
   ],
   Video: [
     { value: "1920x1080", label: "Full HD 1080p (1920×1080)" },
@@ -35,18 +43,24 @@ const SIZE_PRESETS = {
     { value: "3300x2550", label: 'US Letter Landscape (11×8.5")' },
     { value: "2480x3508", label: "A4 Portrait (210×297mm)" },
     { value: "3508x2480", label: "A4 Landscape (297×210mm)" },
+    { value: "1050x600", label: 'Business Card (3.5×2")' },
     { value: "1200x1800", label: '4×6" Photo' },
     { value: "2400x3000", label: '8×10" Photo' },
+    { value: "3300x5100", label: 'Poster 11×17"' },
   ],
   Screen: [
     { value: "1440x900", label: "Desktop (1440×900)" },
     { value: "1920x1080", label: "Desktop HD (1920×1080)" },
     { value: "2560x1440", label: "2K Monitor (2560×1440)" },
     { value: "1366x768", label: "Laptop HD (1366×768)" },
+    { value: "1512x982", label: 'MacBook Pro 14"' },
+    { value: "1728x1117", label: 'MacBook Pro 16"' },
     { value: "768x1024", label: "iPad Portrait (768×1024)" },
+    { value: "1024x768", label: "iPad Landscape (1024×768)" },
     { value: "375x812", label: "iPhone SE (375×812)" },
     { value: "390x844", label: "iPhone 14 (390×844)" },
-    { value: "414x896", label: "iPhone 11/XR (414×896)" },
+    { value: "393x852", label: "iPhone 15 Pro (393×852)" },
+    { value: "430x932", label: "iPhone 15 Pro Max (430×932)" },
   ],
 };
 
