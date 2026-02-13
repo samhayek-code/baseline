@@ -68,7 +68,7 @@ export const DEFAULT_STATE: CanvasState = {
 
 export const DEFAULT_LAYERS: Layers = {
   1: {
-    selectedGrids: ["fibonacci"],
+    selectedGrids: ["ui-app-shell"],
     lineWeight: 1,
     lineStyle: "solid",
     lineColor: "#a855f7",
@@ -86,11 +86,11 @@ export const DEFAULT_LAYERS: Layers = {
 };
 
 export const DEFAULT_LOCKS: Locks = {
-  margin: true,
-  padding: true,
-  gutter: true,
-  lineWeight: true,
-  lineStyle: true,
+  margin: false,
+  padding: false,
+  gutter: false,
+  lineWeight: false,
+  lineStyle: false,
   lineColor: false,
-  lineOpacity: true,
+  lineOpacity: false,
 };

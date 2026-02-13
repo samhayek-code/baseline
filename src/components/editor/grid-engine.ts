@@ -770,6 +770,170 @@ function generateGridSVG(
     case "metatrons-cube":
       paths += generateMetatronSVG(cx, cy, r);
       break;
+
+    // --- Interface grids ---
+
+    case "ui-gutenberg": {
+      // Quadrant dividers
+      paths += svgLine(x, cy, x + w, cy) + svgLine(cx, y, cx, y + h);
+      // Primary reading diagonal (top-left → bottom-right)
+      paths += svgLine(x, y, x + w, y + h);
+      // Primary Optical Area emphasis rect (top-left)
+      paths += svgRect(x, y, w * 0.22, h * 0.22);
+      // Terminal Area emphasis rect (bottom-right)
+      paths += svgRect(x + w * 0.78, y + h * 0.78, w * 0.22, h * 0.22);
+      break;
+    }
+    case "ui-app-shell": {
+      const headerH = h * 0.07;
+      const sideW = w * 0.22;
+      const sideY = y + headerH + g;
+      const sideH = h - headerH - g;
+      const cX = x + sideW + g;
+      const cW = w - sideW - g;
+      const cY = sideY;
+      const cH = sideH;
+      // Header bar
+      paths += svgRect(x, y, w, headerH);
+      // Logo divider in header
+      paths += svgLine(x + w * 0.15, y, x + w * 0.15, y + headerH);
+      // Sidebar
+      paths += svgRect(x, sideY, sideW, sideH);
+      // Sidebar logo/brand area
+      paths += svgLine(x, sideY + sideH * 0.12, x + sideW, sideY + sideH * 0.12);
+      // Sidebar nav dividers
+      paths += svgLine(x, sideY + sideH * 0.35, x + sideW, sideY + sideH * 0.35);
+      paths += svgLine(x, sideY + sideH * 0.58, x + sideW, sideY + sideH * 0.58);
+      // Content area
+      paths += svgRect(cX, cY, cW, cH);
+      // Breadcrumb/sub-header line
+      paths += svgLine(cX, cY + cH * 0.05, cX + cW, cY + cH * 0.05);
+      break;
+    }
+    case "ui-three-panel": {
+      const totalG = g * 2;
+      const unitW = (w - totalG) / 4;
+      const leftW = unitW;
+      const centerW = unitW * 2;
+      const rightW = unitW;
+      const leftX = x;
+      const centerX = x + leftW + g;
+      const rightX = centerX + centerW + g;
+      // Three panels
+      paths += svgRect(leftX, y, leftW, h);
+      paths += svgRect(centerX, y, centerW, h);
+      paths += svgRect(rightX, y, rightW, h);
+      // Left panel header + section divider
+      paths += svgLine(leftX, y + h * 0.12, leftX + leftW, y + h * 0.12);
+      paths += svgLine(leftX, y + h * 0.45, leftX + leftW, y + h * 0.45);
+      // Center panel header + content zone split
+      paths += svgLine(centerX, y + h * 0.12, centerX + centerW, y + h * 0.12);
+      paths += svgLine(centerX, y + h * 0.55, centerX + centerW, y + h * 0.55);
+      // Right panel header + section dividers
+      paths += svgLine(rightX, y + h * 0.12, rightX + rightW, y + h * 0.12);
+      paths += svgLine(rightX, y + h * 0.4, rightX + rightW, y + h * 0.4);
+      paths += svgLine(rightX, y + h * 0.65, rightX + rightW, y + h * 0.65);
+      break;
+    }
+    case "ui-dashboard": {
+      const dHeaderH = h * 0.07;
+      const dSideW = w * 0.22;
+      const dSideY = y + dHeaderH + g;
+      const dSideH = h - dHeaderH - g;
+      const dContentX = x + dSideW + g;
+      const dContentY = dSideY;
+      const dContentW = w - dSideW - g;
+      const dContentH = dSideH;
+      const dCellW = (dContentW - g) / 2;
+      const dCellH = (dContentH - g) / 2;
+      // Header
+      paths += svgRect(x, y, w, dHeaderH);
+      // Logo divider in header
+      paths += svgLine(x + w * 0.15, y, x + w * 0.15, y + dHeaderH);
+      // Sidebar
+      paths += svgRect(x, dSideY, dSideW, dSideH);
+      // Sidebar nav dividers
+      paths += svgLine(x, dSideY + dSideH * 0.15, x + dSideW, dSideY + dSideH * 0.15);
+      paths += svgLine(x, dSideY + dSideH * 0.4, x + dSideW, dSideY + dSideH * 0.4);
+      paths += svgLine(x, dSideY + dSideH * 0.65, x + dSideW, dSideY + dSideH * 0.65);
+      // 2×2 content grid — top-left with X-cross (data viz)
+      paths += svgRect(dContentX, dContentY, dCellW, dCellH);
+      paths += svgLine(dContentX, dContentY, dContentX + dCellW, dContentY + dCellH);
+      paths += svgLine(dContentX + dCellW, dContentY, dContentX, dContentY + dCellH);
+      // Top-right
+      paths += svgRect(dContentX + dCellW + g, dContentY, dCellW, dCellH);
+      // Bottom-left
+      paths += svgRect(dContentX, dContentY + dCellH + g, dCellW, dCellH);
+      // Bottom-right
+      paths += svgRect(dContentX + dCellW + g, dContentY + dCellH + g, dCellW, dCellH);
+      break;
+    }
+    case "ui-canvas": {
+      const canvLeftW = w * 0.28;
+      const canvRightW = w - canvLeftW - g;
+      const canvRightX = x + canvLeftW + g;
+      // Left panel
+      paths += svgRect(x, y, canvLeftW, h);
+      // Left panel: layers section header
+      paths += svgLine(x, y + h * 0.08, x + canvLeftW, y + h * 0.08);
+      // Left panel: layers/properties split
+      paths += svgLine(x, y + h * 0.42, x + canvLeftW, y + h * 0.42);
+      // Left panel: properties section header
+      paths += svgLine(x, y + h * 0.5, x + canvLeftW, y + h * 0.5);
+      // Right canvas
+      paths += svgRect(canvRightX, y, canvRightW, h);
+      // Top toolbar
+      paths += svgLine(canvRightX, y + h * 0.06, canvRightX + canvRightW, y + h * 0.06);
+      // Bottom status bar
+      paths += svgLine(canvRightX, y + h * 0.95, canvRightX + canvRightW, y + h * 0.95);
+      break;
+    }
+    case "ui-chat-artifact": {
+      const chatW = w * 0.38;
+      const artW = w - chatW - g;
+      const artX = x + chatW + g;
+      // Chat panel
+      paths += svgRect(x, y, chatW, h);
+      // Chat header
+      paths += svgLine(x, y + h * 0.07, x + chatW, y + h * 0.07);
+      // Chat input area divider
+      paths += svgLine(x, y + h * 0.82, x + chatW, y + h * 0.82);
+      // Input field rect
+      paths += svgRect(x + chatW * 0.08, y + h * 0.85, chatW * 0.84, h * 0.1);
+      // Artifact panel
+      paths += svgRect(artX, y, artW, h);
+      // Artifact toolbar
+      paths += svgLine(artX, y + h * 0.06, artX + artW, y + h * 0.06);
+      break;
+    }
+    case "ui-agent-workflow": {
+      const awHeaderH = h * 0.1;
+      const awStatusH = h * 0.05;
+      const awColY = y + awHeaderH + g;
+      const awColH = h - awHeaderH - awStatusH - g * 2;
+      const awColW = (w - g * 2) / 3;
+      const awCol1X = x;
+      const awCol2X = x + awColW + g;
+      const awCol3X = x + awColW * 2 + g * 2;
+      const awStatusY = y + h - awStatusH;
+      // Header
+      paths += svgRect(x, y, w, awHeaderH);
+      // Three columns
+      paths += svgRect(awCol1X, awColY, awColW, awColH);
+      paths += svgRect(awCol2X, awColY, awColW, awColH);
+      paths += svgRect(awCol3X, awColY, awColW, awColH);
+      // Column headers
+      paths += svgLine(awCol1X, awColY + awColH * 0.1, awCol1X + awColW, awColY + awColH * 0.1);
+      paths += svgLine(awCol2X, awColY + awColH * 0.1, awCol2X + awColW, awColY + awColH * 0.1);
+      paths += svgLine(awCol3X, awColY + awColH * 0.1, awCol3X + awColW, awColY + awColH * 0.1);
+      // Bridge lines between columns (flow indicators)
+      const awBridgeY = awColY + awColH * 0.5;
+      paths += svgLine(awCol1X + awColW, awBridgeY, awCol2X, awBridgeY);
+      paths += svgLine(awCol2X + awColW, awBridgeY, awCol3X, awBridgeY);
+      // Bottom status bar
+      paths += svgLine(x, awStatusY, x + w, awStatusY);
+      break;
+    }
   }
   return paths;
 }
@@ -865,21 +1029,27 @@ function generateIsoSVG(
   h: number,
   s: number,
 ): string {
+  // Equilateral triangle tessellation — clipped to working area
   const sp = 30 * s;
-  const tan30 = Math.tan((30 * Math.PI) / 180);
-  let paths = "";
-  for (
-    let i = -Math.ceil(h / sp) * 2;
-    i < Math.ceil((w + h) / sp) * 2;
-    i++
-  ) {
-    const startX = x + (i * sp) / 2;
-    paths += `<line x1="${startX}" y1="${y + h}" x2="${startX + h / tan30}" y2="${y}"/>`;
-    paths += `<line x1="${startX}" y1="${y + h}" x2="${startX - h / tan30}" y2="${y}"/>`;
+  const triH = (sp * Math.sqrt(3)) / 2;
+  const numRows = Math.ceil(h / triH) + 1;
+  const numCols = Math.ceil(w / sp) + 2;
+  let inner = "";
+  // Horizontal lines
+  for (let r = 0; r <= numRows; r++)
+    inner += svgLine(x, y + h - r * triH, x + w, y + h - r * triH);
+  // Diagonal edges: V-shapes from each triangle apex
+  for (let r = 0; r < numRows; r++) {
+    const yBot = y + h - r * triH;
+    const yTop = yBot - triH;
+    const xOff = r % 2 === 0 ? sp / 2 : 0;
+    for (let k = -1; k <= numCols; k++) {
+      const ax = x + k * sp + xOff;
+      inner += svgLine(ax - sp / 2, yBot, ax, yTop);
+      inner += svgLine(ax + sp / 2, yBot, ax, yTop);
+    }
   }
-  for (let py = y; py <= y + h; py += sp * tan30 * 2)
-    paths += `<line x1="${x}" y1="${py}" x2="${x + w}" y2="${py}"/>`;
-  return paths;
+  return `<defs><clipPath id="iso-clip"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs><g clip-path="url(#iso-clip)">${inner}</g>` + svgRect(x, y, w, h);
 }
 
 function generate1PSVG(
@@ -1555,6 +1725,170 @@ function drawGrid(
     }
     case "sri-yantra": drawSriYantra(c, cx, cy, r); break;
     case "metatrons-cube": drawMetatron(c, cx, cy, r); break;
+
+    // --- Interface grids ---
+
+    case "ui-gutenberg": {
+      // Quadrant dividers
+      c.moveTo(x, cy); c.lineTo(x + w, cy);
+      c.moveTo(cx, y); c.lineTo(cx, y + h);
+      // Primary reading diagonal
+      c.moveTo(x, y); c.lineTo(x + w, y + h);
+      // Primary Optical Area rect (top-left)
+      c.strokeRect(x, y, w * 0.22, h * 0.22);
+      // Terminal Area rect (bottom-right)
+      c.strokeRect(x + w * 0.78, y + h * 0.78, w * 0.22, h * 0.22);
+      break;
+    }
+    case "ui-app-shell": {
+      const headerH = h * 0.07;
+      const sideW = w * 0.22;
+      const sideY = y + headerH + g;
+      const sideH = h - headerH - g;
+      const cX = x + sideW + g;
+      const cW = w - sideW - g;
+      const cY = sideY;
+      const cH = sideH;
+      // Header bar
+      c.strokeRect(x, y, w, headerH);
+      // Logo divider in header
+      c.moveTo(x + w * 0.15, y); c.lineTo(x + w * 0.15, y + headerH);
+      // Sidebar
+      c.strokeRect(x, sideY, sideW, sideH);
+      // Sidebar logo/brand area
+      c.moveTo(x, sideY + sideH * 0.12); c.lineTo(x + sideW, sideY + sideH * 0.12);
+      // Sidebar nav dividers
+      c.moveTo(x, sideY + sideH * 0.35); c.lineTo(x + sideW, sideY + sideH * 0.35);
+      c.moveTo(x, sideY + sideH * 0.58); c.lineTo(x + sideW, sideY + sideH * 0.58);
+      // Content area
+      c.strokeRect(cX, cY, cW, cH);
+      // Breadcrumb/sub-header line
+      c.moveTo(cX, cY + cH * 0.05); c.lineTo(cX + cW, cY + cH * 0.05);
+      break;
+    }
+    case "ui-three-panel": {
+      const tpUnitW = (w - g * 2) / 4;
+      const tpLeftW = tpUnitW;
+      const tpCenterW = tpUnitW * 2;
+      const tpRightW = tpUnitW;
+      const tpLeftX = x;
+      const tpCenterX = x + tpLeftW + g;
+      const tpRightX = tpCenterX + tpCenterW + g;
+      // Three panels
+      c.strokeRect(tpLeftX, y, tpLeftW, h);
+      c.strokeRect(tpCenterX, y, tpCenterW, h);
+      c.strokeRect(tpRightX, y, tpRightW, h);
+      // Left panel header + section divider
+      c.moveTo(tpLeftX, y + h * 0.12); c.lineTo(tpLeftX + tpLeftW, y + h * 0.12);
+      c.moveTo(tpLeftX, y + h * 0.45); c.lineTo(tpLeftX + tpLeftW, y + h * 0.45);
+      // Center panel header + content zone split
+      c.moveTo(tpCenterX, y + h * 0.12); c.lineTo(tpCenterX + tpCenterW, y + h * 0.12);
+      c.moveTo(tpCenterX, y + h * 0.55); c.lineTo(tpCenterX + tpCenterW, y + h * 0.55);
+      // Right panel header + section dividers
+      c.moveTo(tpRightX, y + h * 0.12); c.lineTo(tpRightX + tpRightW, y + h * 0.12);
+      c.moveTo(tpRightX, y + h * 0.4); c.lineTo(tpRightX + tpRightW, y + h * 0.4);
+      c.moveTo(tpRightX, y + h * 0.65); c.lineTo(tpRightX + tpRightW, y + h * 0.65);
+      break;
+    }
+    case "ui-dashboard": {
+      const dHeaderH = h * 0.07;
+      const dSideW = w * 0.22;
+      const dSideY = y + dHeaderH + g;
+      const dSideH = h - dHeaderH - g;
+      const dContentX = x + dSideW + g;
+      const dContentY = dSideY;
+      const dContentW = w - dSideW - g;
+      const dContentH = dSideH;
+      const dCellW = (dContentW - g) / 2;
+      const dCellH = (dContentH - g) / 2;
+      // Header
+      c.strokeRect(x, y, w, dHeaderH);
+      // Logo divider in header
+      c.moveTo(x + w * 0.15, y); c.lineTo(x + w * 0.15, y + dHeaderH);
+      // Sidebar
+      c.strokeRect(x, dSideY, dSideW, dSideH);
+      // Sidebar nav dividers
+      c.moveTo(x, dSideY + dSideH * 0.15); c.lineTo(x + dSideW, dSideY + dSideH * 0.15);
+      c.moveTo(x, dSideY + dSideH * 0.4); c.lineTo(x + dSideW, dSideY + dSideH * 0.4);
+      c.moveTo(x, dSideY + dSideH * 0.65); c.lineTo(x + dSideW, dSideY + dSideH * 0.65);
+      // 2×2 content grid — top-left with X-cross (data viz)
+      c.strokeRect(dContentX, dContentY, dCellW, dCellH);
+      c.moveTo(dContentX, dContentY); c.lineTo(dContentX + dCellW, dContentY + dCellH);
+      c.moveTo(dContentX + dCellW, dContentY); c.lineTo(dContentX, dContentY + dCellH);
+      // Top-right
+      c.strokeRect(dContentX + dCellW + g, dContentY, dCellW, dCellH);
+      // Bottom-left
+      c.strokeRect(dContentX, dContentY + dCellH + g, dCellW, dCellH);
+      // Bottom-right
+      c.strokeRect(dContentX + dCellW + g, dContentY + dCellH + g, dCellW, dCellH);
+      break;
+    }
+    case "ui-canvas": {
+      const canvLeftW = w * 0.28;
+      const canvRightW = w - canvLeftW - g;
+      const canvRightX = x + canvLeftW + g;
+      // Left panel
+      c.strokeRect(x, y, canvLeftW, h);
+      // Left: layers section header
+      c.moveTo(x, y + h * 0.08); c.lineTo(x + canvLeftW, y + h * 0.08);
+      // Left: layers/properties split
+      c.moveTo(x, y + h * 0.42); c.lineTo(x + canvLeftW, y + h * 0.42);
+      // Left: properties section header
+      c.moveTo(x, y + h * 0.5); c.lineTo(x + canvLeftW, y + h * 0.5);
+      // Right canvas
+      c.strokeRect(canvRightX, y, canvRightW, h);
+      // Top toolbar
+      c.moveTo(canvRightX, y + h * 0.06); c.lineTo(canvRightX + canvRightW, y + h * 0.06);
+      // Bottom status bar
+      c.moveTo(canvRightX, y + h * 0.95); c.lineTo(canvRightX + canvRightW, y + h * 0.95);
+      break;
+    }
+    case "ui-chat-artifact": {
+      const chatW = w * 0.38;
+      const artW = w - chatW - g;
+      const artX = x + chatW + g;
+      // Chat panel
+      c.strokeRect(x, y, chatW, h);
+      // Chat header
+      c.moveTo(x, y + h * 0.07); c.lineTo(x + chatW, y + h * 0.07);
+      // Chat input area divider
+      c.moveTo(x, y + h * 0.82); c.lineTo(x + chatW, y + h * 0.82);
+      // Input field rect
+      c.strokeRect(x + chatW * 0.08, y + h * 0.85, chatW * 0.84, h * 0.1);
+      // Artifact panel
+      c.strokeRect(artX, y, artW, h);
+      // Artifact toolbar
+      c.moveTo(artX, y + h * 0.06); c.lineTo(artX + artW, y + h * 0.06);
+      break;
+    }
+    case "ui-agent-workflow": {
+      const awHeaderH = h * 0.1;
+      const awStatusH = h * 0.05;
+      const awColY = y + awHeaderH + g;
+      const awColH = h - awHeaderH - awStatusH - g * 2;
+      const awColW = (w - g * 2) / 3;
+      const awCol1X = x;
+      const awCol2X = x + awColW + g;
+      const awCol3X = x + awColW * 2 + g * 2;
+      const awStatusY = y + h - awStatusH;
+      // Header
+      c.strokeRect(x, y, w, awHeaderH);
+      // Three columns
+      c.strokeRect(awCol1X, awColY, awColW, awColH);
+      c.strokeRect(awCol2X, awColY, awColW, awColH);
+      c.strokeRect(awCol3X, awColY, awColW, awColH);
+      // Column headers
+      c.moveTo(awCol1X, awColY + awColH * 0.1); c.lineTo(awCol1X + awColW, awColY + awColH * 0.1);
+      c.moveTo(awCol2X, awColY + awColH * 0.1); c.lineTo(awCol2X + awColW, awColY + awColH * 0.1);
+      c.moveTo(awCol3X, awColY + awColH * 0.1); c.lineTo(awCol3X + awColW, awColY + awColH * 0.1);
+      // Bridge lines between columns
+      const awBridgeY = awColY + awColH * 0.5;
+      c.moveTo(awCol1X + awColW, awBridgeY); c.lineTo(awCol2X, awBridgeY);
+      c.moveTo(awCol2X + awColW, awBridgeY); c.lineTo(awCol3X, awBridgeY);
+      // Bottom status bar
+      c.moveTo(x, awStatusY); c.lineTo(x + w, awStatusY);
+      break;
+    }
   }
   c.stroke();
 }
@@ -1597,17 +1931,39 @@ function drawStd(c: CanvasRenderingContext2D, x: number, y: number, w: number, h
 }
 
 function drawIso(c: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, s: number) {
+  // Equilateral triangle tessellation — clipped to working area
+  // Stroke any prior path, then clip and draw independently
+  c.stroke();
+  c.save();
+  c.beginPath();
+  c.rect(x, y, w, h);
+  c.clip();
+  c.beginPath();
   const sp = 30 * s;
-  const tan30 = Math.tan((30 * Math.PI) / 180);
-  for (let i = -Math.ceil(h / sp) * 2; i < Math.ceil((w + h) / sp) * 2; i++) {
-    const startX = x + (i * sp) / 2;
-    c.moveTo(startX, y + h); c.lineTo(startX + h / tan30, y);
+  const triH = (sp * Math.sqrt(3)) / 2;
+  const numRows = Math.ceil(h / triH) + 1;
+  const numCols = Math.ceil(w / sp) + 2;
+  // Horizontal lines
+  for (let r = 0; r <= numRows; r++) {
+    const py = y + h - r * triH;
+    c.moveTo(x, py); c.lineTo(x + w, py);
   }
-  for (let i = -Math.ceil(h / sp) * 2; i < Math.ceil((w + h) / sp) * 2; i++) {
-    const startX = x + (i * sp) / 2;
-    c.moveTo(startX, y + h); c.lineTo(startX - h / tan30, y);
+  // Diagonal edges: V-shapes from each triangle apex
+  for (let r = 0; r < numRows; r++) {
+    const yBot = y + h - r * triH;
+    const yTop = yBot - triH;
+    const xOff = r % 2 === 0 ? sp / 2 : 0;
+    for (let k = -1; k <= numCols; k++) {
+      const ax = x + k * sp + xOff;
+      c.moveTo(ax - sp / 2, yBot); c.lineTo(ax, yTop);
+      c.moveTo(ax + sp / 2, yBot); c.lineTo(ax, yTop);
+    }
   }
-  for (let py = y; py <= y + h; py += sp * tan30 * 2) { c.moveTo(x, py); c.lineTo(x + w, py); }
+  c.stroke();
+  c.restore();
+  // Border stroke around the bounding box
+  c.beginPath();
+  c.rect(x, y, w, h);
 }
 
 function draw1P(c: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {

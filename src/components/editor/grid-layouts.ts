@@ -25,6 +25,15 @@ export const GRID_LAYOUTS: GridLayoutMap = {
     { id: "modular-5x5", name: "5×5 Modular" },
     { id: "modular-6x6", name: "6×6 Modular" },
   ],
+  Interface: [
+    { id: "ui-gutenberg", name: "Gutenberg" },
+    { id: "ui-app-shell", name: "App Shell" },
+    { id: "ui-three-panel", name: "Three Panel" },
+    { id: "ui-dashboard", name: "Dashboard" },
+    { id: "ui-canvas", name: "Canvas Layout" },
+    { id: "ui-chat-artifact", name: "Chat + Artifact" },
+    { id: "ui-agent-workflow", name: "Agent Workflow" },
+  ],
   Technical: [
     { id: "isometric", name: "Isometric" },
     { id: "perspective-1pt", name: "1-Point Perspective" },
