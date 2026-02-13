@@ -54,8 +54,8 @@ export interface SavedGrid {
 }
 
 export const DEFAULT_STATE: CanvasState = {
-  width: 1080,
-  height: 1080,
+  width: 1440,
+  height: 900,
   margin: 20,
   padding: 20,
   gutter: 20,
@@ -89,7 +89,7 @@ export const DEFAULT_LOCKS: Locks = {
   margin: false,
   padding: false,
   gutter: false,
-  lineWeight: false,
+  lineWeight: true,
   lineStyle: false,
   lineColor: false,
   lineOpacity: false,
